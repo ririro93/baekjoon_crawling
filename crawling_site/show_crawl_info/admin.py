@@ -1,7 +1,18 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Question, Choice
+from .models import Member, Question
 
-admin.site.register(Question)
-admin.site.register(Choice)
+class MemberAdmin(admin.ModelAdmin):
+    list_display = ('member_name', 'member_id')
+
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = (
+        'question_number', 
+        'question_title', 
+        'question_tier', 
+        'question_site',
+    )
+
+admin.site.register(Member, MemberAdmin)
+admin.site.register(Question, QuestionAdmin)

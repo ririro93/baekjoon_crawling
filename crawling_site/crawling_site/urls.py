@@ -23,6 +23,7 @@ from .views import (
 urlpatterns = [
     path('', home_page),
     path('crawling/', include('show_crawl_info.urls')),
+    path('fines/', include('fines.urls')),
     path('admin/', admin.site.urls),
 ]
 

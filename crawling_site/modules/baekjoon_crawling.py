@@ -10,7 +10,7 @@ class Baekjoon():
     # get today's date
     def get_date(self):
         now = datetime.datetime.now()
-        formatted_today = f'{now.year}-{now.month:02}-{now.day-1:02}'
+        formatted_today = f'{now.year}-{now.month:02}-{now.day:02}'
         return formatted_today
 
     # get info from web
@@ -58,16 +58,16 @@ class Baekjoon():
             grading_selector = '#status-table > tbody'
             prob_infos = self.get_info('problems', grading_URL, grading_selector)
         
-        for prob_info in prob_infos:
-            # print(prob_info)
-            prob = prob_info.find('a', {'class': 'problem_title'})
-            prob_title = prob.get('title')
-            prob_num = prob.text
-            date = prob_info.find('a', {'class': 'real-time-update'}).get('title')[:10]
-            if date == formatted_today:
-                user_dict[user_id].append((prob_num, prob_title))
+            for prob_info in prob_infos:
+                # print(prob_info)
+                prob = prob_info.find('a', {'class': 'problem_title'})
+                prob_title = prob.get('title')
+                prob_num = prob.text
+                date = prob_info.find('a', {'class': 'real-time-update'}).get('title')[:10]
+                if date == formatted_today:
+                    user_dict[user_id].append((prob_num, prob_title))
 
         # show results
         # print('오늘 푼 문제 목록:')
-        # pprint(user_dict)
+        pprint(user_dict)
         return user_dict

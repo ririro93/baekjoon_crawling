@@ -6,9 +6,10 @@ from show_crawl_info.models import Member, Question
 
 from modules.baekjoon_crawling import Baekjoon
 
-def home_page(request):
-    # show home page of the whole website
-    return render(request, 'home_page.html')
+def fines_home(request):
+    # 일단 여기에 오늘의 현황 보여주자
+    return render(request, 'fines_home.html')
 
 
+    
     
