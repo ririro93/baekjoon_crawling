@@ -20,3 +20,4 @@ urlpatterns = [
     path('crawling/', include('show_crawl_info.urls')),
     path('admin/', admin.site.urls),
 ]
+
