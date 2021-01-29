@@ -1,9 +1,9 @@
 from django.urls import path
 
 from .views import (
-    home_page
+    crawl_home
 )
 
 urlpatterns = [
-    path('', home_page),
+    path('', crawl_home),
 ]

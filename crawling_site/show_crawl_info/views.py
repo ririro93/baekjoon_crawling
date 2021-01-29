@@ -6,12 +6,12 @@ from show_crawl_info.models import Question, Choice
 
 from modules.baekjoon_crawling import Baekjoon
 
-def home_page(request):
+def crawl_home(request):
     # 일단 여기에 오늘의 현황 보여주자
     baek = Baekjoon()
     results = baek.get_all_results()
     context = {'title': 'Welcome to Baekjoon Crawling Results', 'results': results}
-    return render(request, 'home.html', context)
+    return render(request, 'crawl_home.html', context)
 
 
     
