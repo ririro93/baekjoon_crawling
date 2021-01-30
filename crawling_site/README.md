@@ -70,6 +70,8 @@
 - migrations 파일을 보면 자동으로 `id` field를 생성해주는 걸 볼 수 있다
     - 이 값은 auto-increment 하는 값으로 각 object의 고유값이다
 
+- `var data = {{ data|safe }}` 이런식으로 js에서 django 데이터를 받을 수 있다 [참고](https://simpleisbetterthancomplex.com/tutorial/2020/01/19/how-to-use-chart-js-with-django.html)
+
 <br>
 
 ### Django REST Framework

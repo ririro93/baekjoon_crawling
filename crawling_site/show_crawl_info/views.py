@@ -1,12 +1,14 @@
 import datetime
+import json
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.serializers.json import DjangoJSONEncoder
 from django.template.loader import get_template
 from rest_framework import viewsets
 from rest_framework import permissions
 
  
-from show_crawl_info.models import Member, Solve
+from show_crawl_info.models import Question, Member, Solve
 from show_crawl_info.serializers import MemberSerializer, SolveSerializer
 
 from modules.baekjoon_crawling import Baekjoon
@@ -68,16 +70,24 @@ def crawl_home(request):
                 solve.save()
                 
     ## url 들어가면 실행될 부분
-    # 오늘 푼 문제 개수만 필요하기 때문에 결과값에 len
-    results = []
+    # 일단 오늘 푼 문제 데이터 몽땅 다 넘겨보기
+    results = {}
     members = Member.objects.all()
     for member in members:
-        result = [member.member_id, len(member.get_member_solves_today())]
-        results.append(result)
+        datas = member.get_member_solves_today()
+        result = [{
+            'q_num':data.question.question_number,
+            'q_title':data.question.question_title,
+            'q_tier': data.question.question_tier,
+            'q_site': data.question.question_site
+        } for data in datas]
+        results[member.member_id] = result
+        
+    print(results)
         
     ## 이 페이지에서 보여줄 것
     context = {'title': 'Welcome to Baekjoon Crawling Results', 'results': results, 'time': update_time}
-    return render(request, 'crawl_home.html', context)
+    return render(request, 'show_crawl_info/crawl_home.html', context)
 
 
 class MemberViewSet(viewsets.ModelViewSet):
