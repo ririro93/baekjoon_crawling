@@ -2,36 +2,36 @@ from django.db import models
 
 class Question(models.Model):
     TIER_CHOICES = [
-        ('B5', 'Bronze 5'),
-        ('B4', 'Bronze 4'),
-        ('B3', 'Bronze 3'),
-        ('B2', 'Bronze 2'),
-        ('B1', 'Bronze 1'),
-        ('S5', 'Silver 5'),
-        ('S4', 'Silver 4'),
-        ('S3', 'Silver 3'),
-        ('S2', 'Silver 2'),
-        ('S1', 'Silver 1'),
-        ('G5', 'Gold 5'),
-        ('G4', 'Gold 4'),
-        ('G3', 'Gold 3'),
-        ('G2', 'Gold 2'),
-        ('G1', 'Gold 1'),
-        ('P5', 'Platinum 5'),
-        ('P4', 'Platinum 4'),
-        ('P3', 'Platinum 3'),
-        ('P2', 'Platinum 2'),
-        ('P1', 'Platinum 1'),
-        ('D5', 'Diamond 5'),
-        ('D4', 'Diamond 4'),
-        ('D3', 'Diamond 3'),
-        ('D2', 'Diamond 2'),
-        ('D1', 'Diamond 1'),
-        ('R5', 'Ruby 5'),
-        ('R4', 'Ruby 4'),
-        ('R3', 'Ruby 3'),
-        ('R2', 'Ruby 2'),
-        ('R1', 'Ruby 1'),
+        ('Bronze V', 'Bronze V'),
+        ('Bronze IV', 'Bronze IV'),
+        ('Bronze III', 'Bronze III'),
+        ('Bronze II', 'Bronze II'),
+        ('Bronze I', 'Bronze I'),
+        ('Silver V', 'Silver V'),
+        ('Silver IV', 'Silver IV'),
+        ('Silver III', 'Silver III'),
+        ('Silver II', 'Silver II'),
+        ('Silver I', 'Silver I'),
+        ('Gold V', 'Gold V'),
+        ('Gold IV', 'Gold IV'),
+        ('Gold III', 'Gold III'),
+        ('Gold II', 'Gold II'),
+        ('Gold I', 'Gold I'),
+        ('Platinum V', 'Platinum V'),
+        ('Platinum IV', 'Platinum IV'),
+        ('Platinum III', 'Platinum III'),
+        ('Platinum II', 'Platinum II'),
+        ('Platinum I', 'Platinum I'),
+        ('Diamond V', 'Diamond V'),
+        ('Diamond IV', 'Diamond IV'),
+        ('Diamond III', 'Diamond III'),
+        ('Diamond II', 'Diamond II'),
+        ('Diamond I', 'Diamond I'),
+        ('Ruby V', 'Ruby V'),
+        ('Ruby IV', 'Ruby IV'),
+        ('Ruby III', 'Ruby III'),
+        ('Ruby II', 'Ruby II'),
+        ('Ruby I', 'Ruby I'),
         ('E', 'Easy'),
         ('M', 'Medium'),
         ('H', 'Hard'),
@@ -42,8 +42,8 @@ class Question(models.Model):
         ('L', 'Leetcode'),
     ]
     
-    question_title = models.CharField(default='knapsack', max_length=200)
-    question_number = models.IntegerField(default=0)
+    question_title = models.CharField(default='제목 넣어줘..', max_length=100)
+    question_number = models.CharField(default='번호 넣어줘..', max_length=100)
     question_tier = models.CharField(
         max_length=200,
         choices = TIER_CHOICES,
@@ -57,13 +57,22 @@ class Question(models.Model):
     )
         
     def __str__(self):
-        return self.question_title
+        return self.question_number
 
 class Member(models.Model):
     member_id = models.CharField(max_length=200)
-    member_name = models.CharField(max_length=200)
-    member_solved = models.ManyToManyField(Question)
+    member_name = models.CharField(max_length=200, null=True, blank=True)
+    member_solves = models.ManyToManyField(Question, through='Solve')
+    
+    def get_member_solves(self):
+        return ', '.join([str(question) for question in self.member_solves.all()])
     
     def __str__(self):
-        return self.member_name
+        return self.member_id
+    
+class Solve(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    member = models.ForeignKey(Member, on_delete=models.CASCADE)
+    solved_time = models.DateTimeField()
+    updated = models.DateTimeField(auto_now=True)
     

@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import get_template
 
-from show_crawl_info.models import Member, Question
+from show_crawl_info.models import Member, Question, Solve
 
 from modules.baekjoon_crawling import Baekjoon
 
@@ -14,7 +14,12 @@ def get_time():
 
 # db에 있는 최신 멤버랑 문제 정보 보여주기
 def crawl_home(request):
-    now = get_time()
+    keys_for_Question = (
+        'question_number',
+        'question_site',
+        'question_tier',
+        'question_title',
+    )
     ##########임시로 사이트 들어가면 크롤링 바로 보여주기 
     # 나중에 db에서 데이터 불러오게 되면 지울 부분
     now = get_time()
@@ -39,20 +44,25 @@ def crawl_home(request):
                 m = Member(member_id=member_id)
                 m.save()
                 
-            # update questions
+            # update questions (solved time정보는 빼고 넣기)
             for question in questions:
                 # 문제가 db에 있으면 그걸 멤버에 연결
-                if Question.objects.filter(question_number=question[0]).exists():
-                    q = Question.objects.get(question_number=question[0])
+                if Question.objects.filter(question_number=question['question_number']).exists():
+                    q = Question.objects.get(question_number=question['question_number'])
                 # db에 해당 문제 추가 -> 첨 크롤링할 때 속성 더 가져와야됨 아예 결과도 dictionary 형태로 가져와보기
                 else:
-                    q = Question(question_number=question[0], question_title=question[1])
+                    q = Question(**{key: question[key] for key in keys_for_Question})
                     q.save()
-                m.member_solved.add(q)
-        print('최신 멤버 리스트: ', Member.objects.all())
-        print('최신 문제 리스트: ', Question.objects.all())
+                # get date info and add to Solve
+                solved_time = question['solved_time']
+                formatted_solved_time = map(int, [solved_time[:4], solved_time[5:7], solved_time[8:10], solved_time[-8:-6], solved_time[-5:-3]])
+                solve = Solve(
+                    question=q,
+                    member=m,
+                    solved_time=datetime.datetime(*formatted_solved_time),
+                )
+                solve.save()
         
-        # refresh 는 자동으로 되게 됐네
     context = {'title': 'Welcome to Baekjoon Crawling Results', 'results': results, 'time': now}
     return render(request, 'crawl_home.html', context)
 
