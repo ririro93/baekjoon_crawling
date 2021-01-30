@@ -5,6 +5,7 @@ from .models import Member, Question, Solve
 
 class MemberAdmin(admin.ModelAdmin):
     list_display = (
+        'id',
         'member_id', 
         'member_name', 
         'get_member_solves',
@@ -18,6 +19,7 @@ class MemberAdmin(admin.ModelAdmin):
 
 class QuestionAdmin(admin.ModelAdmin):
     list_display = (
+        'id',
         'question_number', 
         'question_title', 
         'question_tier', 
@@ -26,6 +28,7 @@ class QuestionAdmin(admin.ModelAdmin):
     
 class SolveAdmin(admin.ModelAdmin):
     list_display = (
+        'id',
         'question', 
         'member',
         'solved_time', 

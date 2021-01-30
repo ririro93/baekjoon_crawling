@@ -66,4 +66,16 @@
 - `class Meta` Field가 아닌 모든 정보를 보관하는 공간, 정렬 순서 등
     - -> Solve Class를 최근에 푼 것부터 위에 보이게 정렬해봤다 
     - [옵션 목록](https://docs.djangoproject.com/en/3.1/ref/models/options/)
+
+- migrations 파일을 보면 자동으로 `id` field를 생성해주는 걸 볼 수 있다
+    - 이 값은 auto-increment 하는 값으로 각 object의 고유값이다
+
+<br>
+
+### Django REST Framework
+- 나중에 이걸로 텔레그램 메세지 보내는 거 만들어보기
 - serializers.py : 얘를 사용한 view를 통해서 어떤 데이터를 어떤 형식으로 넘겨줄지 정하는 곳
+    - serializers.Modelserializer : [참고공문](https://www.django-rest-framework.org/api-guide/serializers/#dealing-with-nested-objects)
+        - `fields =__all__` 사용하면 모든 field에 대한 정보 한번에 보낼 수 있음
+        - `exclude` 로 필요 없는 field 지정 가능
+        - `depth` 옵션 사용하면 many-to-many field 의 안쪽 정보도 다 보낼 수 있음

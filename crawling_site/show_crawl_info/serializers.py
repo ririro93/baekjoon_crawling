@@ -6,12 +6,12 @@ from .models import Member, Solve
 class MemberSerializer(serializers.ModelSerializer):
     class Meta:
         model = Member
-        fields = ['member_id', 'member_name', 'member_solves']
+        fields = '__all__'
 
         
 class SolveSerializer(serializers.ModelSerializer):
     class Meta:
         model = Solve
-        fields = ['question', 'member', 'solved_time']
-        
+        fields = '__all__'
+        depth = 1
 
