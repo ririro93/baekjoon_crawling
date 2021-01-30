@@ -2,8 +2,12 @@ import datetime
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import get_template
+from rest_framework import viewsets
+from rest_framework import permissions
 
-from show_crawl_info.models import Member, Question, Solve
+ 
+from show_crawl_info.models import Member, Solve
+from show_crawl_info.serializers import MemberSerializer, SolveSerializer
 
 from modules.baekjoon_crawling import Baekjoon
 
@@ -22,11 +26,11 @@ def crawl_home(request):
         'question_tier',
         'question_title',
     )
-    now = get_time()
+    update_time = get_time()
     
     ## 버튼을 누르면 최신 정보를 db에 저장하기
     if request.GET.get('print_btn'):
-        now = get_time()
+        update_time = get_time()
         baek = Baekjoon()
         results = baek.get_all_results()
         # update db -> result의 키 값은 (문제번호, 문제제목)
@@ -72,7 +76,18 @@ def crawl_home(request):
         results.append(result)
         
     ## 이 페이지에서 보여줄 것
-    context = {'title': 'Welcome to Baekjoon Crawling Results', 'results': results, 'time': now}
+    context = {'title': 'Welcome to Baekjoon Crawling Results', 'results': results, 'time': update_time}
     return render(request, 'crawl_home.html', context)
+
+
+class MemberViewSet(viewsets.ModelViewSet):
+    queryset = Member.objects.all()
+    serializer_class = MemberSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class SolveViewSet(viewsets.ModelViewSet):
+    queryset = Solve.objects.all()
+    serializer_class = SolveSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
         

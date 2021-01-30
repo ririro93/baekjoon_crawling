@@ -22,6 +22,7 @@
         m.save()
         ```
     - 지금 테스트로 푼 문제 사람마다 6개씩만 가져오는 중
+- [ ] 다른 사이트 결과 수동으로 추가할 수 있게 하기
         
 
 생각보다 할꺼 겁나 많네ㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷ
@@ -42,13 +43,27 @@
         - **해결된줄 알았는데 아직도 중복되네 이거 고쳐야됨**
         - defaults 부분이 바꿔주고 싶은 부분이었음
             - 예전게 나중에 나와서 전에 푼 기록으로 업데이트 됨-> 순서 역순으로 바꿔야됨
+- 새로고침 했을 때 페이지 로딩 속도가 너어무 느리다..이거 어떻게 고칠지 생각해보기
+
+<br>
+
 ## 해볼거
 - Model.objects.create_or_get : 이거 쓰면 데이터가 db에 존재하는지 if문으로 확인하고 있으면 뭐하고 없으면 더해주고가 아니라 저절로 판별하고 없으면 바로 생성해주는듯
-- dictionary 통째로 Model object 에 넣어주기 [참고링크](https://stackoverflow.com/questions/1571570/can-a-dictionary-be-passed-to-django-models-on-create)
+- **kwargs 써서 dictionary 통째로 Model object 에 넣어주기 [참고링크](https://stackoverflow.com/questions/1571570/can-a-dictionary-be-passed-to-django-models-on-create)
+- Django REST framework 로 json 데이터 보내기 
+    - 지금 내가 보내고 있는건 그냥 str 인건가? -> template이 알아서 django model 데이터 해석해서 보여주는거래(아마?)
+    - serializer로 json 형식으로 바꿔서 보내줘보자
 
+<br>
 
 ## 배운거
 - db에 특정 object 있나 확인 : `Question.objects.filter(question_number=question[0]).exists():`
 - `python manage.py flush` 하면 db 초기화 가능
 - `update_or_create` -> tuple로 (새로 생성된 object, bool) 반환해줌
     - defaults 부분이 업데이트 하고 싶은 값!
+
+- 데이터를 보여주는 view 와 데이터를 front 로 보내는 function은 분리하는게 좋대 -> 담엔 나눠서 해보기
+- `class Meta` Field가 아닌 모든 정보를 보관하는 공간, 정렬 순서 등
+    - -> Solve Class를 최근에 푼 것부터 위에 보이게 정렬해봤다 
+    - [옵션 목록](https://docs.djangoproject.com/en/3.1/ref/models/options/)
+- serializers.py : 얘를 사용한 view를 통해서 어떤 데이터를 어떤 형식으로 넘겨줄지 정하는 곳

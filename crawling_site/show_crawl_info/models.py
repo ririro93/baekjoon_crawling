@@ -36,11 +36,17 @@ class Question(models.Model):
         ('E', 'Easy'),
         ('M', 'Medium'),
         ('H', 'Hard'),
+        ('LEVEL 1', 'LEVEL 1'),
+        ('LEVEL 2', 'LEVEL 2'),
+        ('LEVEL 3', 'LEVEL 3'),
+        ('LEVEL 4', 'LEVEL 4'),
+        ('LEVEL 5', 'LEVEL 5'),
     ]
     
     SITE_CHOICES = [
         ('B', 'Baekjoon'),
         ('L', 'Leetcode'),
+        ('P', 'Programmers'),
     ]
     
     question_title = models.CharField(default='제목 넣어줘..', max_length=100)
@@ -76,6 +82,13 @@ class Member(models.Model):
         )
         return solves
     
+    # 총 푼 문제 개수 출력
+    def get_total_solves(self):
+        result = Solve.objects.filter(
+            member__member_id=self.member_id
+        )
+        return len(result)
+    
     def __str__(self):
         return self.member_id
     
@@ -85,6 +98,9 @@ class Solve(models.Model):
     solved_time = models.DateTimeField()
     updated = models.DateTimeField(auto_now=True)
     
+    class Meta:
+        ordering = ['-solved_time']
+
     def __str__(self):
         return self.question.question_number
     
