@@ -1,5 +1,4 @@
 import datetime
-import pytz
 import requests
 
 from pprint import pprint
