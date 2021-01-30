@@ -12,27 +12,23 @@ def get_time():
     formatted_time = f'{now.hour:02}:{now.minute:02}:{now.second:02}'
     return formatted_time
 
-# db에 있는 최신 멤버랑 문제 정보 보여주기
+# db에 있는 최신 멤버랑 문제 정보 간략하게 보여주기
 def crawl_home(request):
+
+    ## init
     keys_for_Question = (
         'question_number',
         'question_site',
         'question_tier',
         'question_title',
     )
-    ##########임시로 사이트 들어가면 크롤링 바로 보여주기 
-    # 나중에 db에서 데이터 불러오게 되면 지울 부분
     now = get_time()
-    baek = Baekjoon()
-    results = baek.get_all_results()
-    ##################
     
-    # 버튼을 누르면 최신 정보를 db에 저장하고 페이지 refresh하기
+    ## 버튼을 누르면 최신 정보를 db에 저장하기
     if request.GET.get('print_btn'):
         now = get_time()
         baek = Baekjoon()
         results = baek.get_all_results()
-        print(results)
         # update db -> result의 키 값은 (문제번호, 문제제목)
         # 여기 있는 if-else 다 create_of_get으로 없앨 수 있다?!
         for member_id, questions in results.items():
@@ -45,7 +41,9 @@ def crawl_home(request):
                 m.save()
                 
             # update questions (solved time정보는 빼고 넣기)
-            for question in questions:
+            # questions가 최신께 앞에 들어있어서 전에 푼 시간이 최근에 푼 시간을 덮어씌움
+            # -> 역행하도록 설정
+            for question in questions[::-1]:
                 # 문제가 db에 있으면 그걸 멤버에 연결
                 if Question.objects.filter(question_number=question['question_number']).exists():
                     q = Question.objects.get(question_number=question['question_number'])
@@ -56,13 +54,24 @@ def crawl_home(request):
                 # get date info and add to Solve
                 solved_time = question['solved_time']
                 formatted_solved_time = map(int, [solved_time[:4], solved_time[5:7], solved_time[8:10], solved_time[-8:-6], solved_time[-5:-3]])
-                solve = Solve(
+                
+                # 이 사람이 과거에 이 문제 푼적있으면 업데이트 없으면 생성
+                solve, created_bool = Solve.objects.update_or_create(
                     question=q,
                     member=m,
-                    solved_time=datetime.datetime(*formatted_solved_time),
+                    defaults={'solved_time': datetime.datetime(*formatted_solved_time)},
                 )
                 solve.save()
+                
+    ## url 들어가면 실행될 부분
+    # 오늘 푼 문제 개수만 필요하기 때문에 결과값에 len
+    results = []
+    members = Member.objects.all()
+    for member in members:
+        result = [member.member_id, len(member.get_member_solves_today())]
+        results.append(result)
         
+    ## 이 페이지에서 보여줄 것
     context = {'title': 'Welcome to Baekjoon Crawling Results', 'results': results, 'time': now}
     return render(request, 'crawl_home.html', context)
 

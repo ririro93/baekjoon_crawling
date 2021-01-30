@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 class Question(models.Model):
     TIER_CHOICES = [
@@ -67,6 +68,14 @@ class Member(models.Model):
     def get_member_solves(self):
         return ', '.join([str(question) for question in self.member_solves.all()])
     
+    # 오늘 푼 문제 개수 출력
+    def get_member_solves_today(self):
+        solves = Solve.objects.filter(
+            member__member_id=self.member_id,
+            solved_time__gte=datetime.date.today(),
+        )
+        return solves
+    
     def __str__(self):
         return self.member_id
     
@@ -75,4 +84,7 @@ class Solve(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
     solved_time = models.DateTimeField()
     updated = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return self.question.question_number
     

@@ -58,7 +58,7 @@ class Baekjoon():
             prob_infos = self.get_info('problems', grading_URL, grading_selector)
 
             # 테스트로 각 아이디 채점 현황당 3건 씩만 보기
-            for prob_info in prob_infos[:3]:
+            for prob_info in prob_infos[:6]:
                 # get prob infos
                 prob = prob_info.find('a', {'class': 'problem_title'})
                 prob_title = prob.get('title')

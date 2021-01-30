@@ -10,10 +10,12 @@
 
 <table>
     
-    {% for member, num_of_questions in results %}
+    {% for result in results %}
     <tr>
-        <td>{{ member }}</td>
-        <td>{{ num_of_questions }}</td>
+        <td>{{ key }}</td>
+        {% for v in values %}
+        <td>{{ v }}</td>
+        {% endfor %}
     </tr>
     {% endfor %}
     
