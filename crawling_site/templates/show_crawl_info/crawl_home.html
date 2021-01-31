@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block title %}
 오늘의 현황!
 {% endblock %}
@@ -8,9 +10,7 @@
 <div class="top-container">
     <div class="card">
         <div class="refresh-container">
-            <form method='get' class='form1'>
-                <input type='submit' class='btn' value='Update' name='print_btn'>
-            </form>
+            <img class="refresh-button" src="{% static 'images/refresh.jpg' %}" alt="refresh img">
             <p> 2021-01-31 18:37 </p>
             <p>last updated : {{ time }}</p>
         </div>
@@ -18,9 +18,9 @@
             <canvas id="myChart"></canvas>
         </div>
         <div class="button-container">
-            <button class="active">day</button>
-            <button>week</button>
-            <button>month</button>
+            <button class="button active">day</button>
+            <button class="button">week</button>
+            <button class="button">month</button>
         </div>
     </div>
 </div>
@@ -53,8 +53,6 @@ for (var key in data) {
     let newMember = members.push(key);
     let arrLength = num_solved_prob.push(data[key].length);
 }
-console.log(members);
-console.log(num_solved_prob);
 
 // draw bar graph
 var ctx = document.getElementById('myChart').getContext('2d');
@@ -98,34 +96,42 @@ var chart = new Chart(ctx, {
 const card = document.querySelector('.card');
 const container = document.querySelector('.top-container');
 const chartBox = document.querySelector('.chart');
-const buttonContainer = document.querySelector('.button-container');
+const buttons = document.querySelectorAll('.button');
+const refreshBtn = document.querySelector('.refresh-button');
 
 // Moving Animation Event
 container.addEventListener('mousemove', (e) => {
     let xAxis = (window.innerWidth / 2 - e.pageX) / 100;
     let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-    console.log(xAxis, yAxis);
-    card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`
+    card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
 });
 
-// Mouse Hover on chart -> pop out
-chartBox.addEventListener('mouseenter', (e) =>  {
-    chartBox.style.transition = "all 1s ease";
-    chartBox.style.transform = "translateZ(300px)"
+// Buttons pop out and get bigger
+buttons.forEach(button => button.addEventListener('mouseenter', (e) => {
+    button.style.transition = "all 1s ease";
+    button.style.transform = "scale(1.2) translateZ(20px)";
+    // button.style.transform = "";
+}));
+
+buttons.forEach(button => button.addEventListener('mouseleave', (e) => {
+    button.style.transition = "all 1s ease";
+    button.style.transform = "scale(1) translateZ(0)";
+}));
+
+// request updated info
+// refresh icon rotate until fully refreshed
+refreshBtn.addEventListener('click', (e) => {
+    console.log(e);
+    $.ajax({
+        url: '/crawling/refresh/',
+        type: 'get',
+        data: 'GET request sent',
+        headers: { "X-CSRFToken": "{{ csrf_token }}"},
+        success: (result) => {
+            console.log(received);
+        }
+    });
 });
-
-chartBox.addEventListener('mouseleave', (e) =>  {
-    chartBox.style.transition = "all 1s ease";
-    chartBox.style.transform = "translateZ(0)"
-});
-
-
-
-
-
-
-
-
 
 </script>
 {% endblock %}

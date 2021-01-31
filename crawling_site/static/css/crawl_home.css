@@ -38,6 +38,12 @@
     justify-content: space-between;
 }
 
+.refresh-button {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+
 .chart {
     padding-top: 1.5rem;
     height: 80%;

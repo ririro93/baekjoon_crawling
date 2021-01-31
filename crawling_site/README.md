@@ -2,7 +2,13 @@
 
 ## Todos
 - [x] model design
-- [ ] front-end design (3d look)
+- [ ] front-end design
+    - [x] 3d look
+    - [ ] refresh 버튼 hover 하면 튀어나오게
+    - [ ] refresh 버튼에 클릭하면 돌아가게
+    - [x] 밑에 버튼들에 마우스 올리면 튀어나오게
+    - [ ] 제목 더 멋있게
+    - [ ] refresh 하는 동안 last updated 약간 매트릭스 느낌나게ㅎㅎ
 - [x] 크롤링한 데이터 db에 자동 저장
     - [x] 저장
     - [x] 날짜 데이터, 티어 데이터 사이트 데이터 추가로 필요
@@ -13,6 +19,7 @@
 - [x] refresh 버튼으로 수동 업데이트 가능하게 하기
     - [x] refresh 버트 생성
     - [ ] 현재 시각도 같이 보여주기(얘는 실시간으로 바뀌게)
+    - [ ] 그냥 접속만 한 경우에는 전에 업데이트 된 시간 보여주기
 - [x] 크롤링 결과를 딕셔너리 형태로 가져와서 바로 해당 object 생성할 수 있는 flow 만들기
     - 이런식으로
         ```python
@@ -57,10 +64,12 @@
 - Django REST framework 로 json 데이터 보내기 
     - 지금 내가 보내고 있는건 그냥 str 인건가? -> template이 알아서 django model 데이터 해석해서 보여주는거래(아마?)
     - serializer로 json 형식으로 바꿔서 보내줘보자
+- Figma로 애니메이션 만들어보기
 
 <br>
 
 ## 배운거
+### Django
 - db에 특정 object 있나 확인 : `Question.objects.filter(question_number=question[0]).exists():`
 - `python manage.py flush` 하면 db 초기화 가능
 - `update_or_create` -> tuple로 (새로 생성된 object, bool) 반환해줌
@@ -74,7 +83,24 @@
 - migrations 파일을 보면 자동으로 `id` field를 생성해주는 걸 볼 수 있다
     - 이 값은 auto-increment 하는 값으로 각 object의 고유값이다
 
+- css, js, 이미지 파일 등 static 파일을 쓰려면
+    1. `settings.py`에 아래 코드 추가해줘야되고
+        ```
+        STATICFILES_DIRS = [
+           BASE_DIR / 'static'
+        ]
+        ```
+    2. html 파일에서 `{% load static %}` 이라고 적어줘야 된다
+    3. 불러오는 파일에는 `static` 이라는 키워드를 붙여서 부른다
+    
+<br>
+
+### django <-> js 통신
 - `var data = {{ data|safe }}` 이런식으로 js에서 django 데이터를 받을 수 있다 [django +  chart.js](https://simpleisbetterthancomplex.com/tutorial/2020/01/19/how-to-use-chart-js-with-django.html)
+
+- ajax request로 get이나 post request를 장고에게 보내는 것
+    - csrf_token?라는게 필요해서 아래 코드처럼 넣어주면 된다
+    - `headers: { "X-CSRFToken": "{{ csrf_token }}"},`
 
 <br>
 
