@@ -84,7 +84,7 @@ def crawl_home(request):
         results[member.member_id] = result
                 
     ## 이 페이지에서 보여줄 것
-    context = {'title': 'Welcome to Baekjoon Crawling Results', 'results': results, 'time': update_time}
+    context = {'results': results, 'time': update_time}
     return render(request, 'show_crawl_info/crawl_home.html', context)
 
 

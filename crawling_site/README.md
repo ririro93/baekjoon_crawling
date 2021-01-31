@@ -78,6 +78,11 @@
 
 <br>
 
+### CSS
+- `transform-style: preserve-3d` -> Let the transformed child elements preserve the 3D transformations
+
+<br>
+
 ### Django REST Framework
 - 나중에 이걸로 텔레그램 메세지 보내는 거 만들어보기
 - serializers.py : 얘를 사용한 view를 통해서 어떤 데이터를 어떤 형식으로 넘겨줄지 정하는 곳

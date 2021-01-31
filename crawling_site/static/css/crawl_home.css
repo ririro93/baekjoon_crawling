@@ -1,4 +1,70 @@
-.chart-container {
-    height: 50vh;
-    width: 60vw;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.content{
+    font-family: "Poppins", sans-serif;
+    min-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    perspective: 1500px;
+}
+
+.top-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    transform-style: preserve-3d;
+    height: 75vh;
+    width: 80%;
+    border-radius: 30px;
+    padding: 0rem 5rem;
+    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2), 0 0 50px rgba(0, 0, 0, 0.2);
+}
+
+.refresh-container {
+    padding-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chart {
+    padding-top: 1.5rem;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-container {
+    padding-top: 1rem;
+    font-size: 1rem;
+    font-weight: lighter;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.button-container button {
+    padding: 0.5rem 2rem;
+    background: none;
+    border: none;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: lighter;
+    color: #585858;
+}
+button.active {
+    background: #585858;
+    color: white;
 }
