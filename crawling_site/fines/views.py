@@ -8,7 +8,7 @@ from modules.baekjoon_crawling import Baekjoon
 
 def fines_home(request):
     # 일단 여기에 오늘의 현황 보여주자
-    return render(request, 'fines_home.html')
+    return render(request, 'fines/fines_home.html')
 
 
     

@@ -1,18 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<h1>{{ title }}</h1>
-<form method='get'>
+<h1 class='title'>{{ title }}</h1>
+<form method='get' class='form1'>
     <input type='submit' class='btn' value='Update' name='print_btn'>
 </form>
 <h1>last updated : {{ time }}</h1>
-
-<canvas id="myChart"></canvas>
+<div class="chart-container">
+    <canvas id="myChart"></canvas>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 <script>
+var colors = [
+    "rgba(255, 99, 132, 0.2)",
+    "rgba(255, 159, 64, 0.2)",
+    "rgba(255, 205, 86, 0.2)",
+    "rgba(75, 192, 192, 0.2)",
+    "rgba(54, 162, 235, 0.2)",
+    "rgba(153, 102, 255, 0.2)",
+    "rgba(255, 99, 132, 0.2)",
+    "rgba(255, 159, 64, 0.2)",
+    "rgba(255, 205, 86, 0.2)",
+    "rgba(75, 192, 192, 0.2)",
+    "rgba(54, 162, 235, 0.2)",
+    "rgba(153, 102, 255, 0.2)",
+];
+
 // handle input data from django
 var members = [];
 var num_solved_prob = [];
@@ -28,23 +43,34 @@ console.log(num_solved_prob);
 // draw bar graph
 var ctx = document.getElementById('myChart').getContext('2d');
 var chart = new Chart(ctx, {
-// The type of chart we want to create
-type: 'line',
+    // The type of chart we want to create
+    type: 'horizontalBar',
 
-// The data for our dataset
-data: {
-    labels: members,
-    datasets: [{
-        label: '오늘의 문제 풀이 현황',
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
-        data: num_solved_prob
-    }]
-},
+    // The data for our dataset
+    data: {
+        labels: members,
+        datasets: [{
+            label: '오늘의 문제 풀이 현황',
+            backgroundColor: colors,
+            borderColor: colors,
+            data: num_solved_prob,
+        }]
+    },
 
-// Configuration options go here
-options: {}
+    // Configuration options go here
+    options: {
+        scales: {
+            xAxes: [{
+                ticks: {
+                    stepSize:1
+                }
+            }]
+        },
+        animation: {
+            duration: 3000
+        }
+    }
 });
-
+  
 </script>
 {% endblock %}

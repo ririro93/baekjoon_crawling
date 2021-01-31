@@ -82,9 +82,7 @@ def crawl_home(request):
             'q_site': data.question.question_site
         } for data in datas]
         results[member.member_id] = result
-        
-    print(results)
-        
+                
     ## 이 페이지에서 보여줄 것
     context = {'title': 'Welcome to Baekjoon Crawling Results', 'results': results, 'time': update_time}
     return render(request, 'show_crawl_info/crawl_home.html', context)

@@ -8,7 +8,7 @@
     - [x] 날짜 데이터, 티어 데이터 사이트 데이터 추가로 필요
 - [x]] 크롤링 결과를 직접보여주는게 아니라 db에서 데이터 가져와서 보여주기
 - [ ] 벌금 페이지 만들기
-- [ ] 그래프, 차트 등 사용해서 푼 문제 수 표시하기
+- [x] 그래프, 차트 등 사용해서 푼 문제 수 표시하기
 - [ ] 자동으로 몇 시간에 한번씩 자동으로 업데이트 되게 하기
 - [x] refresh 버튼으로 수동 업데이트 가능하게 하기
     - [x] refresh 버트 생성
@@ -23,6 +23,10 @@
         ```
     - 지금 테스트로 푼 문제 사람마다 6개씩만 가져오는 중
 - [ ] 다른 사이트 결과 수동으로 추가할 수 있게 하기
+- [ ] html 파일에 css js 까지 쓰면 너무 길어지니깐 statics 폴더에 따로 저장하고 싶은데 js에서 django에서 주는 변수를 사용해서 어떻게 처리해야될지 모르겠다
+    - [x] css파일 따로 보관 -> 
+        - [ ] 근데 css 파일을 그냥 한꺼번에 base.html 에서 load 하고 있음-> 각 view에 해당하는 html 파일에서 load 할 수 있도록 바꾸기
+    - [ ] js파일 따로 보관 (**질문해보기**)
         
 
 생각보다 할꺼 겁나 많네ㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷ
@@ -43,7 +47,7 @@
         - **해결된줄 알았는데 아직도 중복되네 이거 고쳐야됨**
         - defaults 부분이 바꿔주고 싶은 부분이었음
             - 예전게 나중에 나와서 전에 푼 기록으로 업데이트 됨-> 순서 역순으로 바꿔야됨
-- 새로고침 했을 때 페이지 로딩 속도가 너어무 느리다..이거 어떻게 고칠지 생각해보기
+- 새로고침 했을 때 페이지 로딩 속도가 너어무 느리다..이거 어떻게 고칠지 생각해보기(**질문**)
 
 <br>
 
@@ -70,7 +74,7 @@
 - migrations 파일을 보면 자동으로 `id` field를 생성해주는 걸 볼 수 있다
     - 이 값은 auto-increment 하는 값으로 각 object의 고유값이다
 
-- `var data = {{ data|safe }}` 이런식으로 js에서 django 데이터를 받을 수 있다 [참고](https://simpleisbetterthancomplex.com/tutorial/2020/01/19/how-to-use-chart-js-with-django.html)
+- `var data = {{ data|safe }}` 이런식으로 js에서 django 데이터를 받을 수 있다 [django +  chart.js](https://simpleisbetterthancomplex.com/tutorial/2020/01/19/how-to-use-chart-js-with-django.html)
 
 <br>
 
