@@ -11,7 +11,7 @@
     <div class="card">
         <div class="refresh-container">
             <img class="refresh-button" src="{% static 'images/refresh.jpg' %}" alt="refresh img">
-            <p> 2021-01-31 18:37 </p>
+            <p class="current-time"> Loading </p>
             <p>last updated : {{ time }}</p>
         </div>
         <div class="chart">
@@ -28,7 +28,17 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 <script>
-//////////////////////////////////////// chart
+///////////////////////////////////////////////// Get Current Time
+var timeInterval = setInterval(myTimer, 1000);
+
+function myTimer() {
+    const today = new Date();
+    const date = '['+today.getFullYear().toString().padStart(2, "0")+'-'+(today.getMonth()+1).toString().padStart(2, "0")+'-'+today.getDate().toString().padStart(2, "0")+']';
+    const time = today.getHours().toString().padStart(2, "0") + ":" + today.getMinutes().toString().padStart(2, "0") + ":" + today.getSeconds().toString().padStart(2, "0");
+    const dateTime = date+' '+time;
+    document.querySelector(".current-time").innerHTML = dateTime;
+}
+///////////////////////////////////////////////// chart
 var colors = [
     "rgba(255, 99, 132, 0.2)",
     "rgba(255, 159, 64, 0.2)",
@@ -48,7 +58,6 @@ var colors = [
 var members = [];
 var num_solved_prob = [];
 var data = {{ results|safe }};
-console.log(data);
 for (var key in data) {
     let newMember = members.push(key);
     let arrLength = num_solved_prob.push(data[key].length);
@@ -92,12 +101,12 @@ var chart = new Chart(ctx, {
     }
 });
 
-//////////////////////////////// Movement Animation
+/////////////////////////////////////////////// Movement Animation
 const card = document.querySelector('.card');
 const container = document.querySelector('.top-container');
 const chartBox = document.querySelector('.chart');
-const buttons = document.querySelectorAll('.button');
 const refreshBtn = document.querySelector('.refresh-button');
+const buttons = document.querySelectorAll('.button, .refresh-button');
 
 // Moving Animation Event
 container.addEventListener('mousemove', (e) => {
@@ -106,7 +115,8 @@ container.addEventListener('mousemove', (e) => {
     card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
 });
 
-// Buttons pop out and get bigger
+// // Buttons pop out and get bigger
+// add refreshBtn to buttons
 buttons.forEach(button => button.addEventListener('mouseenter', (e) => {
     button.style.transition = "all 1s ease";
     button.style.transform = "scale(1.2) translateZ(20px)";
@@ -118,17 +128,30 @@ buttons.forEach(button => button.addEventListener('mouseleave', (e) => {
     button.style.transform = "scale(1) translateZ(0)";
 }));
 
-// request updated info
+
+/////////////////////////////////////////// Refresh button click event
 // refresh icon rotate until fully refreshed
 refreshBtn.addEventListener('click', (e) => {
+    // make icon rotate
     console.log(e);
+    var refreshRotateInterval = setInterval(refreshRotate, 2000);
+    function refreshRotate() {
+        refreshBtn.style.transform = "rotateZ(180deg)";
+        setTimeout(() => {
+            refreshBtn.style.transition = "all 1s ease";
+            refreshBtn.style.transform = "rotateZ(360deg)";
+        }, 1000);
+    }
+
+    // send GET request
     $.ajax({
         url: '/crawling/refresh/',
         type: 'get',
         data: 'GET request sent',
         headers: { "X-CSRFToken": "{{ csrf_token }}"},
         success: (result) => {
-            console.log(received);
+            console.log('received');
+            clearInterval(refreshRotateInterval);
         }
     });
 });

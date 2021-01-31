@@ -32,20 +32,19 @@
 }
 
 .refresh-container {
-    padding-top: 1.5rem;
+    padding-top: 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 .refresh-button {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2rem;
+    height: 2rem;
 }
 
 
 .chart {
-    padding-top: 1.5rem;
     height: 80%;
     display: flex;
     align-items: center;

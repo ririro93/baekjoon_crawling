@@ -1,3 +1,4 @@
+import time
 import datetime
 import json
 from django.http import HttpResponse
@@ -36,7 +37,8 @@ def refresh_button(request):
     print('refresh: ', request)
     
     # DB 업데이트 해주기
-    print(update_db())
+    # print(update_db()) # 애니메이션 테스트 위해 잠시 중단
+    time.sleep(10)
     
     # 업데이트 한 지금 시간 가져오기
     update_time = get_time()

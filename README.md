@@ -12,8 +12,7 @@
 - [x] 크롤링한 데이터 db에 자동 저장
     - [x] 저장
     - [x] 날짜 데이터, 티어 데이터 사이트 데이터 추가로 필요
-- [x]] 크롤링 결과를 직접보여주는게 아니라 db에서 데이터 가져와서 보여주기
-- [ ] 벌금 페이지 만들기
+- [x] 크롤링 결과를 직접보여주는게 아니라 db에서 데이터 가져와서 보여주기
 - [x] 그래프, 차트 등 사용해서 푼 문제 수 표시하기
 - [ ] 자동으로 몇 시간에 한번씩 자동으로 업데이트 되게 하기
 - [x] refresh 버튼으로 수동 업데이트 가능하게 하기
@@ -34,6 +33,7 @@
     - [x] css파일 따로 보관 -> 
         - [ ] 근데 css 파일을 그냥 한꺼번에 base.html 에서 load 하고 있음-> 각 view에 해당하는 html 파일에서 load 할 수 있도록 바꾸기
     - [ ] js파일 따로 보관 (**질문해보기**)
+- [ ] 벌금 페이지 만들기
         
 
 생각보다 할꺼 겁나 많네ㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷ
@@ -94,6 +94,10 @@
     3. 불러오는 파일에는 `static` 이라는 키워드를 붙여서 부른다
     
 <br>
+
+### JS
+- `document.querySelectorAll('.button, .refresh-button');` : 이런식으로 한번에 여러 클래스의 노드들을 하나의 `NodeList`로 묶을 수 있다
+
 
 ### django <-> js 통신
 - `var data = {{ data|safe }}` 이런식으로 js에서 django 데이터를 받을 수 있다 [django +  chart.js](https://simpleisbetterthancomplex.com/tutorial/2020/01/19/how-to-use-chart-js-with-django.html)
