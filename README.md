@@ -4,6 +4,7 @@
 - [x] model design
 - [ ] front-end design
     - [x] 3d look
+        - [ ] 애니메이션 끄는 기능
     - [ ] refresh 버튼 hover 하면 튀어나오게
     - [ ] refresh 버튼에 클릭하면 돌아가게
     - [x] 밑에 버튼들에 마우스 올리면 튀어나오게

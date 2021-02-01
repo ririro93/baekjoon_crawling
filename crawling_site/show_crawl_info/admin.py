@@ -8,14 +8,8 @@ class MemberAdmin(admin.ModelAdmin):
         'id',
         'member_id', 
         'member_name', 
-        'get_member_solves',
+        'get_member_solved_probs',
     )
-    ## manytomany field 값인 get_member_solves 도 넣고 싶은데 안된데
-    # fields = (
-    #     'member_name', 
-    #     'member_id', 
-    #     'get_member_solves',
-    # )
 
 class QuestionAdmin(admin.ModelAdmin):
     list_display = (

@@ -178,8 +178,16 @@ refreshBtn.addEventListener('click', (e) => {
             console.log(result);
             // stop refresh icon animation
             clearInterval(refreshRotateInterval);
+            
             // update last updated time
             last_updated_time.innerHTML = result['update_time'];
+            
+            // update chart
+            newData = result['results'];
+            let { members, num_solved_prob } = processData(newData);
+            chart.data.labels = members;
+            chart.data.datasets[0].data = num_solved_prob;
+            chart.update();
         }
     });
 });
@@ -210,10 +218,10 @@ otherButtons.forEach(button => button.addEventListener('click', (e) => {
         headers: { "X-CSRFToken": "{{ csrf_token }}"},
         success: (result) => {
             console.log("success", result);
+            
+            // update chart
             newData = result['results'];
             let { members, num_solved_prob } = processData(newData);
-
-            // update chart
             chart.data.labels = members;
             chart.data.datasets[0].data = num_solved_prob;
             chart.update();

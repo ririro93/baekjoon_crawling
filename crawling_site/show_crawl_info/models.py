@@ -71,7 +71,7 @@ class Member(models.Model):
     member_name = models.CharField(max_length=200, null=True, blank=True)
     member_solves = models.ManyToManyField(Question, through='Solve')
     
-    def get_member_solves(self):
+    def get_member_solved_probs(self):
         return ', '.join([str(question) for question in self.member_solves.all()])
     
     
