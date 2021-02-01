@@ -16,19 +16,18 @@ from show_crawl_info.serializers import MemberSerializer, SolveSerializer
 from modules.baekjoon_crawling import Baekjoon
 
 
-
 # db에 있는 최신 멤버랑 문제 정보 간략하게 보여주기
 def crawl_home(request):
     print('crawl:', request)
     
     # 마지막 업데이트 된 시간 나중에 제대로 넣어보고 일단은 지금 시간 보내기
-    last_update_time = get_time()
+    updated_time = get_time()
                     
     # db에서 오늘 문제 풀이 현황 불러오기
     results = get_prob_info('day')
     
     # 반환: 오늘 푼 문제들 리스트와 마지막으로 업데이트 된 시간
-    context = {'results': results, 'time': last_update_time}
+    context = {'results': results, 'time': updated_time}
     
     return render(request, 'show_crawl_info/crawl_home.html', context)
 
@@ -39,14 +38,15 @@ def refresh_button(request):
     print('refresh', req)
     update = req.get('update')
     button = req.get('button')
-    update_time = req.get('last_updated_time')
+    # reassign global updated_time
+    updated_time = req.get('last_updated_time')
     
     ## refresh 를 누른 경우
     if update == 'true':
         # DB 업데이트 해주기
         print(update_db()) # 애니메이션 테스트 위해 잠시 중단
         # time.sleep(2)
-        update_time = get_time()
+        updated_time = get_time()
         
     # 각각 누른 버튼에 대한 db 정보 가져오기
     if button == 'day':
@@ -59,7 +59,8 @@ def refresh_button(request):
         results = get_prob_info('total')
     
     # 반환 : 최신화된 DB 정보랑 업데이트 한 지금 시간
-    context = {'results': results, 'update_time': update_time}
+    context = {'results': results, 'update_time': updated_time}
+    
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 # 현재 시각 스트링으로 변환해서 반환해주는 함수
@@ -122,8 +123,6 @@ def update_db():
 # 각 멤버가 오늘 푼 문제 정보 반환
 def get_prob_info(time):
     # last_update_time을 어떻게 저장할지 생각해보기 -> global 시간 변수 사용?
-    # 일단은 그냥 지금 시간 반환하는걸로 하자
-    last_update_time = get_time()
     results = {}
     members = Member.objects.all()
     for member in members:
@@ -149,5 +148,3 @@ class SolveViewSet(viewsets.ModelViewSet):
     queryset = Solve.objects.all()
     serializer_class = SolveSerializer
     permission_classes = [permissions.IsAuthenticated]
-
-        

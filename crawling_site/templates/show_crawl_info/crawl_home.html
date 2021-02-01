@@ -10,21 +10,21 @@
 <div class="top-container">
     <div class="card">
         <div class="refresh-container">
-            <img class="refresh-button" src="{% static 'images/refresh.jpg' %}" alt="refresh img">
-            <p class="current-time"> Loading </p>
-            <div class="update-time-container">
+            <img class="refresh-button disable-select" src="{% static 'images/refresh.jpg' %}" alt="refresh img">
+            <p class="current-time disable-select"> Loading </p>
+            <div class="update-time-container disable-select">
                 <p>last update</p>
-                <p class="last-updated-time">{{ time }}</p>
+                <p class="last-updated-time disable-select">{{ time }}</p>
             </div>
         </div>
         <div class="chart">
             <canvas id="myChart"></canvas>
         </div>
         <div class="button-container">
-            <button class="button active">day</button>
-            <button class="button">week</button>
-            <button class="button">month</button>
-            <button class="button">total</button>
+            <button class="button active disable-select">day</button>
+            <button class="button disable-select">week</button>
+            <button class="button disable-select">month</button>
+            <button class="button disable-select">total</button>
         </div>
     </div>
 </div>
@@ -225,6 +225,10 @@ otherButtons.forEach(button => button.addEventListener('click', (e) => {
             chart.data.labels = members;
             chart.data.datasets[0].data = num_solved_prob;
             chart.update();
+
+            // update last updated time
+            last_updated_time.innerHTML = result['update_time'];
+
         }
     });
 }));
