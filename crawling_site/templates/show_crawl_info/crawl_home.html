@@ -169,6 +169,15 @@ refreshBtn.addEventListener('click', (e) => {
 
 ///////// other buttons
 otherButtons.forEach(button => button.addEventListener('click', (e) => {
+    // 버튼 active 하게 바꿔주기
+    button.classList.add("active");
+    // 다른 버튼들은 active 없애주기
+    otherButtons.forEach(otherButton => {
+        if(!otherButton.isEqualNode(button)){
+            otherButton.classList.remove("active");
+        }
+    });
+
     // 버튼 처음 누른거면 데이터 받아오고 누른적있으면 그 데이터 보여주기
     console.log(e);
     // send POST request
