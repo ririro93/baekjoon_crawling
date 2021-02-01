@@ -35,18 +35,21 @@ def crawl_home(request):
 
 # 버튼 누르면 실행 될 부분
 def refresh_button(request):
-    button = json.loads(request.POST.get('data')).get('pressed')
-    print('refresh', button)
+    req = json.loads(request.POST.get('data'))
+    print('refresh', req)
+    update = req.get('update')
+    button = req.get('button')
+    update_time = req.get('last_updated_time')
     
     ## refresh 를 누른 경우
-    if button == 'refresh':
+    if update == 'true':
         # DB 업데이트 해주기
-        # print(update_db()) # 애니메이션 테스트 위해 잠시 중단
-        time.sleep(2)
-        # 이건 지금 active한 버튼에 따라 다르게 하기
-        results = get_prob_info('day')
-    # 각각 누른 버튼에 대한 response 해주기
-    elif button == 'day':
+        print(update_db()) # 애니메이션 테스트 위해 잠시 중단
+        # time.sleep(2)
+        update_time = get_time()
+        
+    # 각각 누른 버튼에 대한 db 정보 가져오기
+    if button == 'day':
         results = get_prob_info('day')
     elif button == 'week':
         results = get_prob_info('week')
@@ -55,13 +58,8 @@ def refresh_button(request):
     elif button == 'total':
         results = get_prob_info('total')
     
-    # 업데이트 한 지금 시간 가져오기
-    update_time = get_time()
-    
-    # DB 에서 최신 정보 가져오기
-    
     # 반환 : 최신화된 DB 정보랑 업데이트 한 지금 시간
-    context = {'results': results, 'time': update_time, }
+    context = {'results': results, 'update_time': update_time}
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 # 현재 시각 스트링으로 변환해서 반환해주는 함수

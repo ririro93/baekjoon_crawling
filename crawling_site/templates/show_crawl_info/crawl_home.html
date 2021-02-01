@@ -12,7 +12,10 @@
         <div class="refresh-container">
             <img class="refresh-button" src="{% static 'images/refresh.jpg' %}" alt="refresh img">
             <p class="current-time"> Loading </p>
-            <p>last updated : {{ time }}</p>
+            <div class="update-time-container">
+                <p>last update</p>
+                <p class="last-updated-time">{{ time }}</p>
+            </div>
         </div>
         <div class="chart">
             <canvas id="myChart"></canvas>
@@ -39,21 +42,6 @@ function myTimer() {
     const dateTime = date+' '+time;
     document.querySelector(".current-time").innerHTML = dateTime;
 }
-///////////////////////////////////////////////// chart
-var colors = [
-    "rgba(255, 99, 132, 0.2)",
-    "rgba(255, 159, 64, 0.2)",
-    "rgba(255, 205, 86, 0.2)",
-    "rgba(75, 192, 192, 0.2)",
-    "rgba(54, 162, 235, 0.2)",
-    "rgba(153, 102, 255, 0.2)",
-    "rgba(255, 99, 132, 0.2)",
-    "rgba(255, 159, 64, 0.2)",
-    "rgba(255, 205, 86, 0.2)",
-    "rgba(75, 192, 192, 0.2)",
-    "rgba(54, 162, 235, 0.2)",
-    "rgba(153, 102, 255, 0.2)",
-];
 
 ///////////////////////////// handle input data from django when page first loads
 function processData(data) {
@@ -71,6 +59,22 @@ function processData(data) {
 }
 let { members, num_solved_prob } = processData({{ results|safe }});
 
+
+///////////////////////////////////////////////// chart
+var colors = [
+    "rgba(255, 99, 132, 0.2)",
+    "rgba(255, 159, 64, 0.2)",
+    "rgba(255, 205, 86, 0.2)",
+    "rgba(75, 192, 192, 0.2)",
+    "rgba(54, 162, 235, 0.2)",
+    "rgba(153, 102, 255, 0.2)",
+    "rgba(255, 99, 132, 0.2)",
+    "rgba(255, 159, 64, 0.2)",
+    "rgba(255, 205, 86, 0.2)",
+    "rgba(75, 192, 192, 0.2)",
+    "rgba(54, 162, 235, 0.2)",
+    "rgba(153, 102, 255, 0.2)",
+];
 
 // draw bar graph
 var ctx = document.getElementById('myChart').getContext('2d');
@@ -117,12 +121,13 @@ const chartBox = document.querySelector('.chart');
 const refreshBtn = document.querySelector('.refresh-button');
 const otherButtons = document.querySelectorAll('.button');
 const buttons = document.querySelectorAll('.button, .refresh-button');
+const last_updated_time = document.querySelector('.last-updated-time');
 
 // Moving Animation Event
 document.addEventListener('mousemove', (e) => {
     let xAxis = (window.innerWidth / 2 - e.pageX) / 100;
     let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-    card.style.transform = `rotateY(${-xAxis}deg) rotateX(${-yAxis}deg)`;
+    card.style.transform = `rotateY(${-xAxis}deg) rotateX(${yAxis}deg)`;
 });
 
 // // Buttons pop out and get bigger
@@ -143,7 +148,6 @@ buttons.forEach(button => button.addEventListener('mouseleave', (e) => {
 ////////// refresh button
 // refresh icon rotate until fully refreshed
 refreshBtn.addEventListener('click', (e) => {
-    console.log(e);
     var refreshRotateInterval = setInterval(refreshRotate, 2000);
     function refreshRotate() {
         refreshBtn.style.transform = "rotateZ(180deg)";
@@ -152,17 +156,30 @@ refreshBtn.addEventListener('click', (e) => {
             refreshBtn.style.transform = "rotateZ(360deg)";
         }, 1000);
     }
-    // check which button is active
-    
+    // check which element is active  
+    let activeButton;
+    otherButtons.forEach(button => {
+        if(button.classList.contains("active")) {
+            activeButton = button.innerHTML;
+        }
+    });
+
     // send POST request
     $.ajax({
         url: '/crawling/refresh/',
         type: 'post',
-        data: {'data': JSON.stringify({'pressed': 'refresh'})},
+        data: {'data': JSON.stringify({
+            'update': 'true',
+            'button': activeButton,
+            'last_updated_time': last_updated_time.innerHTML,
+        })},
         headers: { "X-CSRFToken": "{{ csrf_token }}"},
         success: (result) => {
             console.log(result);
+            // stop refresh icon animation
             clearInterval(refreshRotateInterval);
+            // update last updated time
+            last_updated_time.innerHTML = result['update_time'];
         }
     });
 });
@@ -171,6 +188,7 @@ refreshBtn.addEventListener('click', (e) => {
 otherButtons.forEach(button => button.addEventListener('click', (e) => {
     // 버튼 active 하게 바꿔주기
     button.classList.add("active");
+
     // 다른 버튼들은 active 없애주기
     otherButtons.forEach(otherButton => {
         if(!otherButton.isEqualNode(button)){
@@ -179,19 +197,21 @@ otherButtons.forEach(button => button.addEventListener('click', (e) => {
     });
 
     // 버튼 처음 누른거면 데이터 받아오고 누른적있으면 그 데이터 보여주기
-    console.log(e);
+    // 마지막 업데이트 한 시간 서버에 보내주기
     // send POST request
     $.ajax({
         url: '/crawling/refresh/',
         type: 'post',
-        data: {'data': JSON.stringify({'pressed': `${button.textContent}`})},
+        data: {'data': JSON.stringify({
+            'update': 'false', 
+            'button': `${button.textContent}`,
+            'last_updated_time': last_updated_time.innerHTML,
+        })},
         headers: { "X-CSRFToken": "{{ csrf_token }}"},
         success: (result) => {
-            console.log('received');
+            console.log("success", result);
             newData = result['results'];
             let { members, num_solved_prob } = processData(newData);
-            console.log(members);
-            console.log(num_solved_prob);
 
             // update chart
             chart.data.labels = members;

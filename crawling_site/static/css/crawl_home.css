@@ -1,7 +1,11 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+p {
+    margin: 0;
 }
 
 .content{
@@ -41,6 +45,11 @@
 .refresh-button {
     width: 1.5rem;
     height: 1.5rem;
+}
+
+.update-time-container {
+    text-align: center;
+    font-size: 0.5rem;
 }
 
 
