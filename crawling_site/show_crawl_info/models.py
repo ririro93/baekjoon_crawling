@@ -74,20 +74,26 @@ class Member(models.Model):
     def get_member_solves(self):
         return ', '.join([str(question) for question in self.member_solves.all()])
     
-    # 오늘 푼 문제 개수 출력
-    def get_member_solves_today(self):
+    
+    # 일, 주, 월, 총 푼 문제 반환 -> 얘 잘 맞는지는 다른 요일에 다시 확인해보기
+    def get_member_solves(self, time):
+        if time == 'day':
+            dday = 0
+        elif time == 'week':
+            # 월: 0, 일: 6
+            dday = datetime.date.today().weekday()
+        elif time == 'month':
+            # 1일 이면 0 되게
+            dday = datetime.date.today().day - 1
+        else:
+            # 대충 큰 수 빼기
+            dday = 10000
+        date = datetime.date.today() - datetime.timedelta(days=dday)
         solves = Solve.objects.filter(
             member__member_id=self.member_id,
-            solved_time__gte=datetime.date.today(),
+            solved_time__gte=date
         )
         return solves
-    
-    # 총 푼 문제 개수 출력
-    def get_total_solves(self):
-        result = Solve.objects.filter(
-            member__member_id=self.member_id
-        )
-        return len(result)
     
     def __str__(self):
         return self.member_id

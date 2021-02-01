@@ -10,6 +10,9 @@
     - [ ] 제목 더 멋있게
     - [ ] refresh 하는 동안 last updated 약간 매트릭스 느낌나게ㅎㅎ
     - [ ] 새로고침 쿨 다운 5분 정도 설정해두기
+    - [ ] 오른쪽 반에 달력 
+        - [ ] 거기 마우스 올리면 커지게
+        - [ ] 거기서 범위 고르면 왼쪽에서 보여주기
 - [x] 크롤링한 데이터 db에 자동 저장
     - [x] 저장
     - [x] 날짜 데이터, 티어 데이터 사이트 데이터 추가로 필요
@@ -37,6 +40,7 @@
 - [ ] 벌금 페이지 만들기
 - [ ] 자기 아이디도 넣어달라고 요청할 수 있기
 - [ ] 각자 로그인 해서 자기 정보만 따로 모아서 볼 수 있게 하기
+- [ ] 사람 이름 누르면 상세정보 보이게 
         
 
 생각보다 할꺼 겁나 많네ㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷ
@@ -106,13 +110,22 @@
 
 
 ### django <-> js 통신
+
+#### js -> django
 - `var data = {{ data|safe }}` 이런식으로 js에서 django 데이터를 받을 수 있다 [django +  chart.js](https://simpleisbetterthancomplex.com/tutorial/2020/01/19/how-to-use-chart-js-with-django.html)
 
 - ajax request로 get이나 post request를 장고에게 보내는 것
     - csrf_token?라는게 필요해서 아래 코드처럼 넣어주면 된다
     - `headers: { "X-CSRFToken": "{{ csrf_token }}"},`
+- django 쪽에서 받는 법:
+    - `data = json.loads(request.POST.get('data'))`
 
 <br>
+
+#### django -> js
+- `return HttpResponse(json.dumps(context), content_type='application/json)`
+    - 이런식으로 content_type을 명시해줘야됨 -> 안 그러면 한글이 깨져서 도착한다
+
 
 ### CSS
 - `transform-style: preserve-3d` -> Let the transformed child elements preserve the 3D transformations

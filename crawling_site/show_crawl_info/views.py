@@ -1,8 +1,9 @@
 import time
 import datetime
 import json
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
 from django.template.loader import get_template
 from rest_framework import viewsets
@@ -24,7 +25,7 @@ def crawl_home(request):
     last_update_time = get_time()
                     
     # db에서 오늘 문제 풀이 현황 불러오기
-    results = get_prob_info_today()
+    results = get_prob_info('day')
     
     # 반환: 오늘 푼 문제들 리스트와 마지막으로 업데이트 된 시간
     context = {'results': results, 'time': last_update_time}
@@ -32,23 +33,36 @@ def crawl_home(request):
     return render(request, 'show_crawl_info/crawl_home.html', context)
 
 
-# refresh 버튼 누르면 실행 될 부분
+# 버튼 누르면 실행 될 부분
 def refresh_button(request):
-    print('refresh: ', request)
+    button = json.loads(request.POST.get('data')).get('pressed')
+    print('refresh', button)
     
-    # DB 업데이트 해주기
-    print(update_db()) # 애니메이션 테스트 위해 잠시 중단
-    # time.sleep(10)
+    ## refresh 를 누른 경우
+    if button == 'refresh':
+        # DB 업데이트 해주기
+        # print(update_db()) # 애니메이션 테스트 위해 잠시 중단
+        time.sleep(2)
+        # 이건 지금 active한 버튼에 따라 다르게 하기
+        results = get_prob_info('day')
+    # 각각 누른 버튼에 대한 response 해주기
+    elif button == 'day':
+        results = get_prob_info('day')
+    elif button == 'week':
+        results = get_prob_info('week')
+    elif button == 'month':
+        results = get_prob_info('month')
+    elif button == 'total':
+        results = get_prob_info('total')
     
     # 업데이트 한 지금 시간 가져오기
     update_time = get_time()
     
     # DB 에서 최신 정보 가져오기
-    results = get_prob_info_today()
     
     # 반환 : 최신화된 DB 정보랑 업데이트 한 지금 시간
-    context = {'results': results, 'time': update_time}
-    return render(request, 'show_crawl_info/crawl_home.html', context)
+    context = {'results': results, 'time': update_time, }
+    return HttpResponse(json.dumps(context), content_type='application/json')
 
 # 현재 시각 스트링으로 변환해서 반환해주는 함수
 def get_time():
@@ -108,14 +122,14 @@ def update_db():
 
 
 # 각 멤버가 오늘 푼 문제 정보 반환
-def get_prob_info_today():
+def get_prob_info(time):
     # last_update_time을 어떻게 저장할지 생각해보기 -> global 시간 변수 사용?
     # 일단은 그냥 지금 시간 반환하는걸로 하자
     last_update_time = get_time()
     results = {}
     members = Member.objects.all()
     for member in members:
-        datas = member.get_member_solves_today()
+        datas = member.get_member_solves(time)
         result = [{
             'q_num':data.question.question_number,
             'q_title':data.question.question_title,

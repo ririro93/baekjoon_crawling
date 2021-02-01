@@ -21,6 +21,7 @@
             <button class="button active">day</button>
             <button class="button">week</button>
             <button class="button">month</button>
+            <button class="button">total</button>
         </div>
     </div>
 </div>
@@ -54,14 +55,22 @@ var colors = [
     "rgba(153, 102, 255, 0.2)",
 ];
 
-// handle input data from django
-var members = [];
-var num_solved_prob = [];
-var data = {{ results|safe }};
-for (var key in data) {
-    let newMember = members.push(key);
-    let arrLength = num_solved_prob.push(data[key].length);
+///////////////////////////// handle input data from django when page first loads
+function processData(data) {
+    var members = [];
+    var num_solved_prob = [];
+    var data = data;
+    for (var key in data) {
+        let newMember = members.push(key);
+        let arrLength = num_solved_prob.push(data[key].length);
+    }
+    return {
+        'members':members,
+        'num_solved_prob':num_solved_prob
+    }
 }
+let { members, num_solved_prob } = processData({{ results|safe }});
+
 
 // draw bar graph
 var ctx = document.getElementById('myChart').getContext('2d');
@@ -106,13 +115,14 @@ const card = document.querySelector('.card');
 const container = document.querySelector('.top-container');
 const chartBox = document.querySelector('.chart');
 const refreshBtn = document.querySelector('.refresh-button');
+const otherButtons = document.querySelectorAll('.button');
 const buttons = document.querySelectorAll('.button, .refresh-button');
 
 // Moving Animation Event
-container.addEventListener('mousemove', (e) => {
+document.addEventListener('mousemove', (e) => {
     let xAxis = (window.innerWidth / 2 - e.pageX) / 100;
     let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-    card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+    card.style.transform = `rotateY(${-xAxis}deg) rotateX(${-yAxis}deg)`;
 });
 
 // // Buttons pop out and get bigger
@@ -129,10 +139,10 @@ buttons.forEach(button => button.addEventListener('mouseleave', (e) => {
 }));
 
 
-/////////////////////////////////////////// Refresh button click event
+/////////////////////////////////////////// button click event
+////////// refresh button
 // refresh icon rotate until fully refreshed
 refreshBtn.addEventListener('click', (e) => {
-    // make icon rotate
     console.log(e);
     var refreshRotateInterval = setInterval(refreshRotate, 2000);
     function refreshRotate() {
@@ -142,19 +152,45 @@ refreshBtn.addEventListener('click', (e) => {
             refreshBtn.style.transform = "rotateZ(360deg)";
         }, 1000);
     }
-
-    // send GET request
+    // check which button is active
+    
+    // send POST request
     $.ajax({
         url: '/crawling/refresh/',
-        type: 'get',
-        data: 'GET request sent',
+        type: 'post',
+        data: {'data': JSON.stringify({'pressed': 'refresh'})},
         headers: { "X-CSRFToken": "{{ csrf_token }}"},
         success: (result) => {
-            console.log('received');
+            console.log(result);
             clearInterval(refreshRotateInterval);
         }
     });
 });
+
+///////// other buttons
+otherButtons.forEach(button => button.addEventListener('click', (e) => {
+    // 버튼 처음 누른거면 데이터 받아오고 누른적있으면 그 데이터 보여주기
+    console.log(e);
+    // send POST request
+    $.ajax({
+        url: '/crawling/refresh/',
+        type: 'post',
+        data: {'data': JSON.stringify({'pressed': `${button.textContent}`})},
+        headers: { "X-CSRFToken": "{{ csrf_token }}"},
+        success: (result) => {
+            console.log('received');
+            newData = result['results'];
+            let { members, num_solved_prob } = processData(newData);
+            console.log(members);
+            console.log(num_solved_prob);
+
+            // update chart
+            chart.data.labels = members;
+            chart.data.datasets[0].data = num_solved_prob;
+            chart.update();
+        }
+    });
+}));
 
 </script>
 {% endblock %}
