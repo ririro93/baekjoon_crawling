@@ -9,10 +9,9 @@ from django.template.loader import get_template
 from rest_framework import viewsets
 from rest_framework import permissions
 
- 
-from show_crawl_info.models import Question, Member, Solve
-from show_crawl_info.serializers import MemberSerializer, SolveSerializer
-
+from .models import Question, Member, Solve
+from .serializers import MemberSerializer, SolveSerializer
+from .forms import QuestionForm
 from modules.baekjoon_crawling import Baekjoon
 
 
@@ -44,8 +43,8 @@ def refresh_button(request):
     ## refresh 를 누른 경우
     if update == 'true':
         # DB 업데이트 해주기
-        print(update_db()) # 애니메이션 테스트 위해 잠시 중단
-        # time.sleep(2)
+        # print(update_db()) # 애니메이션 테스트 위해 잠시 중단
+        time.sleep(10)
         updated_time = get_time()
         
     # 각각 누른 버튼에 대한 db 정보 가져오기
@@ -60,8 +59,38 @@ def refresh_button(request):
     
     # 반환 : 최신화된 DB 정보랑 업데이트 한 지금 시간
     context = {'results': results, 'update_time': updated_time}
-    
     return HttpResponse(json.dumps(context), content_type='application/json')
+
+# + 버튼 누르면 다른 사이트에서 푼 문제 추가 할 수 있도록
+def add_question(request):
+    form = QuestionForm(request.POST or None)
+    context = {'form': form}
+    if request.POST:
+        if form.is_valid():
+            data = form.cleaned_data
+            print('valid form received: ')
+            print(data)
+            add_solve_to_db(data)
+    return render(request, "add_question.html", context)
+
+#################################################################################
+# db에 다른 사이트에서 푼 문제 추가하기
+def add_solve_to_db(data):
+    m_attrs = ['member_id', 'member_name']
+    q_attrs = ['question_title', 'question_number', 'question_tier', 'question_site']
+    m, _ = Member.objects.get_or_create(
+        **{key: data.get(key, '') for key in m_attrs}
+    )
+    q, _ = Question.objects.get_or_create(
+        **{key: data.get(key, '') for key in q_attrs}
+    )    
+    s, s_bool = Solve.objects.get_or_create(
+        question=q,
+        member=m,
+        solved_time=data.get('solved_date') # 날짜까지만 받기 -> db에 midnight으로 저장됨
+    )
+    if s_bool:
+        print('new Solve added to db')
 
 # 현재 시각 스트링으로 변환해서 반환해주는 함수
 def get_time():
@@ -84,7 +113,7 @@ def update_db():
     baek = Baekjoon()
     results = baek.get_all_results()
 
-    # 여기 있는 if-else 다 create_of_get으로 없앨 수 있다?!
+    # 여기 있는 if-else 다 get_or_create으로 없앨 수 있다?!
     for member_id, questions in results.items():
         # 멤버가 db에 있으면
         if Member.objects.filter(member_id=member_id).exists():

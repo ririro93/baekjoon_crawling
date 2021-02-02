@@ -92,3 +92,15 @@ button.active {
    -moz-user-select: none; /* Firefox */
    -ms-user-select: none; /* Internet Explorer/Edge */
 }
+
+.animation-bounce {
+    animation: bounce;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+.animation-headshake {
+    animation: headShake;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}

@@ -1,5 +1,12 @@
 # 백준 크롤링
 
+## content
+
+### tests
+testing small portions of project before incorporating to main
+
+<br>
+
 ## Todos
 - [x] model design
 - [ ] front-end design
@@ -10,7 +17,7 @@
     - [x] 밑에 버튼들에 마우스 올리면 튀어나오게
     - [ ] 제목 더 멋있게
     - [ ] refresh 하는 동안 last updated 약간 매트릭스 느낌나게ㅎㅎ
-    - [ ] 새로고침 쿨 다운 5분 정도 설정해두기
+    - [ ] 새로고침 쿨 다운 5분 정도 설정해두기 -> 그냥 이 정보만 저장할 model 하나 더 만들어보기
     - [ ] *오른쪽 반에 달력(보류: 엄청 어려울듯)* 
         - [ ] 거기 마우스 올리면 커지게
         - [ ] 거기서 범위 고르면 왼쪽에서 보여주기
@@ -19,8 +26,11 @@
     - [x] 날짜 데이터, 티어 데이터 사이트 데이터 추가로 필요
 - [x] 크롤링 결과를 직접보여주는게 아니라 db에서 데이터 가져와서 보여주기
 - [x] 그래프, 차트 등 사용해서 푼 문제 수 표시하기
-- [ ] 자동으로 몇 시간에 한번씩 자동으로 업데이트 되게 하기
+- [ ] 자동으로 몇 시간에 한번씩 자동으로 업데이트 되게 하기(background periodic tasks) **질문**
+    - socket.io 느낌도 원하는데..
     - 검색하니깐 celery?추천하는데 윈도우는 지원안한대ㅎㅎ....어떡할까
+        -> celery + redis 해보기
+            -> redis 쓸려면 docker 써야된대..
 - [x] refresh 버튼으로 수동 업데이트 가능하게 하기
     - [x] refresh 버트 생성
     - [x] 현재 시각도 같이 보여주기(얘는 실시간으로 바뀌게)
@@ -33,8 +43,11 @@
         # don't forget to save to database!ㅍ
         m.save()
         ```
-    - 지금 테스트로 푼 문제 사람마다 6개씩만 가져오는 중
-- [ ] 다른 사이트 결과 수동으로 추가할 수 있게 하기
+    - ~~지금 테스트로 푼 문제 사람마다 6개씩만 가져오는 중~~
+- [x] 다른 사이트 결과 추가할 수 있게 하기
+    - [ ] 예쁜 form 만들기
+    - [x] db에 데이터 넘기기
+    - [ ] 팝업으로 하고 제출하면 위로 날아가게 -> single page application 적용
 - [ ] html 파일에 css js 까지 쓰면 너무 길어지니깐 statics 폴더에 따로 저장하고 싶은데 js에서 django에서 주는 변수를 사용해서 어떻게 처리해야될지 모르겠다
     - [x] css파일 따로 보관 -> 
         - [ ] 근데 css 파일을 그냥 한꺼번에 base.html 에서 load 하고 있음-> 각 view에 해당하는 html 파일에서 load 할 수 있도록 바꾸기
@@ -42,6 +55,7 @@
 - [ ] 벌금 페이지 만들기
 - [ ] 자기 아이디도 넣어달라고 요청할 수 있기
 - [ ] 각자 로그인 해서 자기 정보만 따로 모아서 볼 수 있게 하기
+    -[ ] 로그인 가능하게 하기
 - [ ] 사람 이름 누르면 상세정보 보이게 
         
 
@@ -57,7 +71,8 @@
         [참고2](https://docs.djangoproject.com/en/3.1/topics/db/models/)
         여기 링크처럼 through keyword 랑 intermediate model을 만들어서 여기에 timestamp정보를 추가해보면 될듯?
 - scraping 할 때 티어 정보를 못 가져옴
-    - <img> 태그가 안 긁혀!이게 설정에서 바꿔야 보이게 되어있어서 그런듯 한데 어뜩할까
+    - <img> 태그가 안 긁혀!이게 로그인 해서설정에서 바꿔야 보이게 되어있어서 그런듯 한데 어뜩할까
+        - 그냥 solved.ac가서 가져오기
 - Solve 에 푼 문제가 푼 시간만 다르게 중복 저장된다 -> solved_time 값만 바뀌게 짜야됨
     - `Solve.objects.update_or_create` 사용해서 해결 -> tuple로 (새로 생성, bool) 반환해줌
         - **해결된줄 알았는데 아직도 중복되네 이거 고쳐야됨**
@@ -112,6 +127,8 @@
 
 
 ### django <-> js 통신
+
+<br>
 
 #### js -> django
 - `var data = {{ data|safe }}` 이런식으로 js에서 django 데이터를 받을 수 있다 [django +  chart.js](https://simpleisbetterthancomplex.com/tutorial/2020/01/19/how-to-use-chart-js-with-django.html)
