@@ -7,6 +7,9 @@
 {% endblock %}
 
 {% block content %}
+<div class="alert alert-success d-block w-100 m-0 text-center invisible" role="alert">
+    Refreshed!
+</div>
 <div class="top-container">
     <div class="card">
         <div class="refresh-container">
@@ -41,6 +44,8 @@ const otherButtons = document.querySelectorAll('.button');
 const buttons = document.querySelectorAll('.button, .refresh-button');
 const last_updated_time = document.querySelector('.last-updated-time');
 const update_time_container = document.querySelector('.update-time-container');
+const alertSuccess = document.querySelector('.alert-success');
+
 
 ///////////////////////////////////////////////// Get Current Time
 var timeInterval = setInterval(myTimer, 1000);
@@ -163,6 +168,7 @@ refreshBtn.addEventListener('click', (e) => {
     
     // add bounce animation to top container
     container.classList.add("animation-headshake");
+
     
     // check which element is active  
     let activeButton;
@@ -187,6 +193,18 @@ refreshBtn.addEventListener('click', (e) => {
             // stop refresh icon animation
             clearInterval(refreshRotateInterval);
             
+            // add animation to success alert
+            alertSuccess.classList.remove("invisible");
+            alertSuccess.classList.add("animation-backInDown");
+            setTimeout(() => {
+                alertSuccess.classList.add("animation-backOutUp");
+                setTimeout(() => {
+                    alertSuccess.classList.add("invisible");
+                    alertSuccess.classList.remove("animation-backOutUp");
+                }, 1000);
+                alertSuccess.classList.remove("animation-backInDown");
+            }, 3000);
+
             // update last updated time
             last_updated_time.innerHTML = result['update_time'];
 

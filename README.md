@@ -35,7 +35,8 @@ testing small portions of project before incorporating to main
 - [x] refresh 버튼으로 수동 업데이트 가능하게 하기
     - [x] refresh 버트 생성
     - [x] 현재 시각도 같이 보여주기(얘는 실시간으로 바뀌게)
-    - [x] 그냥 접속만 한 경우에는 전에 업데이트 된 시간 보여주기
+    - [ ] 그냥 접속만 한 경우에는 전에 업데이트 된 시간 보여주기
+    - [ ] 위에 alert로 refreshed! 이런 메세지 보여주기 bootstrap alert
 - [x] 크롤링 결과를 딕셔너리 형태로 가져와서 바로 해당 object 생성할 수 있는 flow 만들기
     - 이런식으로
         ```python
@@ -59,6 +60,7 @@ testing small portions of project before incorporating to main
     -[ ] 로그인 가능하게 하기
 - [ ] 사람 이름 누르면 상세정보 보이게 
 - [x] 크롤링 더 빠르게
+- [ ] ajax request 실패 했을 때 코드 추가하기
         
 
 생각보다 할꺼 겁나 많네ㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷ

@@ -14,13 +14,13 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     perspective: 1500px;
 }
 
 .top-container {
     width: 100vw;
-    height: 100vh;
+    height: 89vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -103,4 +103,15 @@ button.active {
     animation: headShake;
     animation-duration: 2s;
     animation-iteration-count: infinite;
+}
+
+.animation-backInDown {
+    animation: backInDown;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+}
+.animation-backOutUp {
+    animation: backOutUp;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
 }
