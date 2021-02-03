@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+<title dir='ltr'>How to lose money 💸 | Revue</title>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<meta content='Launching 🚀 - Seven anti-wealth tactics you can use to lose money fastThe internet is crawling with websites about how to make money. You don’t have to look far ' name='description'>
+<meta content='newsletter, email, digest, curation' name='keywords'>
+<!--[if lt IE 9]>
+<script src="//d3jbm9h03wxzi9.cloudfront.net/assets/html5shiv-72001964f72eb70efb8cd11b4727fa613245eb29e197137d690e2b276fc12f61.js"></script>
+<![endif]-->
+<link rel="stylesheet" media="all" href="//d3jbm9h03wxzi9.cloudfront.net/assets/application-0ba8b733cc17ea06fc79baba58428c803da9b9a62996f028f829434a384123ff.css" nonce="7kEAmiIL1zilbWkqXFvXqA==" />
+<script src="//d3jbm9h03wxzi9.cloudfront.net/assets/application-850351652be658df1054ba032f9fc651803fd98f97087a56fca75e4cb34c272a.js" nonce="7kEAmiIL1zilbWkqXFvXqA=="></script>
+<script nonce="7kEAmiIL1zilbWkqXFvXqA==">
+//<![CDATA[
+I18n.defaultLocale = "en";
+I18n.locale = "en";
+
+
+
+//]]>
+</script><link href='//d3jbm9h03wxzi9.cloudfront.net/assets/favicon-84fc7f228d52c2410eb7aa839e279caeaa491588c7c75229ed33e1c7f69fe75d.ico' rel='icon' size='16x16'>
+<link href='//d3jbm9h03wxzi9.cloudfront.net/assets/favicon-84fc7f228d52c2410eb7aa839e279caeaa491588c7c75229ed33e1c7f69fe75d.ico' rel='icon' size='32x32'>
+<link color='#E15718' href='//d3jbm9h03wxzi9.cloudfront.net/assets/icon-86aa8f4b430a5b3e6fd4fd13627c73ae57364d7252b4120ebfa2a126c66d8c00.svg' rel='mask-icon'>
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="HT2xuM3VAxzhB0Oc0v8zZkp3qjFQ+K5blz9HUeu2hpektLomxqQz5TfJjIrOQbbIKKwQGGx6KSCTCqE+96/bDA==" />
+<meta name="csp-nonce" content="7kEAmiIL1zilbWkqXFvXqA==" />
+
+<script nonce="7kEAmiIL1zilbWkqXFvXqA==">
+//<![CDATA[
+  function getQueryParam(url, param) {
+    // Expects a raw URL
+    param = param.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regexS = "[\\?&]" + param + "=([^&#]*)",
+    regex = new RegExp( regexS ),
+    results = regex.exec(url);
+    if (results === null || (results && typeof(results[1]) !== 'string' && results[1].length)) {
+      return '';
+    } else {
+      return decodeURIComponent(results[1]).replace(/\+/g, ' ');
+    }
+  };
+
+  function geUtmParams() {
+    var campaign_keywords = 'utm_source utm_medium utm_campaign utm_content utm_term'.split(' ')
+    , kw = ''
+    , params = {}
+    , first_params = {}
+    , result = {};
+
+    var index;
+    for (index = 0; index < campaign_keywords.length; ++index) {
+      kw = getQueryParam(document.URL, campaign_keywords[index]);
+      if (kw.length) {
+        params[campaign_keywords[index] + ' [last touch]'] = kw;
+      }
+    }
+    for (index = 0; index < campaign_keywords.length; ++index) {
+      kw = getQueryParam(document.URL, campaign_keywords[index]);
+      if (kw.length) {
+        first_params[campaign_keywords[index]] = kw;
+      }
+    };
+
+    result.first_params = first_params;
+    result.params = params;
+
+    return result;
+  }
+
+  function extractReferrer(referrer) {
+    campaign = geUtmParams().first_params["utm_campaign"];
+    ref = getQueryParam(document.URL, 'ref');
+
+    if(!campaign && !ref) {
+      if (/www\.getrevue\.co\/profile\/(.*?)\/issue/.test(window.location.href)) {
+        return 'Revue Profile Issue'
+      } else if(/www\.getrevue\.co\/profile/.test(window.location.href)) {
+        return 'Revue Profile'
+      }
+    }
+
+    if(!!campaign) {
+      return campaign;
+    } else if (referrer.search('https?://(.*)google.([^/?]*)') === 0) {
+      return 'Google';
+    } else if (referrer.search('https?://(.*)bing.([^/?]*)') === 0) {
+      return 'Bing';
+    } else if (referrer.search('https?://(.*)yahoo.([^/?]*)') === 0) {
+      return 'Yahoo';
+    } else if (referrer.search('https?://(.*)facebook.([^/?]*)') === 0) {
+      return 'Facebook';
+    } else if (referrer.search('https?://(.*)twitter.([^/?]*)') === 0 || referrer.search('https?://(.*)t.co/') === 0) {
+      return 'Twitter';
+    } else if (referrer.search('https?://(.*)linkedin.([^/?]*)') === 0) {
+      return 'LinkedIn'
+    } else if (referrer == '$direct' || (!referrer || /^\s*$/.test(referrer))) {
+      return '$direct';
+    } else if (referrer.search('https?://(.*)getrevue.co') == 0) {
+      if(/\/app\//.test(referrer)) {
+        return 'Revue App';
+      } else if (/\/profile\/(.*?)\/issue/.test(referrer)) {
+        return 'Revue Profile Issue'
+      } else if (/\/profile\//.test(referrer)) {
+        return 'Revue Profile'
+      } else if (/blog\.getrevue\.co/.test(referrer)) {
+        return 'Revue Blog'
+      } else {
+        return 'Revue Page'
+      }
+    } else if (referrer.search('https?://(.*)rev.vu([^/?]*)') === 0) {
+      return 'Revue Item';
+    } else if (!!ref) {
+      return ref;
+    } else {
+      tld = new RegExp('\.(asn\.au|com\.au|net\.au|id\.au|org\.au|edu\.au|gov\.au|csiro\.au|act\.au|nsw\.au|nt\.au|qld\.au|sa\.au|tas\.au|vic\.au|wa\.au|co\.at|or\.at|priv\.at|ac\.at|avocat\.fr|aeroport\.fr|veterinaire\.fr|co\.hu|film\.hu|lakas\.hu|ingatlan\.hu|sport\.hu|hotel\.hu|ac\.il|co\.il|org\.il|net\.il|k12\.il|gov\.il|muni\.il|idf\.il|ac\.za|gov\.za|law\.za|mil\.za|nom\.za|school\.za|net\.za|co\.uk|org\.uk|me\.uk|ltd\.uk|plc\.uk|net\.uk|sch\.uk|ac\.uk|gov\.uk|mod\.uk|nhs\.uk|police\.uk)')
+      a = document.createElement('a');
+      a.href = referrer;
+      ref = a.hostname;
+      if(tld.test(ref)) {
+        return ref.replace(tld, '').split('.').pop()
+      } else {
+        return ref.split('.').reverse()[1];
+      }
+    }
+  };
+
+  function getReferrer() {
+    ref = document.referrer;
+    return extractReferrer(ref);
+  }
+
+  function mixpanelLoaded() {
+    try {
+      // Set ref
+      initial_ref = mixpanel.get_property('$initial_referrer');
+      mixpanel.register_once({"Source": extractReferrer(initial_ref)});
+      // mixpanel.people.set_once({"Source": extractReferrer(initial_ref)});
+      // mixpanel.people.set_once({"$created": new Date().toISOString()});
+
+      // Set distinct id
+      $('#member_distinct_id').val(mixpanel.get_distinct_id())
+    } catch(e) {}
+  };
+
+//]]>
+</script><script nonce="7kEAmiIL1zilbWkqXFvXqA==">
+//<![CDATA[
+(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f)}})(document,window.mixpanel||[]);
+mixpanel.init("2087bc32dd14049d6de8a339112517d9", {loaded: mixpanelLoaded, ip: false});
+//]]>
+</script>
+
+<script nonce="7kEAmiIL1zilbWkqXFvXqA==">
+//<![CDATA[
+  var utm = geUtmParams();
+  mixpanel.register(utm.params);
+
+//]]>
+</script>
+<meta content='summary_large_image' property='twitter:card'>
+<meta content='@getrevue' property='twitter:site'>
+<meta content='@andrewtye' property='twitter:site'>
+<meta content='1073732649320413' property='fb:app_id'>
+<meta content='https://www.getrevue.co/profile/andrewtye/issues/how-to-lose-money-323332' property='og:url'>
+<meta content='article' property='og:type'>
+<meta content='How to lose money 💸' property='og:title'>
+<meta content='Seven anti-wealth tactics you can use to lose money fastThe internet is crawling with websites about how to make money. You don’t have to look far to find the latest schemes for getting rich quick. But have you ever thought about how to lose money? It’s actually much easier to do than the alternative, and if you keep reading I’ll show you how.' property='og:description'>
+<meta content='https://s3.amazonaws.com/revue/issue_images/images/000/162/545/original/issue_image_323332.jpg?1612331392' property='twitter:image'>
+<meta content='https://s3.amazonaws.com/revue/issue_images/images/000/162/545/original/issue_image_323332.jpg?1612331392' property='og:image'>
+<meta content='https://s3.amazonaws.com/revue/items/images/007/282/225/original/shutterstock_132100754.jpg?1612328095' property='og:image'>
+<meta content='https://s3.amazonaws.com/revue/items/images/007/283/582/original/unisex-premium-t-shirt-black-front-601a37b346555.png?1612331007' property='og:image'>
+
+</head>
+<body class='profiles archive' data-page='ProfilesArchive'>
+<script nonce="7kEAmiIL1zilbWkqXFvXqA==">
+//<![CDATA[
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-58968534-1', 'auto');
+ga('set', 'anonymizeIp', true);
+ga('send', 'pageview');
+
+//]]>
+</script>
+<style>
+  #profile-nav {border-color: #E15718 !important;}
+  #profile-nav.expanded svg {fill: #E15718 !important;}
+  #nav-back {color: #E15718 !important;}
+  #nav-back:after {border-color: #E15718 !important;}
+  #profile-logo {background-color: #E15718 !important;}
+  section.profile-form input[type="submit"] {background-color: #E15718 !important;}
+  section#premium a {color: #3498DB !important;}
+</style>
+<div id='profile-nav'>
+<a id="nav-back" href="https://www.getrevue.co/profile/andrewtye">View profile</a>
+<a id="profile-logo" href="https://www.getrevue.co/?ref=Revue+Profile"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" baseProfile="basic" id="Layer_1" x="0px" y="0px" width="69px" height="28px" viewBox="0 0 69 28" xml:space="preserve">
+  <path d="M64.5293352,10.7041667 C65.0574432,10.6932778 65.3370748,10.9435278 65.3487341,11.5175278 C65.4141025,14.6482778 61.2060582,14.9296389 61.2060582,14.9296389 C61.4291136,13.3777778 62.6296371,10.7436389 64.5293352,10.7041667 L64.5293352,10.7041667 Z M67.1731247,18.3427222 C66.183615,19.4257778 64.9358809,20.2513889 63.5530139,20.2803611 C60.9010055,20.3353889 61.2215402,16.9429167 61.2215402,16.9429167 C61.2215402,16.9429167 68.9206787,17.2128056 68.8088643,11.8327222 C68.7618449,9.56880556 66.6052604,8.54427778 64.6474571,8.58491667 C60.6521468,8.66833333 57.2805125,12.3923333 57.3781828,17.0982778 C57.3877396,17.5509444 57.4292161,17.9754167 57.5007008,18.3722778 C56.9821496,19.0516667 56.0666094,20.0699722 55.2370803,20.0699722 C54.781795,20.0699722 54.6111108,19.6655278 54.6111108,19.2105278 C54.6111108,15.7544722 56.2048006,12.3516944 56.2048006,10.3425 C56.2048006,9.12255556 55.3743158,8.77313889 54.3454321,8.77313889 C53.0770554,8.77313889 52.3717645,9.60088889 52.3717645,9.60088889 C53.0636759,11.5056667 50.6058615,20.0699722 48.0218975,20.0699722 C47.4106454,20.0699722 47.3039917,19.5891111 47.3039917,19.1971111 C47.3039917,16.6306389 48.8831551,12.3316667 48.8831551,10.4099722 C48.8831551,9.13286111 48.0360416,8.75369444 47.0310499,8.75369444 C45.8419945,8.75369444 45.0539418,9.60088889 45.0539418,9.60088889 C45.9052604,11.2443333 43.6670609,17.5278056 43.6670609,19.3456667 C43.6670609,21.1633333 44.6720526,22.5985278 46.4427341,22.5985278 C49.3199003,22.5985278 50.9894709,18.98225 50.9894709,18.98225 C50.9894709,18.98225 50.6058615,22.5985278 54.0992493,22.5985278 C55.8911468,22.5985278 57.3170194,21.0725278 58.0666537,20.0585 C58.9885014,21.7876944 60.7930139,22.6360556 63.2355374,22.5855 C64.9924571,22.54875 66.2531884,22.0451389 67.2291274,21.1678056 C68.7343213,19.8129167 67.7318144,17.7308056 67.1731247,18.3427222 L67.1731247,18.3427222 Z" id="logo-3"></path>
+  <path d="M26.7737202,10.6613889 C27.2463989,10.6401944 27.5780194,10.8772222 27.6036316,11.4508333 C27.7467922,14.6338889 23.4097313,14.9679444 23.4097313,14.9679444 C23.595133,13.4112222 25.0563657,10.7385833 26.7737202,10.6613889 L26.7737202,10.6613889 Z M40.7751773,8.25183333 C39.5069917,8.25183333 38.5365956,9.352 38.5365956,10.5278056 C38.5365956,12.46525 40.1209197,12.5216389 40.0922493,14.0808889 C40.0631967,15.6401389 37.5797701,20.0656944 35.9027452,20.0656944 C35.2813629,20.0656944 35.1850305,19.4376389 35.1850305,19.1428611 C35.1850305,16.1589167 36.764385,11.9 36.764385,10.4646111 C36.764385,9.11166667 35.9434571,8.76633333 34.9608283,8.76633333 C33.6624432,8.76633333 32.9456842,9.59233333 32.9456842,9.59233333 C33.3958089,10.5264444 32.953903,12.7576944 32.4514072,14.90125 C31.5830776,17.3673889 28.768795,20.3318889 26.2513463,20.3453056 C22.962856,20.3620278 23.4431801,16.8923611 23.4431801,16.8923611 C23.4431801,16.8923611 31.1772964,17.0648333 30.9355097,11.6886389 C30.8334432,9.42666667 28.6531579,8.45425 26.6968837,8.54233333 C22.7048227,8.72180556 19.5250886,12.5216389 19.7366759,17.2235 C19.9035374,20.9350556 22.6740499,22.7052778 25.6234654,22.5730556 C28.2326593,22.4552222 30.1816704,21.2733889 31.5830776,19.8959444 C31.766759,21.4402222 32.7354349,22.5901667 34.5905983,22.5901667 C39.4282438,22.5901667 43.2540166,15.6076667 43.2540166,11.2779722 C43.2540166,9.69344444 42.4260166,8.25183333 40.7751773,8.25183333 L40.7751773,8.25183333 Z" id="logo-2"></path>
+  <path d="M28.5526205,23.9979444 C27.8781025,24.3351111 26.6978393,24.9295278 24.176759,24.9295278 C16.3352244,24.9295278 14.7163047,14.8510833 14.7163047,14.8510833 C14.7163047,14.8510833 20.6525983,12.3402222 20.6525983,7.24869444 C20.6525983,2.14919444 16.5122161,0 12.3303573,0 C7.68422992,0 2.5235651,2.50327778 0.296451524,7.35233333 C-1.10954294,10.4138611 2.93030194,11.3689722 3.13080332,10.4148333 C3.78850139,7.28272222 7.27940443,2.35063889 12.3638061,2.35063889 C15.0450582,2.35063889 16.6133269,4.12183333 16.6133269,7.24947222 C16.6133269,11.1274722 12.1436177,13.1708889 10.1611579,13.8335556 C11.0426759,9.77763889 11.3523158,8.55438889 11.3523158,7.83455556 C11.3523158,6.24166667 10.4319972,5.97605556 9.4931385,5.97605556 C8.35492521,5.97605556 7.53285042,6.81061111 7.53285042,6.81061111 C8.19054848,8.01188889 7.07985873,12.2853889 6.59685873,14.0175 C6.01179224,16.1165278 5.20539058,19.2188889 4.69945429,21.1909444 C4.19351801,23.1635833 7.71806094,22.6329444 7.95411357,22.0507778 C8.21138227,21.4172778 8.88800277,19.0950278 9.5005928,16.6561111 C10.5281385,16.3356667 11.706108,15.8806667 11.706108,15.8806667 C12.2212188,19.3026944 14.9691773,28 22.8107119,28 C29.5392632,28 29.1092078,23.7198889 28.5526205,23.9979444" id="logo-1"></path>
+</svg>
+</a></div>
+
+<article id='issue-holder'>
+<section class='profile-form'>
+<form class="new_member" id="new_member" action="/profile/andrewtye/add_subscriber" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="JIgbo8HPxXL1447iClxYmk9sxFaBgIDq4RcIymdbUB9BLGJz2uFSDRlmZpiZpdERmTW9pzY16IuniuOhQnMbWw==" /><input type="hidden" name="member[distinct_id]" id="member_distinct_id" />
+<div id='profile-form'>
+<div id='profile-form-fields'>
+<label for="member_email">Subscribe to our newsletter</label>
+<label class='sublabel'>By subscribing, you agree with Revue’s <a target="_blank" href="https://www.getrevue.co/terms?ref=Revue+Profile">Terms</a> and <a target="_blank" href="https://www.getrevue.co/privacy?ref=Revue+Profile">Privacy Policy</a>.</label>
+<div class='input-group'>
+<input class="form-control" placeholder="Your email address..." title="Subscribe to the newsletter of Launching 🚀" type="email" name="member[email]" id="member_email" />
+<div class='input-group-btn'><script src="https://www.recaptcha.net/recaptcha/api.js" async defer ></script>
+        <script>
+          var invisibleRecaptchaSubmit = function () {
+            var closestForm = function (ele) {
+              var curEle = ele.parentNode;
+              while (curEle.nodeName !== 'FORM' && curEle.nodeName !== 'BODY'){
+                curEle = curEle.parentNode;
+              }
+              return curEle.nodeName === 'FORM' ? curEle : null
+            };
+
+            var eles = document.getElementsByClassName('g-recaptcha');
+            if (eles.length > 0) {
+              var form = closestForm(eles[0]);
+              if (form) {
+                form.submit();
+              }
+            }
+          };
+        </script>
+<input type="submit" data-sitekey="6LcRA6wZAAAAAEYg1KFtJ_b70PaAcaJwppkQihHs" data-callback="invisibleRecaptchaSubmit" class="g-recaptcha btn btn-primary" title="Subscribe to the newsletter of Launching 🚀" value="Subscribe now"/>
+</div>
+</div>
+<span class='error-message'>
+
+
+</span>
+<div style='width: 1px; height: 1px; overflow: hidden;'>
+<input type="text" name="confirm_ca2YZA" id="confirm_ca2YZA" autocomplete="off" />
+</div>
+
+</div>
+</div>
+</form></section>
+<script nonce="JD0yiuobXvqYJdCYSugUhw==">
+//<![CDATA[
+mixpanel.identify("120212");
+mixpanel.track('Profile viewed', {
+  'profile' : "Launching 🚀",
+  'profile_id' : "80566",
+  'Last page': getReferrer()
+}, function() {
+  mixpanel.register({"First time": false});
+});
+
+
+
+//]]>
+</script><script nonce="JD0yiuobXvqYJdCYSugUhw==">
+//<![CDATA[
+var captchaCallback = function() {
+  $('#new_member').submit()
+};
+
+//]]>
+</script>
+<section id='issue'>
+<section id='issue-display'>
+<header>
+<span class='issue-nr'></span>
+<time datetime='2021-02-02T19:49:51-10:00'>Feb  2, 2021</time>
+<h1 title='Launching 🚀 - How to lose money 💸'>How to lose money 💸</h1>
+</header>
+<div id='issue-frame'>
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <title></title>
+  <!--[if !mso]><!-- -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--<![endif]-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+  #outlook a { padding: 0; }
+  .ReadMsgBody { width: 100%; }
+  .ExternalClass { width: 100%; }
+  .ExternalClass * { line-height:100%; }
+  body { margin: 0; padding: 0; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
+  table, td { border-collapse:collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+  img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; }
+  p { display: block; padding: 0; margin: 0; margin-bottom: 0; }
+  .revue-p + .revue-p, .revue-p + .revue-blockquote {margin-top: 14px !important;}
+  .revue-p + .revue-h2 {margin-top: 28px !important;}
+  .revue-h2 {font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif; font-size: 20px; line-height: 28px; font-weight: 700;padding-bottom: 8px;}
+  [class*="revue-p"] + [class*="revue-p"], [class*="revue-p"] + [class*="revue-blockquote"] {margin-top: 14px !important;}
+  [class*="revue-p"] + [class*="revue-h2"] {margin-top: 28px !important;}
+</style>
+<!--[if !mso]><!-->
+<style type="text/css">
+  @media only screen and (max-width:480px) {
+    @-ms-viewport { width:320px; }
+    @viewport { width:320px; }
+  }
+</style>
+<!--<![endif]-->
+<!--[if mso]>
+<style type="text/css">
+  .revue-p,
+  .revue-h2,
+  .revue-ul,
+  .revue-ol,
+  .revue-blockquote {margin-bottom: 14px !important;}
+</style>
+<xml>
+  <o:OfficeDocumentSettings>
+    <o:AllowPNG/>
+    <o:PixelsPerInch>96</o:PixelsPerInch>
+  </o:OfficeDocumentSettings>
+</xml>
+<![endif]-->
+<!--[if lte mso 11]>
+<style type="text/css">
+  .outlook-group-fix {
+    width:100% !important;
+  }
+</style>
+<![endif]-->
+<style type="text/css">
+  @media only screen and (min-width:480px) {
+    .mj-column-per-100 { width:100%!important; }
+    .mj-column-per-100 { width:100%!important; }
+    .mj-column-per-25 { width:25.9259259259%!important; }
+    .mj-column-per-74 { width:74.0740740741%!important; }
+    .mj-column-per-50 { width:50%!important; }
+    .mj-column-per-60 { width:60%!important; }
+    .mj-column-per-20 { width:20%!important; }
+  }
+
+  @media screen and (max-width:600px) {
+    .indented {padding-left: 20px !important; padding-right: 20px !important;}
+    .link-title {font-size: 18px !important; line-height: 24px !important;}
+    .link-image {width: 112px !important;}
+    .link-description {font-size: 14px !important; line-height: 22px !important;}
+    .link-url {font-size: 13px !important;}
+    .header-text {font-size: 20px !important; line-height: 28px !important;}
+    .introduction-subject {font-size: 24px !important; line-height: 28px !important;}
+    .introduction-spacer {padding: 30px 0 !important;}
+    .text-default {font-size: 16px !important; line-height: 24px !important;}
+  }
+</style>
+</head>
+<body>
+  <div>
+    <div style="display:none;font-size:1px;color:#FFF;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">Seven anti-wealth tactics you can use to lose money fast The internet is crawling with websites about</div>
+
+    
+
+    
+
+    <!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600px;">
+  <tr>
+    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+<![endif]--><div style="margin:0px auto;max-width:600px;"><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;padding-left:30px;padding-right:30px;padding-top:48px;" class="indented"><!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:top;width:600px;">
+<![endif]--><div aria-labelledby="mj-column-per-100" class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-break:break-word;font-size:0px;padding:0px;padding-bottom:10px;" align="left"><div style="cursor:auto;color:#111111;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;font-size:30px;font-weight:700;line-height:36px;text-align:left;" class="introduction-subject">
+      How to lose money 💸
+    </div></td></tr><tr><td style="word-break:break-word;font-size:0px;padding:0px;" align="left"><div style="cursor:auto;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;font-size:16px;line-height:20px;text-align:left;font-weight:500;color: #E15718;">
+      By <a style="color: #E15718" href="https://www.getrevue.co/profile/andrewtye?utm_campaign=Issue&amp;utm_content=topprofilename&amp;utm_medium=email&amp;utm_source=Launching+%F0%9F%9A%80">Andrew Tye</a>&nbsp;&bull;&nbsp;Issue #1<span style="color: #A7ADB5">&nbsp;&bull;&nbsp;</span><a target="_blank" style="color: #A7ADB5;" href="https://www.getrevue.co/profile/andrewtye/issues/how-to-lose-money-323332?utm_campaign=Issue&amp;utm_content=view_in_browser&amp;utm_medium=email&amp;utm_source=Launching+%F0%9F%9A%80">View online</a>
+    </div></td></tr><tr><td style="word-break:break-word;font-size:0px;padding:0px;padding-top:28px;" align="left"><div style="cursor:auto;color:#3B424B;font-family:Georgia, 'Times New Roman', Times, serif;font-size:18px;line-height:32px;text-align:left;" class="text-default"><div style="margin: 0;" class="revue-p"><strong>Seven anti-wealth tactics you can use to lose money fast</strong></div><div style="margin: 0;" class="revue-p">The internet is crawling with websites about how to make money. You don’t have to look far to find the latest schemes for getting rich quick. But have you ever thought about how to lose money? It’s actually much easier to do than the alternative, and if you keep reading I’ll show you how.</div>
+
+    </div></td></tr>
+      <tr><td style="word-break:break-word;font-size:0px;padding:40px 0px;" class="introduction-spacer"><p style="font-size:1px;margin:0px auto;border-top:2px solid #E7E9EB;width:30px;"></p><!--[if mso | IE]><table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" style="font-size:1px;margin:0px auto;border-top:2px solid #E7E9EB;width:30px;" width="30"><tr><td style="height:0;line-height:0;"> </td></tr></table><![endif]--></td></tr>
+  </tbody></table></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]-->
+
+      <!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600px;">
+  <tr>
+    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+<![endif]--><div style="margin:0px auto;max-width:600px;"><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;padding-bottom:44px;padding-left:30px;padding-right:30px;" class="indented"><!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:top;width:600px;">
+<![endif]--><div aria-labelledby="mj-column-per-100" class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-break:break-word;font-size:0px;padding:0px;" align="left"><div style="cursor:auto;color:#3B424B;font-family:Georgia, 'Times New Roman', Times, serif;font-size:18px;line-height:32px;text-align:left;" class="text-default">
+      <div style="margin: 0;" class="revue-p"></div><div style="margin: 0;" class="revue-p"><strong>1. Trade Options</strong></div><div style="margin: 0;" class="revue-p"><em>Fastest</em></div><div style="margin: 0;" class="revue-p">No doubt you have heard all about how easy it is for people to lose their life savings trading securities in the stock market. But there is actually a much faster way – options. I’m not going to get into the nuts and bolts of trading options (actually, most people who lose money with options don’t understand how they work anyway) but I will give you a quick definition and then show how efficient these instruments-of-wealth-destruction really are. </div><div style="margin: 0;" class="revue-p">There are two types of options – calls and puts. If you buy a call option, you are purchasing the right to but the underlying stock at a specified price. So, you might pay $3,000 dollars for the right to buy 100 shares Microsoft stock at $200 per share. Then, if the stock goes up to $300 you can either buy 100 shares at $200, or you can sell the option to some other idiot and they can use it to buy the shares. But, as you might imagine, that options contract is worth a lot more than $3,000 now, and you can sell it for a premium. This is how leverage works to make money. But we’re concerned about how to use leverage to lose money. </div><div style="margin: 0;" class="revue-p">The nice thing about options is that there isn’t just one way to lose money. No, you can lose money in many different ways – far more than I can write on this page. But, if you’re looking to lose money don’t bother to read up on the different ways to trade options. Just go for it, and I’m certain you will lose everything. I’ll give you a few real-life examples of how I’ve lost money in options. First, buy options that are about ready to expire. In the previous example, if you bought the Microsoft options for $3,000, but the stock went to $195 instead of $300, you could lose all your money. Another easy way to lose money with options is to buy contracts that are way out of the money (OTM). This simply means you might buy Microsoft options that give you the right to buy stock at $200 – except this time, the stock is at $150 per share. If you do this, you won’t find anyone willing to buy the option contract back from you (after all, why would someone pay for the right to buy stock at $200 if it’s already at $150). And if you can’t find anyone to buy the contract from you it will expire worthless and you’ll lose all your money. Another favorite is not cutting your losses. If your contract is losing money (this often happens if you think the stock is going to go up but it goes down) and you want to lose more money, just hold it and don’t sell. Options decay with time so the longer you hold it the more likely it is that you will lose all your money. So, simply hold your position when it starts to go south and you’ll lose way more money.</div><div style="margin: 0; display: block; Margin: 0; Margin-bottom: 14px; padding: 0 20px; border-color: #E0E4E8; border-left: 2px solid #E0E4E8; color: #7A889A; line-height: inherit;" class="revue-blockquote">Pro tip – Make sure to buy a bunch of contracts (say 10 of them) so you lose $30,000 instead of $3,000.</div><div style="margin: 0;" class="revue-p">I could go on but I think you get the point. I have personally lost thousands of dollars using these methods and would highly recommend them to anyone looking for a fast way to lose it all. I’d recommend you try losing a small amount in stocks first to get your feet wet – then dive into options. If you’re anxious to give it a go, <a href="https://cash.app/app/TDZWWPC?utm_campaign=UA-188825179-1&amp;utm_medium=email&amp;utm_source=Revue%20newsletter" target="_blank" style="color: #3498DB;text-decoration:underline;">use this link to start trading with Cash App</a> and you’ll get free money to lose right away.</div><div style="margin: 0; display: block; Margin: 0; Margin-bottom: 14px; padding: 0 20px; border-color: #E0E4E8; border-left: 2px solid #E0E4E8; color: #7A889A; line-height: inherit;" class="revue-blockquote">The only options trader who doesn’t lose money is the one who never starts.</div><div style="margin: 0; display: block; Margin: 0; Margin-bottom: 14px; padding: 0 20px; border-color: #E0E4E8; border-left: 2px solid #E0E4E8; color: #7A889A; line-height: inherit;" class="revue-blockquote"><em>- Andrew Tye</em></div><div style="margin: 0;" class="revue-p"><br></div><div style="margin: 0;" class="revue-p"><strong>2. Write a Book</strong></div><div style="margin: 0;" class="revue-p"><em>Most consistent</em></div><div style="margin: 0;" class="revue-p">You might think writing a book is a great way to make a bunch of cash – and you’d be wrong. In spite of the many books that will tell you how to make money writing a book, I’m here to let you in on a secret –writing a book is actually a fantastic way to lose money. I’ve written four short books and they have literally grossed hundreds of dollars. Now – hearing that I’ve sold some books might make you think you should write one also. But it’s a trap – you will spend hundreds of hours writing a book and then make hundreds of dollars in return. Not sure about you, but if I’m working for $1/hour I’m losing money fast. My latest book probably has more pages than it has copies sold – <a href="https://gum.co/getajob?utm_campaign=UA-188825179-1&amp;utm_medium=email&amp;utm_source=Revue%20newsletter" target="_blank" style="color: #3498DB;text-decoration:underline;">take a look here</a> if you want a quick reference on how to get a job.</div><div style="margin: 0;" class="revue-p"><br></div><div style="margin: 0;" class="revue-p"><strong>3. Teach Online Courses</strong></div><div style="margin: 0;" class="revue-p">
+<em>Most helpful</em> </div><div style="margin: 0;" class="revue-p">Aw, I love this one. You can help other people learn a skill and lose your money at the same time. Win-lose. Some folks think they can make a great online course and it will make them a nice living or side income. Most of those nice people are wrong. News flash – more people lose money creating online courses than make money from them. The good news for you is that there really aren’t many barriers to entry here. Get yourself a cheap mic (who needs quality audio anyway) and an inexpensive webcam. And go to town without bothering to make an outline. I’ve found a couple approaches that both work well. Option A - read the script from a piece of paper. Option B – don’t plan at all and just wing the recording. </div><div style="margin: 0;" class="revue-p">This is a strategy that I’ve already proven out for you. I created a few classes online and over the past 5 years they have actually generated thousands of dollars. But net returns are certainly negative because for those thousands of dollars I spent hundreds of hours creating content, answering questions, and buying likes. If you’d like a good idea of what to expect, I have over 40,000 students taking my online courses and they have generated a few thousand in gross revenues.</div><div style="margin: 0; display: block; Margin: 0; Margin-bottom: 14px; padding: 0 20px; border-color: #E0E4E8; border-left: 2px solid #E0E4E8; color: #7A889A; line-height: inherit;" class="revue-blockquote">Pro tip – make your courses free from the start – you will recoup less of your investment this way, and end up losing quite a bit more overall.</div><div style="margin: 0;" class="revue-p"><br></div><div style="margin: 0;" class="revue-p"><strong>4. Get a Degree</strong></div><div style="margin: 0;" class="revue-p"><em>Most socially acceptable</em></div><div style="margin: 0;" class="revue-p">This tactic is harder to lose money with, but when you lose you lose big. Books and courses are more consistent losers, but they don’t add up as fast as big tuition debt combined with time off work. As mentioned, you do have to be careful with this one because it is possible to get a degree and actually make money. But here is what you do to ensure loss. First, choose a degree that you aren’t passionate about, or that doesn’t have high paying jobs, or that doesn’t really have any jobs (<a href="https://lunarjobs.co/radar?utm_campaign=UA-188825179-1&amp;utm_medium=email&amp;utm_source=Revue%20newsletter" target="_blank" style="color: #3498DB;text-decoration:underline;">research here</a>). Second, don’t get a side job during school and take all of the student loans you can get your hands on. Third, be very picky about which of the few jobs you take and only take ones that are in fact low paying (high cost of living is also preferred when choosing location). </div><div style="margin: 0; display: block; Margin: 0; Margin-bottom: 14px; padding: 0 20px; border-color: #E0E4E8; border-left: 2px solid #E0E4E8; color: #7A889A; line-height: inherit;" class="revue-blockquote">Pro tip – fail a few classes to extend your time to graduation – that way you can take on more debt. </div><div style="margin: 0;" class="revue-p">One thing to watch out for is accidentally choosing a degree that can actually make you money. Like engineering or computer science. But even this caution is less important now than when I went to college because places like Lambda School are making four year university degrees more certain losers. I’ve been on both sides of this one. I spent two years studying software development and about 4 years studying engineering. Both of those degrees were inexpensive, I worked part-time while studying, and have made money with both of them. But, thankfully I learned my lesson and managed to lose a lot of money by the time I got an MBA. I could have started a company with the money, or just worked my way up in an engineering role. But by taking on a bunch of debt and forgoing a salary for a couple years I was able to lose way more money than if I’d simply started a company. I think I actually lost more by going to business school than if I’d started a company and lost all of the investors’ money!</div><div style="margin: 0;" class="revue-p"><br></div><div style="margin: 0;" class="revue-p"><strong>5. Become an Inventor</strong></div><div style="margin: 0;" class="revue-p"><em>Most fun</em></div><div style="margin: 0;" class="revue-p">Okay people, this has to be one of the most enjoyable ways to lose money! I have drummed up all sorts of new inventions. Of course, they don’t make any money but that’s sort of the point right! Most of my awesome inventions failed make money because someone else took them to market before me. Other times it was because they were so stupid nobody wanted to buy them (or even look at them actually).</div><div style="margin: 0;" class="revue-p">I’ve invented lots of awesome products that lost money, but here is one of my favorite no-hits:</div><div style="margin: 0;" class="revue-p">
+<em>Barking Bulb</em>: Scare away intruders with a bark</div><div style="margin: 0;" class="revue-p">Don’t want a dog in your backyard? Fine, get a bulb that barks when intruders are detected. Light, motion sensing and sound in one bulb. I thought this was so brilliant. Safe as having a guard dog, but you don’t have to clean up after it. Literally the best of both worlds. Coming soon to a Home Depot near you! </div><div style="margin: 0; display: block; Margin: 0; Margin-bottom: 14px; padding: 0 20px; border-color: #E0E4E8; border-left: 2px solid #E0E4E8; color: #7A889A; line-height: inherit;" class="revue-blockquote">Pro tip: Go straight for all of the full, non-provisional patents you can before you know if anyone wants the idea. Don’t wait to see if it’s manufacturable. Don’t do market research to see if competitive products exist. Just talk to an attorney and get the patents drawn up. This shortcut will let you lose $20,000 to $40,000 upfront before you even start doing hardcore R&amp;D or go to production.</div><div style="margin: 0;" class="revue-p"><br></div><div style="margin: 0;" class="revue-p"><strong>6. Do Internet Advertising </strong></div><div style="margin: 0;" class="revue-p"><em>Most controversial </em></div><div style="margin: 0;" class="revue-p">Another interesting way to lose money is with online advertising. What I like most about this one is you can lose money consistently and sound smart to your friends at the same time. Where do you spend your money they ask? Oh, I have a website with ads. Wow. That is so cool. What you do is setup a website with some content (e.g. a blog about how to lose money) and you put some ads (from Google AdSense or affiliates) on it that will generate money for you. Then, to get more people to your blog you also buy ads from Google Ads or Facebook. If you do it just right there is arbitrage here – for every dollar you spend buying ads to get traffic to your site you can get 70 cents of income from the ads on your blog. You can consistently lose $0.30 for every $1.00 you spend. The downside is nearly unlimited as long as you pick a topic that has significant search traffic.</div><div style="margin: 0;" class="revue-p">This one is somewhat controversial because a lot of people think that putting ads on your site and then buying other ads to get more traffic is actually a good way to make money. I’ve proven that it’s much easier to lose money with this method than it is to make money. So you can ignore the doubters.</div><div style="margin: 0;" class="revue-p"><br></div><div style="margin: 0;" class="revue-p"><strong>7. Stop finishing Projects</strong></div><div style="margin: 0;" class="revue-p"><em>Biggest loss</em></div><div style="margin: 0;" class="revue-p">I have completely mastered this one. It has a sweet combination of money lost from working for free until you quit + lost opportunity cost from what might have been. In fact, you could say I’ve lost billions on this one by not seeing my projects through. Thankfully some of my biggest ideas were cut short at the napkin stage! Otherwise they would doubtless have gone on to become unicorns and I wouldn’t even be qualified to write this HTLM guide.</div><div style="margin: 0;" class="revue-p">Another benefit of this method is that you can tell your friends you had the idea for X before X did. This has happened to me a lot and it makes me feel super smart. Here is one of my billion dollar ideas that <a href="https://techcrunch.com/2018/08/15/grabb-it-wants-to-turn-your-cars-window-into-a-trippy-video-billboard/?utm_campaign=UA-188825179-1&amp;utm_medium=email&amp;utm_source=Revue%20newsletter" target="_blank" style="color: #3498DB;text-decoration:underline;">this YC company</a> is now doing. I had the genius idea, they are the suckers actually out there executing and making money. Here is another one – about ten years ago I wanted to build a last mile taxi and delivery service where drivers would use their own cars and the app would tell them whether to pick someone up or deliver a pizza or transfer some parts. Less than two years later Lyft started and Uber pivoted. But look at all the trouble they’ve had! I am the fortunate one here, and you can be as well. Just make sure to quit at the idea stage.</div><div style="margin: 0;" class="revue-p"><br></div><div style="margin: 0;" class="revue-p"><strong>8. Buy $GME Swag (Bonus Method)</strong></div><div style="margin: 0;" class="revue-p"><em>Most satisfying</em></div><div style="margin: 0;" class="revue-p">
+<a href="https://gmeswag.com?utm_campaign=UA-188825179-1&amp;utm_medium=email&amp;utm_source=Revue%20newsletter" target="_blank" style="color: #3498DB;text-decoration:underline;">Buy some $GME swag from me right now</a> to lose money instantly. No need to delay gratification. And as a side benefit it will help me make ends meet since I’ve lost so much money but still need to pay bills and such. </div><div style="margin: 0; Margin: 0; display: block; font-weight: 700; padding-bottom: 8px;" class="revue-h2">If you liked this, please share it with your friends. And thanks for reading!</div>
+
+    </div></td></tr></tbody></table></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]-->
+
+
+      <!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600px;">
+  <tr>
+    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+<![endif]--><div style="margin:0px auto;max-width:600px;"><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;padding-bottom:44px;"><!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:top;width:600px;">
+<![endif]--><div aria-labelledby="mj-column-per-100" class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-break:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:600px;">
+    <img alt="" title="" height="auto" src="https://s3.amazonaws.com/revue/items/images/007/282/225/mail/shutterstock_132100754.jpg?1612328095" style="border:none;border-radius:0;display:block;outline:none;text-decoration:none;width:100%;height:auto;" width="600">
+</td></tr></tbody></table></td></tr><tr><td style="word-break:break-word;font-size:0px;padding:0px;padding-top:16px;" align="center"><div style="cursor:auto;color:#3B424B;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;font-size:14px;line-height:16px;text-align:center;"></div></td></tr></tbody></table></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]-->
+
+
+      <!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600px;">
+  <tr>
+    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+<![endif]--><div style="margin:0px auto;max-width:600px;"><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;padding-left:30px;padding-right:30px;" class="indented"><!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:top;width:600px;">
+<![endif]--><div aria-labelledby="mj-column-per-100" class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-break:break-word;font-size:0px;padding:0px;padding-bottom:24px;" align="left"><div style="cursor:auto;color:#E15718;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;font-size:24px;font-weight:700;line-height:32px;text-align:left;color: #E15718;" class="header-text">
+      How to make money
+    </div></td></tr></tbody></table></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]-->
+
+
+      <!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600px;">
+  <tr>
+    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+<![endif]--><div style="margin:0px auto;max-width:600px;"><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;padding-bottom:44px;padding-left:30px;padding-right:30px;" class="indented"><!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:top;width:600px;">
+<![endif]--><div aria-labelledby="mj-column-per-100" class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-break:break-word;font-size:0px;padding:0px;" align="left"><div style="cursor:auto;color:#3B424B;font-family:Georgia, 'Times New Roman', Times, serif;font-size:18px;line-height:32px;text-align:left;" class="text-default">
+      <div style="margin: 0;" class="revue-p">
+<em>Or, the other side of the coin</em> </div><div style="margin: 0;" class="revue-p"><br></div><div style="margin: 0;" class="revue-p">
+<strong>1. Follow your interests</strong> </div><div style="margin: 0;" class="revue-p">Don’t write books or start projects because you think that you will be the outlier who gets rich quick. Do things because you have genuine interest in them. Write about things you’re interested in. Make a course about something you’re an expert in. Start a company to do what you love, or to create something you’re sure must exist in the world. Don’t start out with a singular goal of making money.</div><div style="margin: 0;" class="revue-p"><br></div><div style="margin: 0;" class="revue-p"><strong>2. Think longer term </strong></div><div style="margin: 0;" class="revue-p">If you are investing, don’t get distracted by all the noise (unless the noise is $gme). Buy great companies you think will still be great in a decade. Don’t plan on shortcuts. Follow a rational plan and stick to a repeatable process.</div><div style="margin: 0;" class="revue-p"><br></div><div style="margin: 0;" class="revue-p"><strong>3. Build a following first</strong></div><div style="margin: 0;" class="revue-p">When it comes to selling things like books or courses you will likely find it’s hard to make money. But without a following it’s nearly impossible. So if you want to write, write. If you want to teach, teach. But don’t expect to become a millionaire doing so. At least not overnight. Do it because it’s what you love to do. Start building a following of people who like what you’re writing or teaching. At some point you have enough followers you can “launch” a new book or a new course and make some money. Followers first, sales second. Speaking of following, make sure you subscribe to this!</div><div style="margin: 0;" class="revue-p"><br></div><div style="margin: 0;" class="revue-p"><strong>4. Stop quitting</strong></div><div style="margin: 0;" class="revue-p">If it’s not worth finishing then why are you starting? Start projects you intend to finish. And make sure you have the passion to see them through. If you don’t, you’ll probably quit when things get hard anyway. Be more selective about what you work on and stop starting things just because they are “good ideas”. Quit working on distractions and focus on something you care about.</div><div style="margin: 0;" class="revue-p"><br></div><div style="margin: 0;" class="revue-p"><strong>5. Think for yourself</strong></div><div style="margin: 0;" class="revue-p">You can find so many guides for how to make money online or how to get rich quick or how to make money from home. The guides themselves make more money online for people working at home than any of the methods they promote. Don’t get carried away with unsubstantiated sales copy. Use your brain and do some research.</div>
+
+    </div></td></tr></tbody></table></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]-->
+
+
+      <!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600px;">
+  <tr>
+    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+<![endif]--><div style="margin:0px auto;max-width:600px;"><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;padding-bottom:44px;padding-left:30px;padding-right:30px;" class="indented"><!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:top;width:600px;">
+<![endif]--><div aria-labelledby="mj-column-per-100" class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-break:break-word;font-size:0px;padding:0px;" align="left"><div style="cursor:auto;color:#3B424B;font-family:Georgia, 'Times New Roman', Times, serif;font-size:18px;line-height:32px;text-align:left;" class="text-default">
+      <div style="margin: 0;" class="revue-p"></div><div style="margin: 0; Margin: 0; display: block; font-weight: 700; padding-bottom: 8px;" class="revue-h2">
+<strong>Think this article was pure gold? Share it with your friends, or </strong><a href="https://gmeswag.com?utm_campaign=UA-188825179-1&amp;utm_medium=email&amp;utm_source=Revue%20newsletter" target="_blank" style="color: #3498DB;text-decoration:underline;"><strong>buy $gme swag</strong></a><strong> to send me some gold.</strong>
+</div><div style="margin: 0;" class="revue-p"><br></div>
+
+    </div></td></tr></tbody></table></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]-->
+
+
+      <!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600px;">
+  <tr>
+    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+<![endif]--><div style="margin:0px auto;max-width:600px;"><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;padding-bottom:44px;"><!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:top;width:600px;">
+<![endif]--><div aria-labelledby="mj-column-per-100" class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-break:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:600px;">
+    <img alt="" title="" height="auto" src="https://s3.amazonaws.com/revue/items/images/007/283/582/mail/unisex-premium-t-shirt-black-front-601a37b346555.png?1612331007" style="border:none;border-radius:0;display:block;outline:none;text-decoration:none;width:100%;height:auto;" width="600">
+</td></tr></tbody></table></td></tr><tr><td style="word-break:break-word;font-size:0px;padding:0px;padding-top:16px;" align="center"><div style="cursor:auto;color:#3B424B;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;font-size:14px;line-height:16px;text-align:center;"></div></td></tr></tbody></table></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]-->
+
+        <!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600px;">
+  <tr>
+    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+<![endif]--><div style="margin:0px auto;max-width:600px;"><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:top;width:600px;">
+<![endif]--><div aria-labelledby="mj-column-per-100" class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-break:break-word;font-size:0px;"><div style="font-size:1px;line-height:22px;"> </div></td></tr></tbody></table></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]-->
+
+
+    <!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600px;">
+  <tr>
+    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+<![endif]--><div style="margin:0px auto;max-width:600px;"><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;border-top:1px solid #ECEEF2;direction:ltr;font-size:0px;padding:20px 0px;"><!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:top;width:270px;">
+<![endif]--><div aria-labelledby="mj-column-per-50" class="mj-column-per-50" style="vertical-align:top;display:inline-block;font-size:0px;line-height:0px;text-align:left;width:100%;"><!--[if mso | IE]>
+<table  role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:middle;width:162px;">
+<![endif]--><div aria-labelledby="mj-column-per-60" class="mj-column-per-60 outlook-group-fix" style="vertical-align:middle;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:60%;"><table role="presentation" cellpadding="0" cellspacing="0" style="vertical-align:middle;" width="100%" border="0"><tbody><tr><td style="word-break:break-word;font-size:0px;padding:0px;" align="right"><div style="cursor:auto;color:#3B424B;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;font-size:13px;line-height:36px;text-align:right;">
+        Did you enjoy this issue?
+      </div></td></tr></tbody></table></div><!--[if mso | IE]>
+</td><td style="vertical-align:middle;width:54px;">
+<![endif]--><div aria-labelledby="mj-column-per-20" class="mj-column-per-20 outlook-group-fix" style="vertical-align:middle;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:20%;"><table role="presentation" cellpadding="0" cellspacing="0" style="vertical-align:middle;" width="100%" border="0"><tbody><tr><td style="word-break:break-word;font-size:0px;padding:0px;" align="right"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="right" border="0"><tbody><tr><td style="width:41px;"><img alt="" title="" height="36" style="border:none;border-radius:;display:block;outline:none;text-decoration:none;width:100%;height:36px;" width="41" src="//d3jbm9h03wxzi9.cloudfront.net/assets/email/thumbs_up-1ae5a7bdfcd3220e2b376aa0c1607bc5edaba758e5dd83b482d03965219a220b.png" /></td></tr></tbody></table></td></tr></tbody></table></div><!--[if mso | IE]>
+</td><td style="vertical-align:middle;width:54px;">
+<![endif]--><div aria-labelledby="mj-column-per-20" class="mj-column-per-20 outlook-group-fix" style="vertical-align:middle;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:20%;"><table role="presentation" cellpadding="0" cellspacing="0" style="vertical-align:middle;" width="100%" border="0"><tbody><tr><td style="word-break:break-word;font-size:0px;padding:0px;" align="left"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="left" border="0"><tbody><tr><td style="width:40px;"><img alt="" title="" height="36" style="border:none;border-radius:;display:block;outline:none;text-decoration:none;width:100%;height:36px;" width="40" src="//d3jbm9h03wxzi9.cloudfront.net/assets/email/thumbs_down-e13779fa29e2935b47488fb8f82977fedcf689a0cc0cc3c19fa3c6bb14d1493b.png" /></td></tr></tbody></table></td></tr></tbody></table></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]--></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]-->
+
+
+    <!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600px;">
+  <tr>
+    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+<![endif]--><table role="presentation" cellpadding="0" cellspacing="0" style="background:#FAFAFB;font-size:0px;width:100%;" border="0"><tbody><tr><td><div style="margin:0px auto;max-width:600px;"><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;padding-bottom:64px;padding-left:30px;padding-right:30px;padding-top:64px;" class="indented"><!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:top;width:600px;">
+<![endif]--><div aria-labelledby="mj-column-per-100" class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-break:break-word;font-size:0px;padding:0px;padding-bottom:16px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:84px;">
+    <a style="text-decoration: none;" target="_blank" href="https://www.getrevue.co/profile/andrewtye?utm_campaign=Issue&amp;utm_content=profileimage&amp;utm_medium=email&amp;utm_source=Launching+%F0%9F%9A%80">
+      <img alt="Andrew Tye" title="Andrew Tye" height="84px" width="84" style="border:none;border-radius:0;display:block;outline:none;text-decoration:none;width:100%;height:84px;" src="https://s3.amazonaws.com/revue/profiles/images/000/080/566/small/8avG6LcH.png?1612243953" />
+</a>  </td></tr></tbody></table></td></tr><tr><td style="word-break:break-word;font-size:0px;padding:0px;padding-bottom:8px;" align="center"><div style="cursor:auto;color:#111111;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;font-size:20px;font-weight:700;line-height:24px;text-align:center;">
+      By <a style="color: #111111;" href="https://www.getrevue.co/profile/andrewtye?utm_campaign=Issue&amp;utm_content=profilename&amp;utm_medium=email&amp;utm_source=Launching+%F0%9F%9A%80">Andrew Tye</a>
+    </div></td></tr><tr><td style="word-break:break-word;font-size:0px;padding:0px;" align="center"><div style="cursor:auto;color:#3B424B;font-family:Georgia, 'Times New Roman', Times, serif;font-size:16px;line-height:28px;text-align:center;">
+        <p>Various thoughts and product ideas</p>
+    </div></td></tr>
+          <tr><td style="word-break:break-word;font-size:0px;padding:0px;padding-top:32px;" align="center"><div style="cursor:auto;color:#3B424B;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;font-size:16px;line-height:20px;text-align:center;">
+            <a target="_blank" style="color: #1DA1F2; text-decoration: none;" href="https://www.twitter.com/share?url=https://www.getrevue.co/profile/andrewtye/issues/how-to-lose-money-323332&amp;via=revue&amp;text=How%20to%20lose%20money%20%F0%9F%92%B8%20by%20%40andrewtye&amp;related=revue">
+              <img alt="" width="24" height="20" style="border:none;border-radius:0;outline:none;text-decoration:none;vertical-align:middle;padding-right:3px;" src="//d3jbm9h03wxzi9.cloudfront.net/assets/email/share_twitter_2-c23bb19c3c2dbb4d69a4a5d6630babeab20cda45cf6876450e97cd68b50d2e60.png" />
+              <strong style="color: #1DA1F2;vertical-align:middle;">Tweet</strong>
+</a>               
+            <a target="_blank" style="color: #3B5998; text-decoration: none;" href="http://www.facebook.com/sharer/sharer.php?u=https://www.getrevue.co/profile/andrewtye/issues/how-to-lose-money-323332">
+              <img alt="" width="20" height="20" style="border:none;border-radius:0;outline:none;text-decoration:none;vertical-align:middle;padding-right:3px;" src="//d3jbm9h03wxzi9.cloudfront.net/assets/email/share_facebook_2-ed8f4e8cbe9cd64529b8d3f1651b4dca46f46d0d0e7d43120462b92f504e8097.png" />
+              <strong style="color: #3B5998;vertical-align:middle;">Share</strong></a>
+</a>          </div></td></tr>
+
+        </tbody></table></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]--></td></tr></tbody></table></div></td></tr></tbody></table><!--[if mso | IE]>
+</td></tr></table>
+<![endif]-->
+
+    <!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600px;">
+  <tr>
+    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+<![endif]--><div style="margin:0px auto;max-width:600px;"><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;padding-bottom:32px;padding-left:30px;padding-right:30px;padding-top:64px;" class="indented"><!--[if mso | IE]>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:top;width:600px;">
+<![endif]--><div aria-labelledby="mj-column-per-100" class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody>
+    <tr><td style="word-break:break-word;font-size:0px;padding:0px;" align="center"><div style="cursor:auto;color:#3B424B;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;font-size:14px;line-height:28px;text-align:center;">
+      If you don't want these updates anymore, please unsubscribe <a style="color: #3498DB" href="#">here</a>.
+    </div></td></tr>
+    <tr><td style="word-break:break-word;font-size:0px;padding:0px;" align="center"><div style="cursor:auto;color:#3B424B;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;font-size:14px;line-height:28px;text-align:center;">
+      If you were forwarded this newsletter and you like it, you can subscribe <a target="_blank" style="color: #3498DB" href="https://www.getrevue.co/profile/andrewtye?utm_campaign=Issue&amp;utm_content=forwarded&amp;utm_medium=email&amp;utm_source=Launching+%F0%9F%9A%80">here</a>.
+    </div></td></tr>
+    <tr><td style="word-break:break-word;font-size:0px;padding:0px;padding-top:8px;" align="center"><div style="cursor:auto;color:#3B424B;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;font-size:14px;line-height:28px;text-align:center;">
+      Powered by <a target="_parent" style="color: #3498DB" href="https://www.getrevue.co/?utm_source=Launching 🚀&amp;utm_medium=email&amp;utm_content=footerlink&amp;utm_campaign=Issue">Revue</a>
+    </div></td></tr></tbody></table></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
+</td></tr></table>
+<![endif]-->
+
+
+  </div>
+</body>
+</html>
+</div>
+</section>
+<section id='issue-share'>
+<span class='share'>Share</span>
+<a class="twitter" target="_blank" href="https://www.twitter.com/share?url=https://www.getrevue.co/profile/andrewtye/issues/how-to-lose-money-323332&amp;via=revue&amp;text=How%20to%20lose%20money%20%F0%9F%92%B8%20by%20%40andrewtye&amp;related=revue"><span class='icon-twitter'></span>
+<span class='name'>Share to Twitter</span>
+</a><a class="facebook" target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=https://www.getrevue.co/profile/andrewtye/issues/how-to-lose-money-323332"><span class='icon-facebook'></span>
+<span class='name'>Share to Facebook</span>
+</a></section>
+</section>
+<section class='profile-form'>
+<form class="new_member" id="new_member" action="/profile/andrewtye/add_subscriber" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="2vrbIWUMq41Vjv8TSI8GbIU8FR0wFy4C7HuJsODG9KC/XqLxfiI88rkLF2nbdo/nU2Vs7IeiRmOq5mLbxe6/5A==" /><input type="hidden" name="member[distinct_id]" id="member_distinct_id" />
+<div id='profile-form'>
+<div id='profile-form-fields'>
+<label for="member_email">Subscribe to our newsletter</label>
+<label class='sublabel'>By subscribing, you agree with Revue’s <a target="_blank" href="https://www.getrevue.co/terms?ref=Revue+Profile">Terms</a> and <a target="_blank" href="https://www.getrevue.co/privacy?ref=Revue+Profile">Privacy Policy</a>.</label>
+<div class='input-group'>
+<input class="form-control" placeholder="Your email address..." title="Subscribe to the newsletter of Launching 🚀" type="email" name="member[email]" id="member_email" />
+<div class='input-group-btn'><script src="https://www.recaptcha.net/recaptcha/api.js" async defer ></script>
+        <script>
+          var invisibleRecaptchaSubmit = function () {
+            var closestForm = function (ele) {
+              var curEle = ele.parentNode;
+              while (curEle.nodeName !== 'FORM' && curEle.nodeName !== 'BODY'){
+                curEle = curEle.parentNode;
+              }
+              return curEle.nodeName === 'FORM' ? curEle : null
+            };
+
+            var eles = document.getElementsByClassName('g-recaptcha');
+            if (eles.length > 0) {
+              var form = closestForm(eles[0]);
+              if (form) {
+                form.submit();
+              }
+            }
+          };
+        </script>
+<input type="submit" data-sitekey="6LcRA6wZAAAAAEYg1KFtJ_b70PaAcaJwppkQihHs" data-callback="invisibleRecaptchaSubmit" class="g-recaptcha btn btn-primary" title="Subscribe to the newsletter of Launching 🚀" value="Subscribe now"/>
+</div>
+</div>
+<span class='error-message'>
+
+
+</span>
+<div style='width: 1px; height: 1px; overflow: hidden;'>
+<input type="text" name="confirm_3sgiLQ" id="confirm_3sgiLQ" autocomplete="off" />
+</div>
+
+</div>
+</div>
+</form></section>
+<script nonce="JD0yiuobXvqYJdCYSugUhw==">
+//<![CDATA[
+var captchaCallback = function() {
+  $('#new_member').submit()
+};
+
+//]]>
+</script>
+</article>
+<div class='container'>
+<footer class='terms'>
+<div class='footer-privacy'>
+<a target="_blank" href="https://www.getrevue.co/privacy/platform?ref=Revue+Profile">Privacy Policy</a>
+</div>
+<div class='footer-custom'>
+</div>
+<div class='footer-powered'>
+<a target="_blank" href="https://www.getrevue.co/?ref=Revue+Profile"><span>Powered by</span>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" baseProfile="basic" id="Layer_1" x="0px" y="0px" width="69px" height="28px" viewBox="0 0 69 28" xml:space="preserve">
+  <path d="M64.5293352,10.7041667 C65.0574432,10.6932778 65.3370748,10.9435278 65.3487341,11.5175278 C65.4141025,14.6482778 61.2060582,14.9296389 61.2060582,14.9296389 C61.4291136,13.3777778 62.6296371,10.7436389 64.5293352,10.7041667 L64.5293352,10.7041667 Z M67.1731247,18.3427222 C66.183615,19.4257778 64.9358809,20.2513889 63.5530139,20.2803611 C60.9010055,20.3353889 61.2215402,16.9429167 61.2215402,16.9429167 C61.2215402,16.9429167 68.9206787,17.2128056 68.8088643,11.8327222 C68.7618449,9.56880556 66.6052604,8.54427778 64.6474571,8.58491667 C60.6521468,8.66833333 57.2805125,12.3923333 57.3781828,17.0982778 C57.3877396,17.5509444 57.4292161,17.9754167 57.5007008,18.3722778 C56.9821496,19.0516667 56.0666094,20.0699722 55.2370803,20.0699722 C54.781795,20.0699722 54.6111108,19.6655278 54.6111108,19.2105278 C54.6111108,15.7544722 56.2048006,12.3516944 56.2048006,10.3425 C56.2048006,9.12255556 55.3743158,8.77313889 54.3454321,8.77313889 C53.0770554,8.77313889 52.3717645,9.60088889 52.3717645,9.60088889 C53.0636759,11.5056667 50.6058615,20.0699722 48.0218975,20.0699722 C47.4106454,20.0699722 47.3039917,19.5891111 47.3039917,19.1971111 C47.3039917,16.6306389 48.8831551,12.3316667 48.8831551,10.4099722 C48.8831551,9.13286111 48.0360416,8.75369444 47.0310499,8.75369444 C45.8419945,8.75369444 45.0539418,9.60088889 45.0539418,9.60088889 C45.9052604,11.2443333 43.6670609,17.5278056 43.6670609,19.3456667 C43.6670609,21.1633333 44.6720526,22.5985278 46.4427341,22.5985278 C49.3199003,22.5985278 50.9894709,18.98225 50.9894709,18.98225 C50.9894709,18.98225 50.6058615,22.5985278 54.0992493,22.5985278 C55.8911468,22.5985278 57.3170194,21.0725278 58.0666537,20.0585 C58.9885014,21.7876944 60.7930139,22.6360556 63.2355374,22.5855 C64.9924571,22.54875 66.2531884,22.0451389 67.2291274,21.1678056 C68.7343213,19.8129167 67.7318144,17.7308056 67.1731247,18.3427222 L67.1731247,18.3427222 Z" id="logo-3"></path>
+  <path d="M26.7737202,10.6613889 C27.2463989,10.6401944 27.5780194,10.8772222 27.6036316,11.4508333 C27.7467922,14.6338889 23.4097313,14.9679444 23.4097313,14.9679444 C23.595133,13.4112222 25.0563657,10.7385833 26.7737202,10.6613889 L26.7737202,10.6613889 Z M40.7751773,8.25183333 C39.5069917,8.25183333 38.5365956,9.352 38.5365956,10.5278056 C38.5365956,12.46525 40.1209197,12.5216389 40.0922493,14.0808889 C40.0631967,15.6401389 37.5797701,20.0656944 35.9027452,20.0656944 C35.2813629,20.0656944 35.1850305,19.4376389 35.1850305,19.1428611 C35.1850305,16.1589167 36.764385,11.9 36.764385,10.4646111 C36.764385,9.11166667 35.9434571,8.76633333 34.9608283,8.76633333 C33.6624432,8.76633333 32.9456842,9.59233333 32.9456842,9.59233333 C33.3958089,10.5264444 32.953903,12.7576944 32.4514072,14.90125 C31.5830776,17.3673889 28.768795,20.3318889 26.2513463,20.3453056 C22.962856,20.3620278 23.4431801,16.8923611 23.4431801,16.8923611 C23.4431801,16.8923611 31.1772964,17.0648333 30.9355097,11.6886389 C30.8334432,9.42666667 28.6531579,8.45425 26.6968837,8.54233333 C22.7048227,8.72180556 19.5250886,12.5216389 19.7366759,17.2235 C19.9035374,20.9350556 22.6740499,22.7052778 25.6234654,22.5730556 C28.2326593,22.4552222 30.1816704,21.2733889 31.5830776,19.8959444 C31.766759,21.4402222 32.7354349,22.5901667 34.5905983,22.5901667 C39.4282438,22.5901667 43.2540166,15.6076667 43.2540166,11.2779722 C43.2540166,9.69344444 42.4260166,8.25183333 40.7751773,8.25183333 L40.7751773,8.25183333 Z" id="logo-2"></path>
+  <path d="M28.5526205,23.9979444 C27.8781025,24.3351111 26.6978393,24.9295278 24.176759,24.9295278 C16.3352244,24.9295278 14.7163047,14.8510833 14.7163047,14.8510833 C14.7163047,14.8510833 20.6525983,12.3402222 20.6525983,7.24869444 C20.6525983,2.14919444 16.5122161,0 12.3303573,0 C7.68422992,0 2.5235651,2.50327778 0.296451524,7.35233333 C-1.10954294,10.4138611 2.93030194,11.3689722 3.13080332,10.4148333 C3.78850139,7.28272222 7.27940443,2.35063889 12.3638061,2.35063889 C15.0450582,2.35063889 16.6133269,4.12183333 16.6133269,7.24947222 C16.6133269,11.1274722 12.1436177,13.1708889 10.1611579,13.8335556 C11.0426759,9.77763889 11.3523158,8.55438889 11.3523158,7.83455556 C11.3523158,6.24166667 10.4319972,5.97605556 9.4931385,5.97605556 C8.35492521,5.97605556 7.53285042,6.81061111 7.53285042,6.81061111 C8.19054848,8.01188889 7.07985873,12.2853889 6.59685873,14.0175 C6.01179224,16.1165278 5.20539058,19.2188889 4.69945429,21.1909444 C4.19351801,23.1635833 7.71806094,22.6329444 7.95411357,22.0507778 C8.21138227,21.4172778 8.88800277,19.0950278 9.5005928,16.6561111 C10.5281385,16.3356667 11.706108,15.8806667 11.706108,15.8806667 C12.2212188,19.3026944 14.9691773,28 22.8107119,28 C29.5392632,28 29.1092078,23.7198889 28.5526205,23.9979444" id="logo-1"></path>
+</svg>
+</a></div>
+</footer>
+</div>
+
+<section id='subscribe-bar'>
+<div id='subscribe-bar-form'><section class='profile-form'>
+<form class="new_member" id="new_member" action="/profile/andrewtye/add_subscriber" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="3nF3DXejM7/YoBa2lrHW5/yx23+2kY4AoXi4QOJmM8y71Q7dbI2kwDQl/swFSF9sKuiijgEk5mHn5VMrx054iA==" /><input type="hidden" name="member[distinct_id]" id="member_distinct_id" />
+<div id='profile-form'>
+<div id='profile-form-fields'>
+<label for="member_email">Subscribe to our newsletter</label>
+<label class='sublabel'>By subscribing, you agree with Revue’s <a target="_blank" href="https://www.getrevue.co/terms?ref=Revue+Profile">Terms</a> and <a target="_blank" href="https://www.getrevue.co/privacy?ref=Revue+Profile">Privacy Policy</a>.</label>
+<div class='input-group'>
+<input class="form-control" placeholder="Your email address..." title="Subscribe to the newsletter of Launching 🚀" type="email" name="member[email]" id="member_email" />
+<div class='input-group-btn'><script src="https://www.recaptcha.net/recaptcha/api.js" async defer ></script>
+        <script>
+          var invisibleRecaptchaSubmit = function () {
+            var closestForm = function (ele) {
+              var curEle = ele.parentNode;
+              while (curEle.nodeName !== 'FORM' && curEle.nodeName !== 'BODY'){
+                curEle = curEle.parentNode;
+              }
+              return curEle.nodeName === 'FORM' ? curEle : null
+            };
+
+            var eles = document.getElementsByClassName('g-recaptcha');
+            if (eles.length > 0) {
+              var form = closestForm(eles[0]);
+              if (form) {
+                form.submit();
+              }
+            }
+          };
+        </script>
+<input type="submit" data-sitekey="6LcRA6wZAAAAAEYg1KFtJ_b70PaAcaJwppkQihHs" data-callback="invisibleRecaptchaSubmit" class="g-recaptcha btn btn-primary" title="Subscribe to the newsletter of Launching 🚀" value="Subscribe now"/>
+</div>
+</div>
+<span class='error-message'>
+
+
+</span>
+<div style='width: 1px; height: 1px; overflow: hidden;'>
+<input type="text" name="confirm_APDfvV" id="confirm_APDfvV" autocomplete="off" />
+</div>
+
+</div>
+</div>
+</form></section>
+<script nonce="JD0yiuobXvqYJdCYSugUhw==">
+//<![CDATA[
+var captchaCallback = function() {
+  $('#new_member').submit()
+};
+
+//]]>
+</script></div>
+</section>
+
+</body>
+</html>

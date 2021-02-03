@@ -18,6 +18,7 @@ testing small portions of project before incorporating to main
     - [ ] 제목 더 멋있게
     - [ ] refresh 하는 동안 last updated 약간 매트릭스 느낌나게ㅎㅎ
     - [ ] 새로고침 쿨 다운 5분 정도 설정해두기 -> 그냥 이 정보만 저장할 model 하나 더 만들어보기
+    - [ ] 밑으로 쭉 내리면 상세정보 볼 수 있게 하기
     - [ ] *오른쪽 반에 달력(보류: 엄청 어려울듯)* 
         - [ ] 거기 마우스 올리면 커지게
         - [ ] 거기서 범위 고르면 왼쪽에서 보여주기
@@ -78,7 +79,7 @@ testing small portions of project before incorporating to main
         - **해결된줄 알았는데 아직도 중복되네 이거 고쳐야됨**
         - defaults 부분이 바꿔주고 싶은 부분이었음
             - 예전게 나중에 나와서 전에 푼 기록으로 업데이트 됨-> 순서 역순으로 바꿔야됨
-- 새로고침 했을 때 페이지 로딩 속도가 너어무 느리다..이거 어떻게 고칠지 생각해보기(**질문**)
+- 새로고침 했을 때 페이지 로딩 속도가 너어무 느리다..이거 어떻게 고칠지 생각해보기(**질문**) -> 멀티쓰레딩으로 해결
 
 
 <br>
@@ -92,6 +93,8 @@ testing small portions of project before incorporating to main
 - Figma로 애니메이션 만들어보기
 - 창 줄였을 때 버튼들이 카드 밖으로 삐져나옴
     - -> overflow 방지 해서 그냥 scroll 생기게 해보기
+- CSS SASS로 바꿔보기
+- Single Page Application -> Vue 겉핥기 해보기
 
 <br>
 

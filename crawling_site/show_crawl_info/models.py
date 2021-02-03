@@ -62,6 +62,8 @@ class Question(models.Model):
         choices = SITE_CHOICES,
         default='B'
     )
+    updated = models.DateTimeField(auto_now=True)
+
         
     def __str__(self):
         return self.question_number

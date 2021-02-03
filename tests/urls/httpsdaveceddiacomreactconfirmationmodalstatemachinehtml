@@ -1,0 +1,1350 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>Build A Confirmation Modal in React with State Machines</title>
+<meta name="description" content="React confirmation modals can be tricky, with useEffect and keeping track of shown/hidden, loading/not, and errors. State machines make it a breeze!">
+<meta name="keywords" content="react">
+
+
+<!-- Twitter Cards -->
+<meta name="twitter:title" content="Build A Confirmation Modal in React with State Machines">
+<meta name="twitter:description" content="React confirmation modals can be tricky, with useEffect and keeping track of shown/hidden, loading/not, and errors. State machines make it a breeze!">
+<meta name="twitter:site" content="@dceddia">
+<meta name="twitter:creator" content="@dceddia">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://daveceddia.com/images/react-state-machines_social.png">
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Build A Confirmation Modal in React with State Machines">
+<meta property="og:description" content="React confirmation modals can be tricky, with useEffect and keeping track of shown/hidden, loading/not, and errors. State machines make it a breeze!">
+
+<meta property="og:image" content="https://daveceddia.com/images/react-state-machines_social.png">
+
+<meta property="og:url" content="https://daveceddia.com/react-confirmation-modal-state-machine/">
+<meta property="og:site_name" content="Dave Ceddia">
+
+
+
+
+
+
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400|PT+Serif:400,400i,700" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="canonical" href="https://daveceddia.com/react-confirmation-modal-state-machine/">
+<link href="https://daveceddia.com/feed.xml" type="application/atom+xml" rel="alternate" title="Dave Ceddia Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="fb:admins" content="50205984" />
+
+<meta property="dc:page_id" content="react-confirmation-modal-state-machine">
+
+<!-- For all browsers -->
+<link rel="stylesheet" type="text/css" href="https://daveceddia.com/assets/css/site.min.css?v=4">
+
+<!-- Preload the CSS and fonts for Commento if we have comments -->
+
+  <link rel="preload" href="https://commento.daveceddia.com/css/commento.css" as="style">
+  <link rel="preload" href="https://commento.daveceddia.com/fonts/source-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="https://commento.daveceddia.com/fonts/source-sans-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+
+
+
+
+
+
+<!-- Webfonts -->
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- HTML5 Shiv and Media Query Support -->
+<!--[if lt IE 9]>
+  <script src="https://daveceddia.com/assets/js/vendor/html5shiv.min.js"></script>
+  <script src="https://daveceddia.com/assets/js/vendor/respond.min.js"></script>
+<![endif]-->
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="https://daveceddia.com/favicon.ico?v=2">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="https://daveceddia.com/favicon.png?v=2">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="https://daveceddia.com/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://daveceddia.com/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://daveceddia.com/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://daveceddia.com/images/apple-touch-icon-144x144-precomposed.png">
+
+<script async defer data-domain="daveceddia.com" src="/scripts.js"></script>
+
+</head>
+
+<body id="post">
+
+<nav role="navigation" id="site-nav">
+	<header>
+    
+		<a href="https://daveceddia.com/" class="site-logo" rel="home" title="Dave Ceddia">
+      <img
+        src="https://daveceddia.com/images/logo.png"
+        srcset="https://daveceddia.com/images/logo@2x.png 2x"
+        alt="Dave Ceddia logo"/>
+		</a>
+    
+    <h2 class="site-title"><a href="https://daveceddia.com/">Dave Ceddia</a></h1>
+		<h3 class="site-description" itemprop="description">Articles to help you learn and master frontend development with React.</h2>
+	</header>
+  <ul>
+  
+    
+    <li>
+    	<a  href="https://daveceddia.com/courses/" >Courses</a>
+    </li>
+  
+    
+    <li>
+    	<a  href="https://daveceddia.com/archives/" >All Posts</a>
+    </li>
+  
+    
+    <li>
+    	<a  href="https://daveceddia.com/about/" >About</a>
+    </li>
+  
+  </ul>
+</nav>
+
+
+<div id="main" role="main">
+  <article class="hentry">
+    <div class="entry-wrapper">
+      <header class="entry-header">
+        <span class="entry-tags"><a href="https://daveceddia.com/tags/#react" title="Pages tagged react">react</a></span>
+        
+          <h1 class="entry-title">Build A Confirmation Modal in React with State Machines</h1>
+        
+      </header>
+      <footer class="entry-meta muted-centered" style="color: #3b5e82;">
+        
+        <span class="author vcard">By <span class="fn">Dave Ceddia</span></span>
+        
+          
+            <span class="entry-date date published"><time datetime="2020-08-19T13:06:05+00:00"><i class="fa fa-calendar-o"></i> August 19, 2020</time></span>
+          
+        
+        
+      </footer>
+      <div class="entry-content">
+        <p>Ever needed to wire up a confirmation dialog in React? You know the ones: “Really delete this file? — Yes / Cancel”</p>
+
+<p>These dialogs tend to follow a consistent pattern:</p>
+
+<ul>
+  <li>User tries to do dangerous/destructive action</li>
+  <li>Modal pops up asking if they’re <em>really really sure</em></li>
+  <li>On <strong>Cancel</strong>: hide the modal, do nothing</li>
+  <li>On <strong>Confirm</strong>: do the action, and <em>then</em> hide the modal after the action is done</li>
+</ul>
+
+<p>I worked on an app that had a need to protect dangerous actions like Delete, in a few places across the app.</p>
+
+<p>The asynchronous nature of the flow (Confirm, wait until done, then close) meant that there would be plenty of finicky <code>useEffect</code> code to show and hide the modal, wait for the async API call to finish before hiding it, and so on.</p>
+
+<p>Or… could I avoid <code>useEffect</code> entirely by using a state machine?</p>
+
+<p>It turned out the answer was yes!</p>
+
+<p>In this article we’ll build a reusable state machine using React and <a href="https://thisrobot.life">Robot</a> to handle this modal confirmation flow, and wrap it up into a custom hook.</p>
+
+<h2 id="whats-a-state-machine">What’s a State Machine?</h2>
+
+<p>State machines let you describe the various <strong>states</strong> that your app can be in, and also let you define <strong>transitions</strong> between them.</p>
+
+<p>You can think of the individual states as the <em>rest periods</em> between actions that the user takes.</p>
+
+<p><img src="https://daveceddia.com/images/confirmation-modal-state-machine.png" srcset="https://daveceddia.com/images/confirmation-modal-state-machine@2x.png 2x" alt="Confirmation modal state machine" /></p>
+
+<p>Actions can be triggered by any kind of event: things like a user clicking a button, an API call finishing, a websocket message arriving, or a timer going off.</p>
+
+<p><img src="https://daveceddia.com/images/traffic-light-state-machine.png" srcset="https://daveceddia.com/images/traffic-light-state-machine@2x.png 2x" alt="Traffic light state machine. Mere seconds between green and yellow, basically no time between yellow and red, and 4 hours between red and green." /></p>
+
+<p>Traffic lights are an everyday example of a state machine with actions that are based on timers <small style="font-size: 70%; opacity: 0.8;">and spite</small>.</p>
+
+<p>In some sense, your entire UI is already a state machine.</p>
+
+<p>Imagine you’re on the Home page (state: <code>home</code>) and you click the About link (action: <code>click About</code>) and now you’re on the About page (state: <code>about</code>). Even if you didn’t build this using some state machine library, the app is still <strong>in</strong> various states.</p>
+
+<p>A lot of bugs stem from the fact that the grand “state machine of our app” is usually implicit. Sure, maybe you drew out a block diagram for some parts – but after it’s built, you’ve gotta resort to piecing together this “state machine” by reasoning through the code.</p>
+
+<p>Here in this article, though, we are actually going to build a concrete <strong>finite state machine</strong>: one that we’ll describe intentionally, using code.</p>
+
+<p>Having a state machine powering an interaction reminds me of having good test coverage: it feels <em>peaceful</em>.</p>
+
+<p>I can look at the state machine and <em>know for a fact</em> that there are no bugs lurking: these are the only states it can be in, and I hand-picked them, and all the transitions are accounted for. If the state machine is correct, the app will work correctly. Blissful peace of mind.</p>
+
+<h2 id="a-confirmation-modal-in-react">A Confirmation Modal in React</h2>
+
+<p>Here’s the state machine we’ll be building to control a confirmation dialog.</p>
+
+<p><img src="https://daveceddia.com/images/confirmation-modal-state-machine.png" srcset="https://daveceddia.com/images/confirmation-modal-state-machine@2x.png 2x" alt="Confirmation modal state machine" /></p>
+
+<p>We’ll start in the <strong><code>initial</code></strong> state. When the user clicks the “Delete” button, we’ll trigger the <code>begin</code> action that’ll take us to the <strong><code>confirming</code></strong> state. While confirming, we show the modal.</p>
+
+<p>From here there are 2 things that can happen: the user can click Cancel, or they can Confirm. We go back to <strong><code>initial</code></strong> if they <code>cancel</code>, but if they <code>confirm</code>, we kick off our API call to delete whatever-it-is and hang out in the <strong><code>loading</code></strong> state until that succeeds or fails.</p>
+
+<p>These blocks make up the <em>only</em> valid states that this flow can be in.</p>
+
+<p>It’s impossible, for example, to click the Confirm button before the modal appears. It’s also impossible for the modal to disappear before the API call to delete the item either succeeds or fails. And it’s impossible to cancel the delete – once they click that button, it’s <em>gone</em>.</p>
+
+<p>Fair warning: it can and probably will take extra effort and time the first few times you build a state machine. It’s a different way of thinking about problems, and it might feel awkward. The benefits are worth it though! Push through that feeling and you’ll be rewarded with some very reliable code.</p>
+
+<h2 id="create-a-project">Create a Project</h2>
+
+<p>Let’s start building a state machine to represent this. We’ll do it within a Create React App project, but we’ll ignore the React parts at first, and focus on the state machine.</p>
+
+<div class="codeblock"><pre class="shiki" style="background-color: #31324e; color: #c9cdd7" data-language="shell"><code><span style="color: #C9CDD7">create-react-app confirmation-modal</span></code></pre>
+</div>
+<p>A nice thing about these state machines: you can use them with any UI or backend library! The first half of this post will apply whether you’re using Vue or Angular or <a href="/svelte-intro/">Svelte</a> or whatever.</p>
+
+<h2 id="robot-vs-xstate">Robot vs. XState</h2>
+
+<p>I built a flow like this for a client project, and we used the <a href="https://thisrobot.life">Robot</a> library, so that’s what I’ll show here. <a href="https://github.com/davidkpiano/xstate">XState</a> is another great state machine library.</p>
+
+<p>While we ended up using Robot, we could’ve just as easily gone with XState. Both create finite state machines. Both work with React.</p>
+
+<p>In our case, Robot had a couple things we liked: the tiny size (it’s only 1kb) and the concise functional way it lets you declare states. “One way to do things” is a guiding principle of Robot. This can be a pro and a con, because it can take some time to wrap your head around that “one way.”</p>
+
+<p>XState has its own advantages: the object-based way of declaring states can be easier to read, and the <a href="https://xstate.js.org/viz/">XState Visualizer</a> is an awesome way to visually see <em>and interact with</em> the state machines you write. XState is larger than Robot, but it’s still only 11kb.</p>
+
+<p>You can’t really go wrong with either one.</p>
+
+<h2 id="install-robot">Install Robot</h2>
+
+<p>Start off by installing the library along with its React counterpart:</p>
+
+<div class="codeblock"><pre class="shiki" style="background-color: #31324e; color: #c9cdd7" data-language="shell"><code><span style="color: #C9CDD7">npm install robot3 react-robot</span></code></pre>
+</div>
+<p>Then we can import a few functions from it and get started.</p>
+
+<div class="code-filename">src/confirmationFlow.js</div>
+
+<div class="codeblock"><pre class="shiki" style="background-color: #31324e; color: #c9cdd7" data-language="js"><code><span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">createMachine,</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">state,</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">transition</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">}</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;robot3&apos;</span><span style="color: #C9CDD7">;</span>
+
+<span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">confirmationFlow</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">createMachine</span><span style="color: #9CA5B7">({</span>
+<span style="color: #C9CDD7">  </span><span style="color: #6E778C">// State machine goes here</span>
+<span style="color: #9CA5B7">})</span><span style="color: #C9CDD7">;</span></code></pre>
+</div>
+<p>Then we’re going to fill out this object with states. We’ll have three:</p>
+
+<ul>
+  <li><code>initial</code>: while the modal is hidden</li>
+  <li><code>confirming</code>: while the modal is shown, and we’re asking the user if they’re <em>realllly</em> sure</li>
+  <li><code>loading</code>: while the modal is still visible, but they’ve clicked Confirm, so we’re performing that request in the background</li>
+</ul>
+
+<div class="codeblock"><pre class="shiki highlighted" style="background-color: #31324e; color: #c9cdd7" data-language="js"><code><span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">createMachine,</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">state,</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">transition</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">}</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;robot3&apos;</span><span style="color: #C9CDD7">;</span>
+
+<span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">confirmationFlow</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">createMachine</span><span style="color: #9CA5B7">({</span>
+<span class="hl"><span style="color: #C9CDD7">  initial</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">state</span><span style="color: #9CA5B7">()</span><span style="color: #D1D5DE">,</span>
+</span><span class="hl"><span style="color: #C9CDD7">  confirming</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">state</span><span style="color: #9CA5B7">()</span><span style="color: #D1D5DE">,</span>
+</span><span class="hl"><span style="color: #C9CDD7">  loading</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">state</span><span style="color: #9CA5B7">()</span>
+</span><span style="color: #9CA5B7">})</span><span style="color: #C9CDD7">;</span></code></pre>
+</div>
+<p>You know how they say Naming Things is one of the hard problems in computer science? Yeah. Well…</p>
+
+<p>I’m not gonna lie: coming up with names for the states feels <em>weird</em> at first. Drawing out a diagram was helpful to think through all the various states and what they could be called.</p>
+
+<p>Expect it to be hard and awkward the first few times you sit down to try this on your own problems.</p>
+
+<p>And take heart: if it’s difficult to reason through the different states this thing can be in, just imagine how buggy it could be <em>without</em> knowing what the states are ;)</p>
+
+<h2 id="transition-between-states">Transition Between States</h2>
+
+<p>States by themselves aren’t very useful. They’re the <em>resting</em> positions, after all.</p>
+
+<p>To move between them, we need <strong>transitions</strong> and <strong>actions</strong>. Let’s add a few.</p>
+
+<div class="codeblock"><pre class="shiki highlighted" style="background-color: #31324e; color: #c9cdd7" data-language="js"><code><span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">createMachine,</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">state,</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">transition</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">}</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;robot3&apos;</span><span style="color: #C9CDD7">;</span>
+
+<span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">confirmationFlow</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">createMachine</span><span style="color: #9CA5B7">({</span>
+<span style="color: #C9CDD7">  initial</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">state</span><span style="color: #9CA5B7">(</span>
+<span class="hl"><span style="color: #C9CDD7">    </span><span style="color: #AFF19F">transition</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;begin&apos;</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;confirming&apos;</span><span style="color: #9CA5B7">)</span>
+</span><span style="color: #C9CDD7">  </span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+<span style="color: #C9CDD7">  confirming</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">state</span><span style="color: #9CA5B7">(</span>
+<span class="hl"><span style="color: #C9CDD7">    </span><span style="color: #AFF19F">transition</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;confirm&apos;</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;loading&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+</span><span class="hl"><span style="color: #C9CDD7">    </span><span style="color: #AFF19F">transition</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;cancel&apos;</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;initial&apos;</span><span style="color: #9CA5B7">)</span>
+</span><span style="color: #C9CDD7">  </span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+<span style="color: #C9CDD7">  loading</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">state</span><span style="color: #9CA5B7">()</span>
+<span style="color: #9CA5B7">})</span><span style="color: #C9CDD7">;</span></code></pre>
+</div>
+<p>The format of this function is <code>transition(actionName, nextState)</code>, and a state can have as many transitions as you want.</p>
+
+<p>These are saying:</p>
+
+<ul>
+  <li>“When the <code>begin</code> action occurs, go to the <code>confirming</code> state”</li>
+  <li>“When the <code>confirm</code> action occurs, go to the <code>loading</code> state”</li>
+  <li>“When the <code>cancel</code> action occurs, go back to the <code>initial</code> state”</li>
+</ul>
+
+<p>We’ll look at how to trigger these actions in a bit.</p>
+
+<p>Here’s an important rule that state machines follow: <strong>the only way out of a state is through a valid transition</strong>.</p>
+
+<p>That means if we send in the “confirm” action while we’re in the “initial” state, nothing will happen. It won’t throw an error (although you can configure it to do that) – just nothing.</p>
+
+<p>If a state doesn’t have any transitions, it’s a <strong>final</strong> state: there’s no way out! Right now, our <code>loading</code> state is final, which would mean the modal stays open forever. We’ll fix that in a minute.</p>
+
+<h2 id="try-out-the-machine">Try Out the Machine</h2>
+
+<p>Before we build out the <code>loading</code> state, let’s actually try out what we have so far.</p>
+
+<p>This <code>confirmationFlow</code> machine we’ve created is not actually <em>alive</em> yet. It’s like a template.</p>
+
+<p>To start it up and interact with it, we need Robot’s <code>interpret</code> function.</p>
+
+<div class="codeblock"><pre class="shiki highlighted" style="background-color: #31324e; color: #c9cdd7" data-language="js"><code><span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+<span style="color: #C9CDD7">  </span><span style="color: #D1D5DE">createMachine,</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">state,</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">transition,</span>
+<span class="hl"><span style="color: #C9CDD7">  </span><span style="color: #D1D5DE">interpret</span>
+</span><span style="color: #9CA5B7">}</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;robot3&apos;</span><span style="color: #C9CDD7">;</span>
+
+<span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">confirmationFlow</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">createMachine</span><span style="color: #9CA5B7">({</span>
+<span style="color: #C9CDD7">  initial</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">state</span><span style="color: #9CA5B7">(</span>
+<span style="color: #C9CDD7">    </span><span style="color: #AFF19F">transition</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;begin&apos;</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;confirming&apos;</span><span style="color: #9CA5B7">)</span>
+<span style="color: #C9CDD7">  </span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+<span style="color: #C9CDD7">  confirming</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">state</span><span style="color: #9CA5B7">(</span>
+<span style="color: #C9CDD7">    </span><span style="color: #AFF19F">transition</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;confirm&apos;</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;loading&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+<span style="color: #C9CDD7">    </span><span style="color: #AFF19F">transition</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;cancel&apos;</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;initial&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+<span style="color: #C9CDD7">  </span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+<span style="color: #C9CDD7">  loading</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">state</span><span style="color: #9CA5B7">()</span><span style="color: #D1D5DE">,</span>
+<span style="color: #9CA5B7">})</span><span style="color: #C9CDD7">;</span>
+
+<span class="hl"><span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">service</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">interpret</span><span style="color: #9CA5B7">(</span><span style="color: #D1D5DE">confirmationFlow,</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+</span><span class="hl"><span style="color: #C9CDD7">  </span><span style="color: #93DDFD">console</span><span style="color: #D1D5DE">.</span><span style="color: #AFF19F">log</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;state changed to&apos;</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">service</span><span style="color: #D1D5DE">.</span><span style="color: #93DDFD">machine</span><span style="color: #D1D5DE">.current</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+</span><span class="hl"><span style="color: #9CA5B7">})</span>
+</span><span class="hl">
+</span><span class="hl"><span style="color: #93DDFD">service</span><span style="color: #D1D5DE">.</span><span style="color: #AFF19F">send</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;begin&apos;</span><span style="color: #9CA5B7">)</span>
+</span><span class="hl"><span style="color: #93DDFD">service</span><span style="color: #D1D5DE">.</span><span style="color: #AFF19F">send</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;cancel&apos;</span><span style="color: #9CA5B7">)</span>
+</span></code></pre>
+</div>
+<p><strong><a href="https://codesandbox.io/s/loving-water-x4xxb?file=/src/index.js">Try it here!</a></strong> - try calling <code>service.send()</code> with action names to see how it works.</p>
+
+<p>Calling <code>interpret</code> gives us a “service” that we can use to send actions and inspect the current state of the machine.</p>
+
+<p>In practice, once we add this to a React app, we won’t need to call <code>interpret</code> ourselves – the react-robot package provides a hook for this.</p>
+
+<p>The <code>service</code> object has a few useful properties on it:</p>
+
+<ul>
+  <li>The <em><code>send</code></em> function for sending actions into the machine</li>
+  <li>The <em><code>machine</code></em> property that refers to this instance of the state machine (the current state is at <code>service.machine.current</code>)</li>
+  <li>The <em><code>context</code></em> object with whatever you’ve put in there, initially empty.</li>
+</ul>
+
+<h2 id="on-confirm-delete-the-thing">On Confirm, Delete the Thing</h2>
+
+<p>The next step is to actually call our API when the user clicks Confirm. We need another of Robot’s functions for this: <a href="https://thisrobot.life/api/invoke.html"><strong>invoke</strong></a>.</p>
+
+<p><code>invoke</code> creates a special state that calls a function when it is entered. Perfect for calling an API or doing some other async work.</p>
+
+<div class="codeblock"><pre class="shiki highlighted" style="background-color: #31324e; color: #c9cdd7" data-language="js"><code><span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+<span style="color: #C9CDD7">  </span><span style="color: #D1D5DE">createMachine,</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">state,</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">transition,</span>
+<span style="color: #C9CDD7">  </span><span style="color: #D1D5DE">interpret,</span>
+<span class="hl"><span style="color: #C9CDD7">  </span><span style="color: #D1D5DE">invoke</span>
+</span><span style="color: #9CA5B7">}</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;robot3&apos;</span><span style="color: #C9CDD7">;</span>
+
+<span class="hl"><span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">deleteSomething</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">async</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+</span><span class="hl"><span style="color: #C9CDD7">  </span><span style="color: #6E778C">// call an API to delete something</span>
+</span><span class="hl"><span style="color: #9CA5B7">}</span>
+</span>
+<span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">confirmationFlow</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">createMachine</span><span style="color: #9CA5B7">({</span>
+<span style="color: #C9CDD7">  initial</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">state</span><span style="color: #9CA5B7">(</span>
+<span style="color: #C9CDD7">    </span><span style="color: #AFF19F">transition</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;begin&apos;</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;confirming&apos;</span><span style="color: #9CA5B7">)</span>
+<span style="color: #C9CDD7">  </span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+<span style="color: #C9CDD7">  confirming</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">state</span><span style="color: #9CA5B7">(</span>
+<span style="color: #C9CDD7">    </span><span style="color: #AFF19F">transition</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;confirm&apos;</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;loading&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+<span style="color: #C9CDD7">    </span><span style="color: #AFF19F">transition</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;cancel&apos;</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;initial&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+<span style="color: #C9CDD7">  </span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+<span class="hl"><span style="color: #C9CDD7">  loading</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">invoke</span><span style="color: #9CA5B7">(</span><span style="color: #D1D5DE">deleteSomething,</span>
+</span><span class="hl"><span style="color: #C9CDD7">    </span><span style="color: #AFF19F">transition</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;done&apos;</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;initial&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+</span><span class="hl"><span style="color: #C9CDD7">    </span><span style="color: #AFF19F">transition</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;error&apos;</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;confirming&apos;</span><span style="color: #9CA5B7">)</span>
+</span><span class="hl"><span style="color: #C9CDD7">  </span><span style="color: #9CA5B7">)</span>
+</span><span style="color: #9CA5B7">})</span><span style="color: #C9CDD7">;</span></code></pre>
+</div>
+<p>The function we invoke must return a promise (and since <code>deleteSomething</code> is marked with <code>async</code>, it always returns a promise).</p>
+
+<ul>
+  <li>When the action succeeds, we go back to the <strong><code>initial</code></strong> state.</li>
+  <li>If it fails, we go to <strong><code>confirming</code></strong>.</li>
+</ul>
+
+<p>The ‘done’ and ‘error’ actions are ones that <code>invoke</code> will emit when the Promise resolves or rejects. We don’t need to define them anywhere.</p>
+
+<h2 id="keep-track-of-errors">Keep Track of Errors</h2>
+
+<p>As it’s current written, if an error occurs, the user will never know. Seems like we should show the user an error or something.</p>
+
+<p>Turns out we can store things in the machine’s “context” for later: perfect for storing error info, and anything else that needs to stick around between state changes.</p>
+
+<p>We’ll import the <code>reduce</code> function and add it to our ‘error’ transition:</p>
+
+<div class="codeblock"><pre class="shiki highlighted" style="background-color: #31324e; color: #c9cdd7" data-language="js"><code><span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+<span style="color: #C9CDD7">  </span><span style="color: #D1D5DE">createMachine,</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">state,</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">transition,</span>
+<span style="color: #C9CDD7">  </span><span style="color: #D1D5DE">interpret,</span>
+<span style="color: #C9CDD7">  </span><span style="color: #D1D5DE">invoke,</span>
+<span class="hl"><span style="color: #C9CDD7">  </span><span style="color: #D1D5DE">reduce</span>
+</span><span style="color: #9CA5B7">}</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;robot3&apos;</span><span style="color: #C9CDD7">;</span>
+
+<span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">deleteSomething</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">async</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+<span style="color: #C9CDD7">  </span><span style="color: #6E778C">// call an API to delete something</span>
+<span style="color: #9CA5B7">}</span>
+
+<span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">confirmationFlow</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">createMachine</span><span style="color: #9CA5B7">({</span>
+<span style="color: #C9CDD7">  initial</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">state</span><span style="color: #9CA5B7">(</span>
+<span style="color: #C9CDD7">    </span><span style="color: #AFF19F">transition</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;begin&apos;</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;confirming&apos;</span><span style="color: #9CA5B7">)</span>
+<span style="color: #C9CDD7">  </span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+<span style="color: #C9CDD7">  confirming</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">state</span><span style="color: #9CA5B7">(</span>
+<span style="color: #C9CDD7">    </span><span style="color: #AFF19F">transition</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;confirm&apos;</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;loading&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+<span style="color: #C9CDD7">    </span><span style="color: #AFF19F">transition</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;cancel&apos;</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;initial&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+<span style="color: #C9CDD7">  </span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+<span style="color: #C9CDD7">  loading</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">invoke</span><span style="color: #9CA5B7">(</span><span style="color: #D1D5DE">deleteSomething,</span>
+<span style="color: #C9CDD7">    </span><span style="color: #AFF19F">transition</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;done&apos;</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;initial&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+<span style="color: #C9CDD7">    </span><span style="color: #AFF19F">transition</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;error&apos;</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;confirming&apos;</span><span style="color: #D1D5DE">,</span>
+<span class="hl"><span style="color: #C9CDD7">      </span><span style="color: #AFF19F">reduce</span><span style="color: #9CA5B7">((</span><span style="color: #FDAC45">context</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #FDAC45">event</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+</span><span class="hl"><span style="color: #C9CDD7">        </span><span style="color: #FF8383">return</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+</span><span class="hl"><span style="color: #C9CDD7">          </span><span style="color: #93DDFD">...</span><span style="color: #D1D5DE">context,</span>
+</span><span class="hl"><span style="color: #C9CDD7">          error</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">event</span><span style="color: #D1D5DE">.error</span>
+</span><span class="hl"><span style="color: #C9CDD7">        </span><span style="color: #9CA5B7">}</span>
+</span><span class="hl"><span style="color: #C9CDD7">      </span><span style="color: #9CA5B7">})</span>
+</span><span style="color: #C9CDD7">    </span><span style="color: #9CA5B7">)</span>
+<span style="color: #C9CDD7">  </span><span style="color: #9CA5B7">)</span>
+<span style="color: #9CA5B7">})</span><span style="color: #C9CDD7">;</span></code></pre>
+</div>
+<p><strong><a href="https://codesandbox.io/s/sad-meitner-ptd49?file=/src/index.js">Try it here!</a></strong> - in particular, play around with the success and failure modes by swapping out the function passed to <code>invoke</code>.</p>
+
+<p>The <code>reduce</code> function lets us change the context of the machine. Context is remembered between state changes, and you can access its value from <code>service.context</code>.</p>
+
+<p>The function we pass in gets the current <code>context</code> along with the <code>event</code> that just occurred. Whatever it returns becomes the <em>new</em> context.</p>
+
+<p>Here, we’re returning a new context that includes everything in the old one, plus the error. The <code>event.error</code> key holds the error that the Promise rejected with.</p>
+
+<p>If instead it resolved successfully, then ‘done’ would be dispatched, and the event would have a <code>data</code> key with whatever the Promise returned. This way we can get the data back out to our app.</p>
+
+<h2 id="build-the-app">Build the App</h2>
+
+<p>Now that we have our state machine, let’s put it to work in a React component. We’re going to leave the machine in its own file, export it from there, and import it into our React component. (You could jam this all in one file if you want of course, but this’ll make it more reusable)</p>
+
+<div class="code-filename">src/confirmationFlow.js</div>
+<div class="codeblock"><pre class="shiki highlighted" style="background-color: #31324e; color: #c9cdd7" data-language="js"><code><span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+<span style="color: #C9CDD7">  </span><span style="color: #D1D5DE">createMachine,</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">state,</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">transition,</span>
+<span style="color: #C9CDD7">  </span><span style="color: #D1D5DE">interpret,</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">invoke,</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">reduce</span>
+<span style="color: #9CA5B7">}</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;robot3&apos;</span><span style="color: #C9CDD7">;</span>
+
+<span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">deleteSomething</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">async</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+<span style="color: #C9CDD7">  </span><span style="color: #6E778C">// call an API to delete something</span>
+<span style="color: #9CA5B7">}</span>
+
+<span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">confirmationFlow</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">createMachine</span><span style="color: #9CA5B7">({</span>
+<span style="color: #C9CDD7">  </span><span style="color: #6E778C">// ... everything we&apos;ve written so far ...</span>
+<span style="color: #9CA5B7">})</span><span style="color: #C9CDD7">;</span>
+
+<span class="hl"><span style="color: #FF8383">export</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">confirmationFlow</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">}</span><span style="color: #C9CDD7">;</span>
+</span></code></pre>
+</div>
+<p>Then we’ll import the machine into <code>src/App.js</code>, along with the <code>useMachine</code> hook.</p>
+
+<div class="code-filename">src/App.js</div>
+<div class="codeblock"><pre class="shiki highlighted" style="background-color: #31324e; color: #c9cdd7" data-language="jsx"><code><span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">React</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">"react"</span><span style="color: #C9CDD7">;</span>
+<span class="hl"><span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">confirmationFlow</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">}</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">"./confirmationFlow"</span><span style="color: #C9CDD7">;</span>
+</span><span class="hl"><span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">useMachine</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">}</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">"react-robot"</span><span style="color: #C9CDD7">;</span>
+</span>
+<span style="color: #FF8383">export</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">default</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">function</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">App</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+<span class="hl"><span style="color: #C9CDD7">  </span><span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> [</span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">send</span><span style="color: #C9CDD7">] </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">useMachine</span><span style="color: #9CA5B7">(</span><span style="color: #D1D5DE">confirmationFlow</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+</span>
+<span style="color: #C9CDD7">  </span><span style="color: #FF8383">return</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">(</span>
+<span style="color: #C9CDD7">    </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">div</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">h1</span><span style="color: #8AD2F0">&gt;</span><span style="color: #C9CDD7">Modal Test</span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">h1</span><span style="color: #8AD2F0">&gt;</span>
+<span class="hl"><span style="color: #C9CDD7">      Current state: </span><span style="color: #FFE78F">{</span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">.name</span><span style="color: #FFE78F">}</span>
+</span><span style="color: #C9CDD7">    </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">div</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">  </span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+<span style="color: #9CA5B7">}</span></code></pre>
+</div>
+<p>The <code>useMachine</code> hook is taking the place of the <code>interpret</code> function we used earlier. It returns an array of things (so you can name them whatever you like).</p>
+
+<ul>
+  <li>The first element, <em><code>current</code></em> here, holds the <code>name</code> of the current state, the <code>context</code>, and the <code>machine</code> instance.</li>
+  <li>The second element, <em><code>send</code></em>, is the function for sending actions into the machine</li>
+</ul>
+
+<p>Next we’ll need a dialog that we can show and hide, and a button to trigger the process.</p>
+
+<h2 id="set-up-react-modal">Set Up react-modal</h2>
+
+<p>Modal dialogs are tricky to get right (especially the accessibility aspects like focus handling), so we’ll use the <code>react-modal</code> library.</p>
+
+<div class="codeblock"><pre class="shiki" style="background-color: #31324e; color: #c9cdd7" data-language="shell"><code><span style="color: #C9CDD7">npm install react-modal</span></code></pre>
+</div>
+<p>It requires a bit of extra setup to tell react-modal which element is the root, so take care of that in <code>index.js</code> first:</p>
+
+<div class="code-filename">src/index.js</div>
+<div class="codeblock"><pre class="shiki highlighted" style="background-color: #31324e; color: #c9cdd7" data-language="jsx"><code><span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">React</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">"react"</span><span style="color: #C9CDD7">;</span>
+<span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">ReactDOM</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">"react-dom"</span><span style="color: #C9CDD7">;</span>
+<span class="hl"><span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">Modal</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">"react-modal"</span><span style="color: #C9CDD7">;</span>
+</span>
+<span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">App</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">"./App"</span><span style="color: #C9CDD7">;</span>
+
+<span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">rootElement</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">document</span><span style="color: #D1D5DE">.</span><span style="color: #AFF19F">getElementById</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">"root"</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+
+<span class="hl"><span style="color: #93DDFD">Modal</span><span style="color: #D1D5DE">.</span><span style="color: #AFF19F">setAppElement</span><span style="color: #9CA5B7">(</span><span style="color: #D1D5DE">rootElement</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+</span>
+<span style="color: #93DDFD">ReactDOM</span><span style="color: #D1D5DE">.</span><span style="color: #AFF19F">render</span><span style="color: #9CA5B7">(</span>
+<span style="color: #C9CDD7">  </span><span style="color: #8AD2F0">&lt;</span><span style="color: #93DDFD">React.StrictMode</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">    </span><span style="color: #8AD2F0">&lt;</span><span style="color: #93DDFD">App</span><span style="color: #C9CDD7"> </span><span style="color: #8AD2F0">/&gt;</span>
+<span style="color: #C9CDD7">  </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #93DDFD">React.StrictMode</span><span style="color: #8AD2F0">&gt;</span><span style="color: #D1D5DE">,</span>
+<span style="color: #C9CDD7">  </span><span style="color: #D1D5DE">rootElement</span>
+<span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span></code></pre>
+</div>
+<p>(without this change, you’d get this warning)</p>
+
+<pre class="console-error">Warning: react-modal: App element is not defined. Please use `Modal.setAppElement(el)` or set `appElement={el}`. This is needed so screen readers don't see main content when modal is opened. It is not recommended, but you can opt-out by setting `ariaHideApp={false}`.</pre>
+
+<h2 id="display-the-modal-dialog">Display The Modal Dialog</h2>
+
+<p>Add some code to our component to display the Destroy button, and conditionally display the modal dialog:</p>
+
+<div class="code-filename">src/App.js</div>
+<div class="codeblock"><pre class="shiki highlighted" style="background-color: #31324e; color: #c9cdd7" data-language="jsx"><code><span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">React</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">"react"</span><span style="color: #C9CDD7">;</span>
+<span class="hl"><span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">Modal</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">"react-modal"</span><span style="color: #C9CDD7">;</span>
+</span><span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">confirmationFlow</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">}</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">"./confirmationFlow"</span><span style="color: #C9CDD7">;</span>
+<span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">useMachine</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">}</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">"react-robot"</span><span style="color: #C9CDD7">;</span>
+
+<span style="color: #FF8383">export</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">default</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">function</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">App</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+<span style="color: #C9CDD7">  </span><span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> [</span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">send</span><span style="color: #C9CDD7">] </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">useMachine</span><span style="color: #9CA5B7">(</span><span style="color: #D1D5DE">confirmationFlow</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+
+<span style="color: #C9CDD7">  </span><span style="color: #FF8383">return</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">(</span>
+<span style="color: #C9CDD7">    </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">div</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">h1</span><span style="color: #8AD2F0">&gt;</span><span style="color: #C9CDD7">Modal Test</span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">h1</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">      Current state: </span><span style="color: #FFE78F">{</span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">.name</span><span style="color: #FFE78F">}</span>
+
+<span class="hl"><span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">button</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">onClick</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">send</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;begin&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #FFE78F">}</span><span style="color: #8AD2F0">&gt;</span>
+</span><span class="hl"><span style="color: #C9CDD7">        Destroy Something Important</span>
+</span><span class="hl"><span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">button</span><span style="color: #8AD2F0">&gt;</span>
+</span><span class="hl">
+</span><span class="hl"><span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&lt;</span><span style="color: #93DDFD">Modal</span>
+</span><span class="hl"><span style="color: #C9CDD7">        </span><span style="color: #AFF19F">onRequestClose</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">send</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;cancel&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #FFE78F">}</span>
+</span><span class="hl"><span style="color: #C9CDD7">        </span><span style="color: #AFF19F">isOpen</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">.name</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">===</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;confirming&apos;</span><span style="color: #FFE78F">}</span>
+</span><span class="hl"><span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&gt;</span>
+</span><span class="hl"><span style="color: #C9CDD7">        Are you sure?!</span>
+</span><span class="hl"><span style="color: #C9CDD7">        </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">button</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">onClick</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">send</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;cancel&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #FFE78F">}</span><span style="color: #8AD2F0">&gt;</span>
+</span><span class="hl"><span style="color: #C9CDD7">          Cancel</span>
+</span><span class="hl"><span style="color: #C9CDD7">        </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">button</span><span style="color: #8AD2F0">&gt;</span>
+</span><span class="hl"><span style="color: #C9CDD7">        </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">button</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">onClick</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">send</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;confirm&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #FFE78F">}</span><span style="color: #8AD2F0">&gt;</span>
+</span><span class="hl"><span style="color: #C9CDD7">          Yes Definitely</span>
+</span><span class="hl"><span style="color: #C9CDD7">        </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">button</span><span style="color: #8AD2F0">&gt;</span>
+</span><span class="hl"><span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #93DDFD">Modal</span><span style="color: #8AD2F0">&gt;</span>
+</span><span style="color: #C9CDD7">    </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">div</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">  </span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+<span style="color: #9CA5B7">}</span></code></pre>
+</div>
+<p>Read through the actions in the code (all of the <code>send</code>’s) and compare them with the diagram of our state machine.</p>
+
+<p><img src="https://daveceddia.com/images/confirmation-modal-state-machine.png" srcset="https://daveceddia.com/images/confirmation-modal-state-machine@2x.png 2x" alt="Confirmation modal state machine" /></p>
+
+<p>We can see how this works more clearly if we fill out our <code>deleteSomething</code> function with a little bit of a delay and some logging:</p>
+
+<div class="code-filename">src/confirmationFlow.js</div>
+<div class="codeblock"><pre class="shiki highlighted" style="background-color: #31324e; color: #c9cdd7" data-language="js"><code><span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+<span style="color: #C9CDD7">  </span><span style="color: #D1D5DE">createMachine,</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">state,</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">transition,</span>
+<span style="color: #C9CDD7">  </span><span style="color: #D1D5DE">interpret,</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">invoke,</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">reduce</span>
+<span style="color: #9CA5B7">}</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;robot3&apos;</span><span style="color: #C9CDD7">;</span>
+
+<span class="hl"><span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">deleteSomething</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">async</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+</span><span class="hl"><span style="color: #C9CDD7">  </span><span style="color: #6E778C">// pretend to delete something</span>
+</span><span class="hl"><span style="color: #C9CDD7">  </span><span style="color: #FF8383">return</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">new</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">Promise</span><span style="color: #9CA5B7">((</span><span style="color: #FDAC45">resolve</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+</span><span class="hl"><span style="color: #C9CDD7">    </span><span style="color: #93DDFD">console</span><span style="color: #D1D5DE">.</span><span style="color: #AFF19F">log</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">"Beginning deletion..."</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+</span><span class="hl"><span style="color: #C9CDD7">    </span><span style="color: #AFF19F">setTimeout</span><span style="color: #9CA5B7">(()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+</span><span class="hl"><span style="color: #C9CDD7">      </span><span style="color: #93DDFD">console</span><span style="color: #D1D5DE">.</span><span style="color: #AFF19F">log</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">"Done deleting"</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+</span><span class="hl"><span style="color: #C9CDD7">      </span><span style="color: #AFF19F">resolve</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7">;</span>
+</span><span class="hl"><span style="color: #C9CDD7">    </span><span style="color: #9CA5B7">}</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #D570F3">1000</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+</span><span class="hl"><span style="color: #C9CDD7">  </span><span style="color: #9CA5B7">})</span><span style="color: #C9CDD7">;</span>
+</span><span class="hl"><span style="color: #9CA5B7">}</span><span style="color: #C9CDD7">;</span>
+</span>
+<span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">confirmationFlow</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">createMachine</span><span style="color: #9CA5B7">({</span>
+<span style="color: #C9CDD7">  </span><span style="color: #6E778C">// ...</span>
+<span style="color: #9CA5B7">})</span><span style="color: #C9CDD7">;</span>
+
+<span style="color: #FF8383">export</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">confirmationFlow</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">}</span><span style="color: #C9CDD7">;</span></code></pre>
+</div>
+<p><strong><a href="https://codesandbox.io/s/practical-currying-e8gq6?file=/src/index.js">Try it out!</a></strong> - click the button, and watch the console</p>
+
+<p><em>But wait!</em> It doesn’t work right! The modal disappears immediately after clicking the confirm button! What happened to that promise of “bug-free state machines”?!</p>
+
+<p>We can see the state changing, though: it goes from <code>confirming</code> to <code>loading</code> and back to <code>initial</code>, just as it should.</p>
+
+<p>It’s just that our condition for when to show the modal is wrong. We’re only keeping it open during <code>confirming</code>, where we really need to leave it open during <code>loading</code>, too.</p>
+
+<div class="codeblock"><pre class="shiki has-focus" style="background-color: #31324e; color: #c9cdd7" data-language="jsx"><code><span style="color: #8AD2F0">&lt;</span><span style="color: #93DDFD">Modal</span>
+<span style="color: #C9CDD7">  </span><span style="color: #AFF19F">onRequestClose</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">send</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;cancel&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #FFE78F">}</span>
+<span class="foc"><span style="color: #C9CDD7">  </span><span style="color: #AFF19F">isOpen</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">.name</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">===</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;confirming&apos;</span><span style="color: #FFE78F">}</span>
+</span><span style="color: #8AD2F0">&gt;</span></code></pre>
+</div>
+<p>Here’s a nice side effect of the state machine approach: it makes these kinds of mistakes more apparent.</p>
+
+<p>Here’s <em>another</em> nice side effect: try clicking the Destroy button, then confirming, and, while it still says “Current state: loading”, try clicking Destroy again. The modal doesn’t open!</p>
+
+<p>Ha! Take that, tricky bug.</p>
+
+<p>That is 100% the kind of bug that would slip through, too. “The user says they’re getting a 500 error, says it tried to delete the same thing twice?” Yep. We just avoided that.</p>
+
+<p>The state machine prevents us from getting into an invalid state, because we didn’t define a transition from <code>loading -&gt; confirming</code> 😎</p>
+
+<p>Likewise, after we fix this bug, the user will be able to smash the Confirm button all they want, but it will only trigger once.</p>
+
+<p>Ok, let’s fix the modal condition though:</p>
+
+<div class="code-filename">src/App.js</div>
+<div class="codeblock"><pre class="shiki highlighted" style="background-color: #31324e; color: #c9cdd7" data-language="jsx"><code><span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">React</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">"react"</span><span style="color: #C9CDD7">;</span>
+<span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">Modal</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">"react-modal"</span><span style="color: #C9CDD7">;</span>
+<span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">confirmationFlow</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">}</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">"./confirmationFlow"</span><span style="color: #C9CDD7">;</span>
+<span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">useMachine</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">}</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">"react-robot"</span><span style="color: #C9CDD7">;</span>
+
+<span style="color: #FF8383">export</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">default</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">function</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">App</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+<span style="color: #C9CDD7">  </span><span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> [</span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">send</span><span style="color: #C9CDD7">] </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">useMachine</span><span style="color: #9CA5B7">(</span><span style="color: #D1D5DE">confirmationFlow</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+
+<span style="color: #C9CDD7">  </span><span style="color: #FF8383">return</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">(</span>
+<span style="color: #C9CDD7">    </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">div</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">h1</span><span style="color: #8AD2F0">&gt;</span><span style="color: #C9CDD7">Modal Test</span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">h1</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">      Current state: </span><span style="color: #FFE78F">{</span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">.name</span><span style="color: #FFE78F">}</span>
+<span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">button</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">onClick</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">send</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;begin&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #FFE78F">}</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">        Destroy Something Important</span>
+<span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">button</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&lt;</span><span style="color: #93DDFD">Modal</span>
+<span style="color: #C9CDD7">        </span><span style="color: #AFF19F">onRequestClose</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">send</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;cancel&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #FFE78F">}</span>
+<span class="hl"><span style="color: #C9CDD7">        </span><span style="color: #AFF19F">isOpen</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span>
+</span><span class="hl"><span style="color: #C9CDD7">          </span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">.name</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">===</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;confirming&apos;</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">||</span>
+</span><span class="hl"><span style="color: #C9CDD7">          </span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">.name</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">===</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;loading&apos;</span>
+</span><span class="hl"><span style="color: #C9CDD7">        </span><span style="color: #FFE78F">}</span>
+</span><span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">        Are you sure?!</span>
+<span style="color: #C9CDD7">        </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">button</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">onClick</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">send</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;cancel&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #FFE78F">}</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">          Cancel</span>
+<span style="color: #C9CDD7">        </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">button</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">        </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">button</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">onClick</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">send</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;confirm&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #FFE78F">}</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">          Yes Definitely</span>
+<span style="color: #C9CDD7">        </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">button</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #93DDFD">Modal</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">    </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">div</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">  </span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+<span style="color: #9CA5B7">}</span></code></pre>
+</div>
+<p><strong><a href="https://codesandbox.io/s/dark-http-ltrnt?file=/src/App.js">Try it out!</a></strong> - the modal will stick around until the “delete” is finished.</p>
+
+<p>Here’s an exercise to try: It would be nice if the buttons inside the modal were disabled while in the <code>loading</code> state. Try your hand at modifying <a href="https://codesandbox.io/s/dark-http-ltrnt?file=/src/App.js">the example</a> to make that happen.</p>
+
+<h2 id="pass-data-along-with-a-robot-action">Pass Data Along With a Robot Action</h2>
+
+<p>As wonderful as this state machine is, it’s not very reusable in its current form. The <code>deleteSomething</code> function is hard-coded!</p>
+
+<p>What if we wanted to pop a confirm dialog for some other kind of thing? Ideally we could pass a custom function.</p>
+
+<p>We can do this by passing along a function with the <code>begin</code> action, saving that function in the machine’s context, and then calling it when we enter the <code>loading</code> state.</p>
+
+<p>First, we’ll change the way we send the <code>begin</code> action to include our custom function.</p>
+
+<p>To make it as customizable as possible, we’re also gonna wire it up so that the machine will pass the <code>context</code> and <code>event</code> to our <code>onCommit</code> function.</p>
+
+<div class="code-filename">src/App.js</div>
+<div class="codeblock"><pre class="shiki highlighted added deleted" style="background-color: #31324e; color: #c9cdd7" data-language="jsx"><code><span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">React</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;react&apos;</span><span style="color: #C9CDD7">;</span>
+<span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">Modal</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;react-modal&apos;</span><span style="color: #C9CDD7">;</span>
+<span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">confirmationFlow</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">}</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;./confirmationFlow&apos;</span><span style="color: #C9CDD7">;</span>
+<span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">useMachine</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">}</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;react-robot&apos;</span><span style="color: #C9CDD7">;</span>
+
+<span class="hl"><span style="color: #FF8383">async</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">function</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">doSomethingCustom</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+</span><span class="hl"><span style="color: #C9CDD7">  </span><span style="color: #6E778C">// pretend to delete something</span>
+</span><span class="hl"><span style="color: #C9CDD7">  </span><span style="color: #FF8383">return</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">new</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">Promise</span><span style="color: #9CA5B7">((</span><span style="color: #FDAC45">resolve</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+</span><span class="hl"><span style="color: #C9CDD7">    </span><span style="color: #93DDFD">console</span><span style="color: #D1D5DE">.</span><span style="color: #AFF19F">log</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;Beginning custom action...&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+</span><span class="hl"><span style="color: #C9CDD7">    </span><span style="color: #AFF19F">setTimeout</span><span style="color: #9CA5B7">(()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+</span><span class="hl"><span style="color: #C9CDD7">      </span><span style="color: #93DDFD">console</span><span style="color: #D1D5DE">.</span><span style="color: #AFF19F">log</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;Done custom action&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+</span><span class="hl"><span style="color: #C9CDD7">      </span><span style="color: #AFF19F">resolve</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7">;</span>
+</span><span class="hl"><span style="color: #C9CDD7">    </span><span style="color: #9CA5B7">}</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #D570F3">1000</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+</span><span class="hl"><span style="color: #C9CDD7">  </span><span style="color: #9CA5B7">})</span><span style="color: #C9CDD7">;</span>
+</span><span class="hl"><span style="color: #9CA5B7">}</span>
+</span>
+<span style="color: #FF8383">export</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">default</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">function</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">App</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+<span style="color: #C9CDD7">  </span><span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> [</span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">send</span><span style="color: #C9CDD7">] </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">useMachine</span><span style="color: #9CA5B7">(</span><span style="color: #D1D5DE">confirmationFlow</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+<span style="color: #C9CDD7">  </span><span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">isLoading</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">.name</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">===</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;loading&apos;</span><span style="color: #C9CDD7">;</span>
+
+<span style="color: #C9CDD7">  </span><span style="color: #FF8383">return</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">(</span>
+<span style="color: #C9CDD7">    </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">div</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">h1</span><span style="color: #8AD2F0">&gt;</span><span style="color: #C9CDD7">Modal Test</span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">h1</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">      Current state: </span><span style="color: #FFE78F">{</span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">.name</span><span style="color: #FFE78F">}</span>
+<span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">button</span>
+<span class="del"><span style="color: ">        onClick={() =&gt; send(&apos;begin&apos;)}</span>
+</span><span class="add"><span style="color: #C9CDD7">        </span><span style="color: #AFF19F">onClick</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span>
+</span><span class="add"><span style="color: #C9CDD7">          </span><span style="color: #AFF19F">send</span><span style="color: #9CA5B7">({</span>
+</span><span class="add"><span style="color: #C9CDD7">            type</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;begin&apos;</span><span style="color: #D1D5DE">,</span>
+</span><span class="add"><span style="color: #C9CDD7">            </span><span style="color: #AFF19F">onCommit</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">(</span><span style="color: #FDAC45">context</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #FDAC45">event</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">doSomethingCustom</span><span style="color: #9CA5B7">()</span>
+</span><span class="add"><span style="color: #C9CDD7">          </span><span style="color: #9CA5B7">})</span>
+</span><span class="add"><span style="color: #C9CDD7">        </span><span style="color: #FFE78F">}</span>
+</span><span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">        Destroy Something Important</span>
+<span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">button</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&lt;</span><span style="color: #93DDFD">Modal</span>
+<span style="color: #C9CDD7">        </span><span style="color: #AFF19F">onRequestClose</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">send</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;cancel&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #FFE78F">}</span>
+<span style="color: #C9CDD7">        </span><span style="color: #AFF19F">isOpen</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span>
+<span style="color: #C9CDD7">          </span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">.name</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">===</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;confirming&apos;</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">||</span>
+<span style="color: #C9CDD7">          </span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">.name</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">===</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;loading&apos;</span>
+<span style="color: #C9CDD7">        </span><span style="color: #FFE78F">}</span>
+<span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">        Are you sure?!</span>
+<span style="color: #C9CDD7">        </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">button</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">onClick</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">send</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;cancel&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #FFE78F">}</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">          Cancel</span>
+<span style="color: #C9CDD7">        </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">button</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">        </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">button</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">onClick</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">send</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;confirm&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #FFE78F">}</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">          Yes Definitely</span>
+<span style="color: #C9CDD7">        </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">button</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #93DDFD">Modal</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">    </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">div</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">  </span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+<span style="color: #9CA5B7">}</span></code></pre>
+</div>
+<p>Instead of sending the string <code>begin</code>, now, we’re sending an object with a <code>type: &#39;begin&#39;</code>. This way we can include extra stuff with the action. It’s freeform. Add anything you want to this object, and the whole thing will pop out as the <code>event</code> argument later.</p>
+
+<p>Now we need to set up the machine to handle this action. By default, any extra properties on the event (like our <code>onCommit</code>) will be ignored. So we’ll need another reducer to grab that value and save it in context for later.</p>
+
+<div class="code-filename">src/confirmationFlow.js</div>
+<div class="codeblock"><pre class="shiki highlighted has-focus" style="background-color: #31324e; color: #c9cdd7" data-language="js"><code><span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">confirmationFlow</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">createMachine</span><span style="color: #9CA5B7">({</span>
+<span class="foc"><span style="color: #C9CDD7">  initial</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">state</span><span style="color: #9CA5B7">(</span>
+</span><span class="foc"><span style="color: #C9CDD7">    </span><span style="color: #AFF19F">transition</span><span style="color: #9CA5B7">(</span>
+</span><span class="foc"><span style="color: #C9CDD7">      </span><span style="color: #F5D66B">&apos;begin&apos;</span><span style="color: #D1D5DE">,</span>
+</span><span class="foc"><span style="color: #C9CDD7">      </span><span style="color: #F5D66B">&apos;confirming&apos;</span><span style="color: #D1D5DE">,</span>
+</span><span class="hl foc"><span style="color: #C9CDD7">      </span><span style="color: #AFF19F">reduce</span><span style="color: #9CA5B7">((</span><span style="color: #FDAC45">context</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #FDAC45">event</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+</span><span class="hl foc"><span style="color: #C9CDD7">        </span><span style="color: #FF8383">return</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+</span><span class="hl foc"><span style="color: #C9CDD7">          </span><span style="color: #93DDFD">...</span><span style="color: #D1D5DE">context,</span>
+</span><span class="hl foc"><span style="color: #C9CDD7">          onCommit</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">event</span><span style="color: #D1D5DE">.onCommit</span>
+</span><span class="hl foc"><span style="color: #C9CDD7">        </span><span style="color: #9CA5B7">}</span><span style="color: #C9CDD7">;</span>
+</span><span class="hl foc"><span style="color: #C9CDD7">      </span><span style="color: #9CA5B7">})</span>
+</span><span class="foc"><span style="color: #C9CDD7">    </span><span style="color: #9CA5B7">)</span>
+</span><span class="foc"><span style="color: #C9CDD7">  </span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+</span><span style="color: #C9CDD7">  confirming</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">state</span><span style="color: #9CA5B7">(</span></code></pre>
+</div>
+<p>Then we can change our <code>loading</code> state to call our <code>onCommit</code> function. Robot passes the context and event along to the function it invokes.</p>
+
+<div class="code-filename">src/confirmationFlow.js</div>
+<div class="codeblock"><pre class="shiki added deleted has-focus" style="background-color: #31324e; color: #c9cdd7" data-language="js"><code><span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">confirmationFlow</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">createMachine</span><span style="color: #9CA5B7">(</span>
+<span style="color: #C9CDD7">  </span><span style="color: #6E778C">/* ... */</span>
+<span style="color: #C9CDD7">  </span><span style="color: #D1D5DE">confirming</span><span style="color: #C9CDD7">: </span><span style="color: #AFF19F">state</span><span style="color: #9CA5B7">(</span>
+<span style="color: #C9CDD7">    </span><span style="color: #AFF19F">transition</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;confirm&apos;</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;loading&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+<span style="color: #C9CDD7">    </span><span style="color: #AFF19F">transition</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;cancel&apos;</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;initial&apos;</span><span style="color: #9CA5B7">)</span>
+<span style="color: #C9CDD7">  </span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+<span class="foc"><span style="color: #C9CDD7">  </span><span style="color: #D1D5DE">loading</span><span style="color: #C9CDD7">: </span><span style="color: #AFF19F">invoke</span><span style="color: #9CA5B7">(</span>
+</span><span class="add foc"><span style="color: #C9CDD7">    </span><span style="color: #9CA5B7">(</span><span style="color: #FDAC45">context</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #FDAC45">event</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">context</span><span style="color: #D1D5DE">.</span><span style="color: #AFF19F">onCommit</span><span style="color: #9CA5B7">(</span><span style="color: #D1D5DE">context,</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">event</span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+</span><span class="del foc"><span style="color: ">    deleteSometing,</span>
+</span><span class="foc"><span style="color: #C9CDD7">    </span><span style="color: #AFF19F">transition</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;done&apos;</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;initial&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #D1D5DE">,</span>
+</span><span class="foc"><span style="color: #C9CDD7">    </span><span style="color: #AFF19F">transition</span><span style="color: #9CA5B7">(</span>
+</span><span class="foc"><span style="color: #C9CDD7">      </span><span style="color: #F5D66B">&apos;error&apos;</span><span style="color: #D1D5DE">,</span>
+</span><span class="foc"><span style="color: #C9CDD7">      </span><span style="color: #F5D66B">&apos;confirming&apos;</span><span style="color: #D1D5DE">,</span>
+</span><span class="foc"><span style="color: #C9CDD7">      </span><span style="color: #AFF19F">reduce</span><span style="color: #9CA5B7">((</span><span style="color: #FDAC45">context</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #FDAC45">event</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+</span><span class="foc"><span style="color: #C9CDD7">        </span><span style="color: #FF8383">return</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+</span><span class="foc"><span style="color: #C9CDD7">          </span><span style="color: #93DDFD">...</span><span style="color: #D1D5DE">context,</span>
+</span><span class="foc"><span style="color: #C9CDD7">          error</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">event</span><span style="color: #D1D5DE">.error</span>
+</span><span class="foc"><span style="color: #C9CDD7">        </span><span style="color: #9CA5B7">}</span><span style="color: #C9CDD7">;</span>
+</span><span class="foc"><span style="color: #C9CDD7">      </span><span style="color: #9CA5B7">})</span>
+</span><span class="foc"><span style="color: #C9CDD7">    </span><span style="color: #9CA5B7">)</span>
+</span><span style="color: #C9CDD7">  </span><span style="color: #9CA5B7">)</span></code></pre>
+</div>
+<p>With that, our custom async action is wired up! <strong><a href="https://codesandbox.io/s/quizzical-butterfly-p6p88?file=/src/App.js">Try it out!</a></strong></p>
+
+<h2 id="display-the-error">Display The Error</h2>
+
+<p>The UX for errors is not great right now: if our custom function throws an error, the user will just be left at the modal, wondering what happened.</p>
+
+<p>We’ve gone to the effort of saving the error, so we may as well display it!</p>
+
+<p>Let’s change the function so that it always rejects with an error, instead of resolving.</p>
+
+<p>Then we can display the error in the modal, when there’s an error.</p>
+
+<div class="code-filename">src/App.js</div>
+<div class="codeblock"><pre class="shiki highlighted added deleted" style="background-color: #31324e; color: #c9cdd7" data-language="jsx"><code><span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">React</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;react&apos;</span><span style="color: #C9CDD7">;</span>
+<span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">Modal</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;react-modal&apos;</span><span style="color: #C9CDD7">;</span>
+<span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">confirmationFlow</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">}</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;./confirmationFlow&apos;</span><span style="color: #C9CDD7">;</span>
+<span style="color: #FF8383">import</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span><span style="color: #C9CDD7"> </span><span style="color: #D1D5DE">useMachine</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">}</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">from</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;react-robot&apos;</span><span style="color: #C9CDD7">;</span>
+
+<span style="color: #FF8383">async</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">function</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">doSomethingCustom</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+<span style="color: #C9CDD7">  </span><span style="color: #6E778C">// pretend to delete something</span>
+<span class="hl"><span style="color: #C9CDD7">  </span><span style="color: #FF8383">return</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">new</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">Promise</span><span style="color: #9CA5B7">((</span><span style="color: #FDAC45">resolve</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #FDAC45">reject</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+</span><span style="color: #C9CDD7">    </span><span style="color: #93DDFD">console</span><span style="color: #D1D5DE">.</span><span style="color: #AFF19F">log</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;Beginning custom action...&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+<span style="color: #C9CDD7">    </span><span style="color: #AFF19F">setTimeout</span><span style="color: #9CA5B7">(()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+<span style="color: #C9CDD7">      </span><span style="color: #93DDFD">console</span><span style="color: #D1D5DE">.</span><span style="color: #AFF19F">log</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;Done custom action&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+<span class="add"><span style="color: #C9CDD7">      </span><span style="color: #AFF19F">reject</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;Oh no!&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+</span><span class="del"><span style="color: ">      resolve();</span>
+</span><span style="color: #C9CDD7">    </span><span style="color: #9CA5B7">}</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #D570F3">1000</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+<span style="color: #C9CDD7">  </span><span style="color: #9CA5B7">})</span><span style="color: #C9CDD7">;</span>
+<span style="color: #9CA5B7">}</span>
+
+<span style="color: #FF8383">export</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">default</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">function</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">App</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">{</span>
+<span style="color: #C9CDD7">  </span><span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> [</span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">,</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">send</span><span style="color: #C9CDD7">] </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">useMachine</span><span style="color: #9CA5B7">(</span><span style="color: #D1D5DE">confirmationFlow</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+<span style="color: #C9CDD7">  </span><span style="color: #76DCE8">const</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">isLoading</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">=</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">.name</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">===</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;loading&apos;</span><span style="color: #C9CDD7">;</span>
+
+<span style="color: #C9CDD7">  </span><span style="color: #FF8383">return</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">(</span>
+<span style="color: #C9CDD7">    </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">div</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">h1</span><span style="color: #8AD2F0">&gt;</span><span style="color: #C9CDD7">Modal Test</span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">h1</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">      Current state: </span><span style="color: #FFE78F">{</span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">.name</span><span style="color: #FFE78F">}</span>
+<span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">button</span>
+<span style="color: #C9CDD7">        </span><span style="color: #AFF19F">onClick</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span>
+<span style="color: #C9CDD7">          </span><span style="color: #AFF19F">send</span><span style="color: #9CA5B7">({</span>
+<span style="color: #C9CDD7">            type</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;begin&apos;</span><span style="color: #D1D5DE">,</span>
+<span style="color: #C9CDD7">            </span><span style="color: #AFF19F">onCommit</span><span style="color: #D1D5DE">:</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">(</span><span style="color: #FDAC45">context</span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">doSomethingCustom</span><span style="color: #9CA5B7">()</span>
+<span style="color: #C9CDD7">          </span><span style="color: #9CA5B7">})</span>
+<span style="color: #C9CDD7">        </span><span style="color: #FFE78F">}</span>
+<span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">        Destroy Something Important</span>
+<span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">button</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&lt;</span><span style="color: #93DDFD">Modal</span>
+<span style="color: #C9CDD7">        </span><span style="color: #AFF19F">onRequestClose</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">send</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;cancel&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #FFE78F">}</span>
+<span style="color: #C9CDD7">        </span><span style="color: #AFF19F">isOpen</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span>
+<span style="color: #C9CDD7">          </span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">.name</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">===</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;confirming&apos;</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">||</span>
+<span style="color: #C9CDD7">          </span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">.name</span><span style="color: #C9CDD7"> </span><span style="color: #93DDFD">===</span><span style="color: #C9CDD7"> </span><span style="color: #F5D66B">&apos;loading&apos;</span>
+<span style="color: #C9CDD7">        </span><span style="color: #FFE78F">}</span>
+<span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&gt;</span>
+<span class="add"><span style="color: #C9CDD7">        </span><span style="color: #FFE78F">{</span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">.</span><span style="color: #93DDFD">context</span><span style="color: #D1D5DE">.error</span><span style="color: #C9CDD7"> </span><span style="color: #FF8383">&amp;&amp;</span><span style="color: #C9CDD7"> </span><span style="color: #9CA5B7">(</span>
+</span><span class="add"><span style="color: #C9CDD7">          </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">div</span><span style="color: #8AD2F0">&gt;</span><span style="color: #FFE78F">{</span><span style="color: #93DDFD">current</span><span style="color: #D1D5DE">.</span><span style="color: #93DDFD">context</span><span style="color: #D1D5DE">.error</span><span style="color: #FFE78F">}</span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">div</span><span style="color: #8AD2F0">&gt;</span>
+</span><span class="add"><span style="color: #C9CDD7">        </span><span style="color: #9CA5B7">)</span><span style="color: #FFE78F">}</span>
+</span><span style="color: #C9CDD7">        Are you sure?!</span>
+<span style="color: #C9CDD7">        </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">button</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">onClick</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">send</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;cancel&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #FFE78F">}</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">          Cancel</span>
+<span style="color: #C9CDD7">        </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">button</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">        </span><span style="color: #8AD2F0">&lt;</span><span style="color: #FF8383">button</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">onClick</span><span style="color: #93DDFD">=</span><span style="color: #FFE78F">{</span><span style="color: #9CA5B7">()</span><span style="color: #C9CDD7"> </span><span style="color: #76DCE8">=&gt;</span><span style="color: #C9CDD7"> </span><span style="color: #AFF19F">send</span><span style="color: #9CA5B7">(</span><span style="color: #F5D66B">&apos;confirm&apos;</span><span style="color: #9CA5B7">)</span><span style="color: #FFE78F">}</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">          Yes Definitely</span>
+<span style="color: #C9CDD7">        </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">button</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">      </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #93DDFD">Modal</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">    </span><span style="color: #8AD2F0">&lt;/</span><span style="color: #FF8383">div</span><span style="color: #8AD2F0">&gt;</span>
+<span style="color: #C9CDD7">  </span><span style="color: #9CA5B7">)</span><span style="color: #C9CDD7">;</span>
+<span style="color: #9CA5B7">}</span></code></pre>
+</div>
+<p><strong><a href="https://codesandbox.io/s/reverent-wildflower-u6dew?file=/src/App.js">Try it out!</a></strong></p>
+
+<h2 id="try-state-machines">Try State Machines!</h2>
+
+<p>This article was a long-winded way of saying… I think state machines are great, and you should try them in your projects. The confidence they inspire is wonderful.</p>
+
+<p>It’ll take a little practice before they feel natural. And I suspect, having built only small ones so far, that larger ones will be more challenging.</p>
+
+<p>If the code I showed here with <a href="https://thisrobot.life">Robot</a> doesn’t look like your cup of tea, give <a href="https://github.com/davidkpiano/xstate">XState</a> a try!</p>
+
+<p>Either way you go, you’ll have a solid state machine to rely on.</p>
+
+<p>Because whether or not you take the time to write out a complex feature with a state machine, that complexity <em>will exist</em> in your app. Better to think it through up front and pay that cost once, than to pay every time you have to play whack-a-mole with another bug 😎</p>
+
+
+        
+          
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div>
+  <div class="dc_form_container ">
+    <div class="dc_success_msg" style="display:none;">
+      Success! Now check your email.
+    </div>
+
+    <!--  Form starts here  -->
+    
+    <form class="dc_signup_form" action="/s/signup" method="POST">
+    
+      <h4 class="dc_title">
+Learn the basics of React in 5 days
+</h4>
+      <div class="dc_description">
+        
+<div>
+  <p>Finally understand how React works! You will:</p>
+  <div class="prec-bullet">🎉 Get something on screen</div>
+  <div class="prec-bullet">💄 Write dynamic components</div>
+  <div class="prec-bullet">🏃 Make it interactive</div>
+  <div class="prec-bullet">😎 Fetch real data</div>
+  <p class="prec-bullet">🛳 Put it online</p>
+  <p>5 days, 5 emails. Walk away with the basics and a plan!</p>
+  <p style="text-align:center;">Get Lesson 1 right now 👇 </p>
+</div>
+
+      </div>
+
+      <div class="dc_error_msg" style="display:none">
+        There was an error submitting your subscription. Please try again.
+      </div>
+
+      <div class="dc_field">
+        <label class="dc_label" for="dc_email" style="display: none">Email Address</label>
+        <input type="email" name="email" placeholder="Your email address" required="">
+      </div>
+      <input type="hidden" name="page_id" value="react-confirmation-modal-state-machine" />
+      <input type="hidden" name="form_id" value="pure-react-email-course" />
+      <input type="hidden" name="form_version" value="3" />
+      <input type="hidden" name="tag" value="734384," />
+      <button class="dc_subscribe_button" type="submit">
+        Send Me Lesson 1
+      </button>
+      <div class="dc_guarantee">
+        I respect your email privacy. Unsubscribe any time.
+      </div>
+    </form>
+
+    
+<form class="dc_gdpr_form" action="/s/signup/gdpr" method="POST" style="display:none;">
+
+  <p>Before we go on, I have to ask...</p>
+  <div class="dc_form_field">
+    <label>
+      <input type="checkbox" name="confirm_answer" value="true"/>
+      <span>consent</span>
+    </label>
+  </div>
+  <br/>
+
+  <div class="dc_error_msg" style="display:none">
+    There was an error submitting your subscription. Please try again.
+  </div>
+
+  <input type="hidden" name="email" value="FILL_IN_WITH_JS" />
+  <input type="hidden" name="firstName" value="FILL_IN_WITH_JS" />
+  <input type="hidden" name="gdpr" value="FILL_IN_WITH_JS" />
+  <input type="hidden" name="captcha" value="FILL_IN_WITH_JS" />
+  <input type="hidden" name="sign" value="FILL_IN_WITH_JS" />
+  <input type="hidden" name="confirm" value="FILL_IN_WITH_JS" />
+  <input type="hidden" name="tag" value="734384" />
+  <input type="hidden" name="page_id" value="react-confirmation-modal-state-machine" />
+  <input type="hidden" name="form_id" value="pure-react-email-course" />
+  <input type="hidden" name="form_version" value="3" />
+  <button type="submit" class="dc_subscribe_button">
+    Finish
+  </button>
+</form>
+
+  </div>
+
+  <style type="text/css">
+    .dc_form_container {
+      border-top: 4px solid #3166de;
+      border-bottom: 4px solid #3166de;
+      padding: 1em;
+      background: #f8faff;
+      font-family: "Open Sans", sans-serif;
+      margin-bottom: 2.5rem;
+    }
+    .dc_form_container .dc_title {
+      margin-top: 0;
+      text-align: center;
+      font-weight: 400;
+      font-size: 30px;
+    }
+    .dc_form_container .dc_description {
+      margin-bottom: 10px;
+    }
+    .dc_signup_form, .dc_gdpr_form {
+      margin-bottom: 0;
+      position: relative;
+    }
+    .dc_signup_form input, .dc_gdpr_form input {
+      width: 100%;
+      padding: 20px 12px;
+    }
+    .dc_gdpr_form input[type="checkbox"] {
+      width: initial;
+      margin: 0;
+      margin-right: 5px;
+    }
+    .dc_subscribe_button {
+      margin: 0 auto;
+      display: block;
+      width: 100%;
+      max-width: 250px;
+      font-size: 18px;
+      background: orange;
+      color: #583900;
+      border-color: #e29609;
+      height: auto;
+      margin-bottom: 5px;
+    }
+    .dc_subscribe_button[disabled] {
+      opacity: 0.5;
+    }
+    .dc_subscribe_button[disabled]:hover {
+      opacity: 0.5;
+      color: #583900;
+    }
+    .dc_guarantee {
+      font-size: 12px;
+      text-align: center;
+      opacity: 0.7;
+    }
+    .dc_success_msg {
+      padding: 10px;
+      background: #fff;
+      border: 1px solid #8dc74a;
+      border-radius: 2px;
+      background: #F1F8E9;
+      text-align: center;
+    }
+    .dc_error_msg {
+      background: #FFEBEE;
+      padding: 10px;
+      margin-bottom: 5px;
+      border: 2px solid #C62828;
+    }
+  </style>
+</div>
+
+
+<style>
+img.dc_form_img {
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+.prec-bullet {
+  margin-left: 15px;
+}
+</style>
+
+          
+        
+        
+          <div class="workshop-cta">
+  
+    <p>
+      Learning React can be a struggle &mdash; so many libraries and tools!<br/>
+      My advice? Ignore all of them :)<br/>
+      For a step-by-step approach, check out my <a href="https://purereact.com">Pure React workshop</a>.
+    </p>
+  
+  <div class="think-in-react">
+    <img
+      src="https://daveceddia.com/images/pure-react-plant-sm.png"
+      srcset="https://daveceddia.com/images/pure-react-plant-sm@2x.png 2x"
+      alt="Pure React plant"/>
+    <div class="think-in-react--cta">
+      <h3>Learn to think in React</h3>
+      <ul>
+        <li>90+ screencast lessons</li>
+        <li>Full transcripts and closed captions</li>
+        <li>All the code from the lessons</li>
+        <li>Developer interviews</li>
+      </ul>
+      <a href="https://purereact.com">
+        Start learning Pure React now
+      </a>
+    </div>
+    <div class="notch"></div>
+  </div>
+  <div class="testimonial">
+    <p>Dave Ceddia’s Pure React is a work of enormous clarity and depth. Hats off. I'm a React trainer in London and would thoroughly recommend this to all front end devs wanting to upskill or consolidate.</p>
+    <div class="testimonial--author">
+      <img src="https://daveceddia.com/images/alan-lavender.jpg" alt="Alan Lavender">
+      <div>
+        <div class="testimonial--name">Alan Lavender</div>
+        <div class="testimonial--handle">@lavenderlens</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+        
+        
+          <div id="commento"></div>
+        
+      </div><!-- /.entry-content -->
+      
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="sticky-sidebar" hidden="hidden">
+  <button class="sidebar-close-btn" aria-label="dismiss" onclick="(function (e){document.querySelector('.sticky-sidebar').setAttribute('hidden', 'hidden')})()">
+    <svg id="icon-close" viewBox="0 0 16 16" width="24" height="24">
+      <path d="M8,15 C4.13400675,15 1,11.8659932 1,8 C1,4.13400675 4.13400675,1 8,1 C11.8659932,1 15,4.13400675 15,8 C15,11.8659932 11.8659932,15 8,15 Z M10.44352,10.7233105 L10.4528296,10.7326201 L10.7326201,10.4528296 C11.0310632,10.1543865 11.0314986,9.66985171 10.7335912,9.37194437 L9.36507937,8.0034325 L10.7360526,6.63245928 C11.0344957,6.33401613 11.0349311,5.84948135 10.7370237,5.55157401 L10.448426,5.26297627 C10.1505186,4.96506892 9.66598387,4.96550426 9.36754072,5.26394741 L8.00589385,6.62559428 L6.63738198,5.25708241 C6.33947464,4.95917507 5.85493986,4.95961041 5.55649671,5.25805356 L5.26737991,5.54717036 C4.96893676,5.84561351 4.96850142,6.33014829 5.26640876,6.62805563 L6.62561103,7.9872579 L5.25463781,9.35823112 C4.95619466,9.65667427 4.95575932,10.141209 5.25366666,10.4391164 L5.5422644,10.7277141 C5.84017175,11.0256215 6.32470652,11.0251861 6.62314967,10.726743 L7.99412289,9.35576976 L9.36263476,10.7242816 C9.66054211,11.022189 10.1450769,11.0217536 10.44352,10.7233105 Z"></path>
+    </svg>
+  </button>
+  <div class="dc_form_container ">
+    <div class="dc_success_msg" style="display:none;">
+      Success! Now check your email.
+    </div>
+
+    <!--  Form starts here  -->
+    
+    <form class="dc_signup_form" action="/s/signup" method="POST">
+    
+      <h4 class="dc_title">
+Want to get better at React?
+</h4>
+      <div class="dc_description">
+        
+<div>I send an article every Wednesday to help you level up as a front-end React developer.</div>
+
+      </div>
+
+      <div class="dc_error_msg" style="display:none">
+        There was an error. Please try again.
+      </div>
+
+      <div class="dc_field">
+        <label class="dc_label" for="dc_email" style="display: none">Email Address</label>
+        <input type="email" name="email" placeholder="Your email" required="">
+      </div>
+      <input type="hidden" name="page_id" value="react-confirmation-modal-state-machine" />
+      <input type="hidden" name="form_id" value="sidebar-newsletter" />
+      <input type="hidden" name="form_version" value="1" />
+      <input type="hidden" name="tag" value="531525," />
+      <div class="dc_form_under_input"></div>
+      <button class="dc_subscribe_button" type="submit">
+        Subscribe
+      </button>
+      <div class="dc_guarantee">
+         
+      </div>
+    </form>
+
+    
+<form class="dc_gdpr_form" action="/s/signup/gdpr" method="POST" style="display:none;">
+
+  <p>Before we go on, I have to ask...</p>
+  <div class="dc_form_field">
+    <label>
+      <input type="checkbox" name="confirm_answer" value="true"/>
+      <span>consent</span>
+    </label>
+  </div>
+  <br/>
+
+  <div class="dc_error_msg" style="display:none">
+    There was an error submitting your subscription. Please try again.
+  </div>
+
+  <input type="hidden" name="email" value="FILL_IN_WITH_JS" />
+  <input type="hidden" name="firstName" value="FILL_IN_WITH_JS" />
+  <input type="hidden" name="gdpr" value="FILL_IN_WITH_JS" />
+  <input type="hidden" name="captcha" value="FILL_IN_WITH_JS" />
+  <input type="hidden" name="sign" value="FILL_IN_WITH_JS" />
+  <input type="hidden" name="confirm" value="FILL_IN_WITH_JS" />
+  <input type="hidden" name="tag" value="531525" />
+  <input type="hidden" name="page_id" value="react-confirmation-modal-state-machine" />
+  <input type="hidden" name="form_id" value="sidebar-newsletter" />
+  <input type="hidden" name="form_version" value="1" />
+  <button type="submit" class="dc_subscribe_button">
+    Finish
+  </button>
+</form>
+
+  </div>
+
+  <style type="text/css">
+    .sidebar-close-btn {
+      fill: #bbb;
+      background: none;
+      border: none;
+      position: absolute;
+      top: -8px;
+      right: -12px;
+    }
+    .sidebar-close-btn:focus {
+      outline: 0;
+      fill: #555;
+    }
+    .sidebar-close-btn:hover,
+    .sidebar-close-btn:active {
+      fill: #222;
+    }
+    .sticky-sidebar .dc_form_under_input {
+      text-align: center;
+      font-size: 12px;
+      color: #70757b;
+    }
+    .sticky-sidebar .dc_form_container {
+      border: 1px solid #eff7ee;
+      border-radius: 5px;
+      padding: 1em;
+      background: #fff;
+      font-family: "Open Sans", sans-serif;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 5px 30px #b8bac144, 0 2px 5px #cccccc44;
+      font-size: 15px;
+      line-height: 1.4em;
+    }
+    .sticky-sidebar .dc_form_container .dc_title {
+      margin-top: 0;
+      text-align: left;
+      font-weight: 600;
+      font-size: 16px;
+      font-family: "Open Sans";
+      letter-spacing: 0;
+    }
+    .sticky-sidebar .dc_form_container .dc_description {
+      margin-bottom: 10px;
+    }
+    .sticky-sidebar .dc_signup_form, .dc_gdpr_form {
+      margin-bottom: 0;
+      position: relative;
+    }
+    .sticky-sidebar .dc_signup_form input, .dc_gdpr_form input {
+      width: 100%;
+      padding: 8px 6px;
+      margin-bottom: 0;
+    }
+    .sticky-sidebar .dc_gdpr_form input[type="checkbox"] {
+      width: initial;
+      margin: 0;
+      margin-right: 5px;
+    }
+    .sticky-sidebar .dc_subscribe_button {
+      margin: 0 auto;
+      display: block;
+      width: 100%;
+      max-width: 250px;
+      font-size: 15px;
+      background: #9af185;
+      color: #07564c;
+      border-color: #30ab12;
+      height: auto;
+      margin-top: 10px;
+      margin-bottom: 5px;
+      border: none;
+      border-radius: 3px;
+      padding: 6px;
+      font-weight: 700;
+    }
+    .sticky-sidebar .dc_subscribe_button[disabled] {
+      opacity: 0.5;
+    }
+    .sticky-sidebar .dc_subscribe_button[disabled]:hover {
+      opacity: 0.5;
+      color: #583900;
+    }
+    .sticky-sidebar .dc_guarantee {
+      font-size: 12px;
+      text-align: center;
+      opacity: 0.7;
+    }
+    .sticky-sidebar .dc_success_msg {
+      padding: 10px;
+      background: #fff;
+      border: 1px solid #8dc74a;
+      border-radius: 2px;
+      background: #F1F8E9;
+      text-align: center;
+    }
+    .sticky-sidebar .dc_error_msg {
+      background: #FFEBEE;
+      padding: 10px;
+      margin-bottom: 5px;
+      border: 2px solid #C62828;
+    }
+  </style>
+</div>
+
+
+      
+    </div><!-- /.entry-wrapper -->
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrapper muted-centered">
+  <footer role="contentinfo">
+    
+
+<span>&copy; 2021 Dave Ceddia.</span>
+
+  </footer>
+</div><!-- /.footer-wrapper -->
+
+<script type="text/javascript">
+  window.BASE_URL = 'https://daveceddia.com';
+</script>
+
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100838734ns.gif" /></p></noscript>
+
+<script type="text/javascript">
+  var loadClicky;
+  var loadGA;
+  var loadCommento;
+
+
+
+
+  var clicky_site_ids = clicky_site_ids || [];
+  clicky_site_ids.push(100838734);
+  loadClicky = function() {
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = '//static.getclicky.com/js';
+    ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+  };
+
+
+
+  loadCommento = function() {
+    var element = document.createElement("script");
+    element.src = "https://commento.daveceddia.com/js/commento.js";
+    document.body.appendChild(element);
+  }
+
+
+  function loadJS() {
+    var element = document.createElement("script");
+    element.src = "https://daveceddia.com/assets/js/scripts.min.js";
+    document.body.appendChild(element);
+
+    if(loadClicky) loadClicky();
+    if(loadGA) loadGA();
+    if(loadCommento) loadCommento();
+  }
+
+  if (window.addEventListener) {
+    window.addEventListener("load", loadJS, false);
+  } else if (window.attachEvent) {
+    window.attachEvent("onload", loadJS);
+  } else {
+    window.onload = loadJS;
+  }
+</script>
+
+
+
+</body>
+</html>

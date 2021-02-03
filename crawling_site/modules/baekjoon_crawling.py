@@ -1,84 +1,66 @@
 import datetime
 import requests
-
+import concurrent.futures
 from bs4 import BeautifulSoup
 
-from .solved import Solved
-
 class Baekjoon():
+    member_URL = 'https://www.acmicpc.net/group/member/10060'
+    member_selector = 'body > div.wrapper > div.container.content > div.row > div:nth-child(5)'
+    solves_selector = '#status-table > tbody'
     
-    # get today's date
-    def get_date(self):
-        now = datetime.datetime.now()
-        formatted_today = f'{now.year}-{now.month:02}-{now.day:02}'
-        return formatted_today
-
-    # get info from web
-    def get_info(self, subject, URL, selector):
-        result = []
-        res = requests.get(URL)
+    def __init__(self):
+        self.member_ids = []
+        self.member_dict = {}
+        self.MAX_THREADS = 30
+        
+    # crawl member ids
+    def crawl_member_ids(self):
+        res = requests.get(self.member_URL)
         soup = BeautifulSoup(res.text, 'html.parser')
-        soup = soup.select_one(selector)
+        soup = soup.select_one(self.member_selector)
         # users info
-        if subject == 'users':
-            infos = soup.find_all('div', {'class': 'member'})
-            for info in infos:
-                result.append(info.h4.a.text)
-            return result
-        # problems info
-        elif subject == 'problems':
-            infos = soup.find_all('tr')
-            for info in infos:
-                result_span = info.find('span', {'class': 'result-ac'})          
-                # 맞았으면 통째로 반환
-                if result_span:
-                    result.append(info)
-            return result
-
-    # get user ids -> returns dictionary of key: user_id ,val: []
-    def get_user_ids(self):
-        user_URL = 'https://www.acmicpc.net/group/member/10060'
-        user_selector = 'body > div.wrapper > div.container.content > div.row > div:nth-child(5)'
-
-        user_ids = self.get_info('users', user_URL, user_selector)
-
-        # initialize dictionary to record todays' solves
-        dic = {}
-        for user_id in user_ids:
-            dic[user_id] = []
-        return user_ids, dic
-
-    # get results for each user
-    def get_all_results(self):
-        user_ids, user_dict = self.get_user_ids()
-        formatted_today = self.get_date()
-        for user_id in user_ids:
-            grading_URL = f'https://www.acmicpc.net/status?problem_id=&user_id={user_id}&language_id=-1&result_id=-1'
-            grading_selector = '#status-table > tbody'
-            prob_infos = self.get_info('problems', grading_URL, grading_selector)
-
-            # 테스트로 각 아이디 채점 현황당 3건 씩만 보기
-            for prob_info in prob_infos[:6]:
-                # get prob infos
-                prob = prob_info.find('a', {'class': 'problem_title'})
-                prob_title = prob.get('title')
-                prob_num = prob.text
-                solved_time = prob_info.find('a', {'class': 'real-time-update'}).get('title')
-                
-                # get tier info
-                solved = Solved(prob_num)
-                prob_tier_info = solved.get_tier()
-                prob_tier = prob_tier_info.get('alt')
-                prob_tier_src = prob_tier_info.get('src')
-
-                # make dict and add to prob_infos_list
-                # solved time을 어떻게 처리해야될지 고민해보기
-                prob_info_dict = {
-                    'question_title': prob_title,
-                    'question_number': prob_num,
-                    'question_tier': prob_tier,
+        infos = soup.find_all('div', {'class': 'member'})
+        for info in infos:
+            self.member_ids.append(info.h4.a.text)    
+    
+    # crawl member solves for each id
+    def crawl_member_solves(self, member_id):
+        solves_URL = f'https://www.acmicpc.net/status?problem_id=&user_id={member_id}&language_id=-1&result_id=-1'
+        res = requests.get(solves_URL)
+        soup = BeautifulSoup(res.text, 'html.parser')
+        soup = soup.select_one(self.solves_selector)
+        solves_trs = soup.find_all('tr')
+        
+        # 맞은 문제는 적절한 데이터만 골라서 user_dict에 담기
+        corrects = []
+        for solves_tr in solves_trs:
+            result_span = solves_tr.find('span', {'class': 'result-ac'})          
+            if result_span:
+                q = solves_tr.find('a', {'class': 'problem_title'})
+                q_title = q.get('title')
+                q_num = q.text
+                solved_time = solves_tr.find('a', {'class': 'real-time-update'}).get('title')
+                q_info_dict = {
+                    'question_title': q_title,
+                    'question_number': q_num,
                     'question_site': 'B',
-                    'solved_time': solved_time,
+                    'solved_time': solved_time,                
                 }
-                user_dict[user_id].append(prob_info_dict)
-        return user_dict
+                self.member_dict[member_id].append(q_info_dict)
+    
+    # assign threads to different ids
+    def initiate_multithread_crawling(self, member_ids):
+        # initiate member_dict
+        for member_id in member_ids:
+            self.member_dict[member_id] = []
+        
+        # initiate crawling with threads
+        threads = min(self.MAX_THREADS, len(member_ids))
+        with concurrent.futures.ThreadPoolExecutor(max_workers=threads) as executor:
+            executor.map(self.crawl_member_solves, member_ids)
+    
+    def get_member_solves_dict(self):
+        return self.member_dict        
+    
+    def get_member_ids(self):
+        return self.member_ids

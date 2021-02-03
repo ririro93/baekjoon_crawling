@@ -1,0 +1,437 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The documentation system &mdash; Documentation system  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+  
+
+  <link rel="preload" href="_static/fonts/fontawesome-webfont.woff2?v=4.7.0" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/divio.css" type="text/css" />
+
+  <link rel="apple-touch-icon" href="_static/favicon.png">
+  <link rel="icon" type="image/png" href="_static/favicon.png">
+  <!--[if IE]><link rel="shortcut icon" href="_static/favicon.png"><![endif]-->
+    <link rel="index" title="Index" href="genindex/" />
+    <link rel="search" title="Search" href="search/" />
+    <link rel="next" title="Introduction" href="introduction/" /> 
+
+  <!--  -->
+  <!-- <script src="_static/js/modernizr.min.js"></script> -->
+  <!--  -->
+
+<!-- RTD Extra Head -->
+
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link rel="canonical" href="https://documentation.divio.com/" />
+
+<link rel="stylesheet" href="https://assets.readthedocs.com/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="text/javascript" src="_static/readthedocs-data.js"></script>
+
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = "index"
+READTHEDOCS_DATA['source_suffix'] = ".rst"
+</script>
+
+<script type="text/javascript" src="https://assets.readthedocs.com/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+
+<body class="wy-body-for-nav">
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+<div class="search-form" role="search">
+  <form id="rtd-search-form" class="wy-form" action="search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+    <button class="search-btn">
+    <span class="fa fa-search"></span>
+    </button>
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction/">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction/#the-problem-and-the-solution">The problem and the solution</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction/#the-problem-it-solves">The problem it solves</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction/#the-secret">The ‘secret’</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="introduction/#making-documentation-work">Making documentation work</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction/#for-authors">For authors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction/#for-readers">For readers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/#analogy-from-cooking">Analogy from cooking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/#how-to-write-good-tutorials">How to write good tutorials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/#allow-the-user-to-learn-by-doing">Allow the user to learn by doing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/#get-the-user-started">Get the user started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/#make-sure-that-your-tutorial-works">Make sure that your tutorial works</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/#ensure-the-user-sees-results-immediately">Ensure the user sees results immediately</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/#make-your-tutorial-repeatable">Make your tutorial repeatable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/#focus-on-concrete-steps-not-abstract-concepts">Focus on concrete steps, not abstract concepts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/#provide-the-minimum-necessary-explanation">Provide the minimum necessary explanation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/#focus-only-on-the-steps-the-user-needs-to-take">Focus only on the steps the user needs to take</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/#example-from-divio-s-documentation">Example from Divio’s documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="how-to-guides/">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="how-to-guides/#analogy-from-cooking">Analogy from cooking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-to-guides/#how-to-write-good-how-to-guides">How to write good how-to guides</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="how-to-guides/#provide-a-series-of-steps">Provide a series of steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how-to-guides/#focus-on-results">Focus on results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how-to-guides/#solve-a-particular-problem">Solve a particular problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how-to-guides/#don-t-explain-concepts">Don’t explain concepts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how-to-guides/#allow-for-some-flexibility">Allow for some flexibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how-to-guides/#leave-things-out">Leave things out</a></li>
+<li class="toctree-l3"><a class="reference internal" href="how-to-guides/#name-guides-well">Name guides well</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="how-to-guides/#example-from-divio-s-documentation">Example from Divio’s documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/">Reference guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/#analogy-from-cooking">Analogy from cooking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/#how-to-write-good-reference-guides">How to write good reference guides</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference/#structure-the-documentation-around-the-code">Structure the documentation around the code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/#be-consistent">Be consistent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/#do-nothing-but-describe">Do nothing but describe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/#be-accurate">Be accurate</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="reference/#example-from-divio-s-documentation">Example from Divio’s documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="explanation/">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="explanation/#analogy-from-cooking">Analogy from cooking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="explanation/#how-to-write-a-good-explanation">How to write a good explanation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="explanation/#provide-context">Provide context</a></li>
+<li class="toctree-l3"><a class="reference internal" href="explanation/#discuss-alternatives-and-opinions">Discuss alternatives and opinions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="explanation/#don-t-instruct-or-provide-technical-reference">Don’t instruct, or provide technical reference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="explanation/#example-from-divio-s-documentation">Example from Divio’s documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="structure/">About the structure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structure/#why-isn-t-this-obvious">Why isn’t this obvious?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="structure/#the-tendency-to-collapse">The tendency to collapse</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="structure/#adoption-of-the-system">Adoption of the system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="structure/#about-the-analysis-and-its-application">About the analysis and its application</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="adoption/">Who is using the system?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="adoption/#other-mentions-and-references-of-interest">Other mentions and references of interest</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+
+            
+                
+                    
+            <div class="divio-cloud">
+                <span class="divio-cloud-caption">Cloud deployment by Divio</span>
+                <iframe src="https://player.vimeo.com/video/435660924" width="226" height="141" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                <p>There's a better, faster, easier way to develop, deploy and manage web applications.</p>
+                <a class="btn-neutral divio-cloud-btn" target="_blank" href="https://www.divio.com">Find out more at Divio</a>
+            </div>
+        
+                
+            
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+
+
+      <div class="wy-nav-content">
+    <div class="header">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <div class="header-title-wrap">
+            <a class="header-title" href="#">Documentation system</a>
+        </div>
+        <a class="logo-link" target="_blank" href="https://divio.com"><img src="_static/logo-divio-black.svg" class="logo" alt="Divio"/></a>
+    </div>
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a>&nbsp; &raquo;&nbsp;</li>
+        
+
+      <li>The documentation system</li>
+    
+  </ul>
+</div>
+        
+        <div class="rst-content">
+        
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <style>
+    .quote {font-size: x-large; font-style: italic; margin: 3em 0 .5em 10%;}
+    .attribution {margin: 0 0 3em 10%; font-size: large}
+</style><div class="section" id="the-documentation-system">
+<h1>The documentation system<a class="headerlink" href="#the-documentation-system" title="Permalink to this headline">¶</a></h1>
+<p class="quote">The Grand Unified Theory of Documentation</p>
+<p class="attribution">- David Laing</p>
+<p>There is a secret that needs to be understood in order to write good software documentation: there isn’t one
+thing called <em>documentation</em>, there are four.</p>
+<p>They are: <em>tutorials</em>, <em>how-to guides</em>, <em>technical reference</em> and <em>explanation</em>. They represent four different
+purposes or functions, and require four different approaches to their creation. Understanding the implications of
+this will help improve most documentation - often immensely.</p>
+<div class="section" id="about-the-system">
+<h2>About the system<a class="headerlink" href="#about-the-system" title="Permalink to this headline">¶</a></h2>
+<img alt="'overview of the documentation system'" src="_images/overview.png" />
+<p>The documentation system outlined here is a simple, comprehensive and nearly universally-applicable scheme. It
+is proven in practice across a wide variety of fields and applications.</p>
+<p>There are some very simple principles that govern documentation that are very rarely if ever spelled out. They seem
+to be a secret, though they shouldn’t be.</p>
+<p>If you can put these principles into practice, <strong>it will make your documentation better and your project, product
+or team more successful</strong> - that’s a promise.</p>
+<p><a class="reference internal" href="adoption/#adoption"><span class="std std-ref">The system is widely adopted</span></a> for large and small, open and proprietary documentation projects.</p>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="video-presentation">
+<h2>Video presentation<a class="headerlink" href="#video-presentation" title="Permalink to this headline">¶</a></h2>
+<p>If you’d prefer to watch a video covering this topic, here is it (courtesy of PyCon Australia 2017).</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/t4vKPhjcMZg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="introduction/" class="btn btn-neutral float-right" title="Introduction" accesskey="n" rel="next">Next <span style="margin-left: 5px" class="fa fa-chevron-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div class="footer-info" role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Daniele Procida.
+      
+        <span class="commit">
+          Revision <code>12d00748</code>.
+        </span>
+      
+
+    </p>
+    <p> 
+    
+        
+        
+            <a href="https://github.com/evildmp/documentation-system//master/index"> Edit on GitHub</a>
+        
+        
+    
+
+    </p>
+  </div>
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+    <span>Documentation</span>
+    <span>
+      v: latest
+      <span class="fa fa-chevron-down"></span>
+  </span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="/en/latest/">latest</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="//documentation.divio.com/_/downloads/en/latest/pdf/">pdf</a></dd>
+        
+          <dd><a href="//documentation.divio.com/_/downloads/en/latest/htmlzip/">html</a></dd>
+        
+          <dd><a href="//documentation.divio.com/_/downloads/en/latest/epub/">epub</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'',
+            VERSION:'',
+            LANGUAGE:'en',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="https://assets.readthedocs.com/javascript/readthedocs-doc-embed.js"></script>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript">
+      jQuery(function () {
+        try {
+            SphinxRtdTheme.Navigation.enableSticky();
+        } catch (e) {
+            SphinxRtdTheme.StickyNav.enable();
+        }
+    });
+
+    jQuery(function ($) {
+        var adjustAnchor = function() {
+            var $anchor = $(':target');
+            var fixedElementHeight = 80;
+
+            if ($anchor.length > 0) {
+                setTimeout(function () {
+                    $('html, body').scrollTop($anchor.offset().top - fixedElementHeight);
+                });
+            }
+        };
+
+        adjustAnchor();
+        $(window).on('hashchange load', adjustAnchor);
+    });
+  </script>
+  <script type="text/javascript">
+      $(function () {
+          $('.tabs').each(function () {
+              var tabs = $(this);
+              var links = tabs.find('.tabs__link');
+              var contents = tabs.find('.tabs__content').find('.tabs-pane');
+
+              links.on('click', function (e) {
+                  var index = links.index(this);
+
+                  links.removeClass('tabs__link--active');
+                  $(this).addClass('tabs__link--active');
+
+                  contents.hide();
+                  contents.eq(index).show();
+              });
+
+              var index = 0;
+
+              if (window.location.hash) {
+                  var maybeLink = $('.tabs__link[href="' + window.location.hash + '"]');
+
+                  if (maybeLink.length && links.index(maybeLink) !== -1) {
+                      index = links.index(maybeLink);
+                  }
+              }
+
+          links.eq(index).trigger('click');
+        });
+      });
+  </script> 
+
+</body>
+</html>
