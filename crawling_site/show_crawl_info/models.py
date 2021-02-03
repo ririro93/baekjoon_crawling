@@ -54,7 +54,7 @@ class Question(models.Model):
     question_tier = models.CharField(
         max_length=200,
         choices = TIER_CHOICES,
-        default='B5'
+        default=''
     )
 
     question_site = models.CharField(

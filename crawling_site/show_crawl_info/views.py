@@ -19,6 +19,8 @@ from modules.solved import Solved
 m_attrs = ['member_id', 'member_name']
 q_attrs = ['question_title', 'question_number', 'question_tier', 'question_site']
 
+############################################################# Views
+
 # db에 있는 최신 멤버랑 문제 정보 간략하게 보여주기
 def crawl_home(request):
     print('crawl:', request)
@@ -77,7 +79,7 @@ def add_question(request):
             print('valid form received: ')
             print(data)
             add_solve_to_db(data)
-    return render(request, "add_question.html", context)
+    return render(request, "show_crawl_info/add_question.html", context)
 
 
 #################################################### DB update
@@ -99,7 +101,7 @@ def update_questions_and_solves():
         for solve in solves:
             # get or create new Question objects
             q, q_bool = Question.objects.get_or_create(
-                **{key: solve.get(key) for key in keys_for_Question}
+                **{key: solve.get(key, '') for key in keys_for_Question}
             )
             
             # update or create solves
@@ -121,7 +123,10 @@ def update_members():
         m, m_bool = Member.objects.get_or_create(
             member_id=member_id
         )
-    return 'members updated'
+    if m_bool:
+        return 'members updated'
+    else:
+        return 'no new members'
 
 # 티어 정보 업데이트
 def update_question_tiers():
@@ -135,16 +140,13 @@ def update_question_tiers():
         solved = Solved(q_nums_without_tier)
         solved.initiate_multithread_crawling()
         tiers = solved.get_result() # [('4307', 'Silver II'), ...]
-        print(tiers)
-        print(len(tiers))
         
-        # update Questions
+        # update Questions(백준문제만)
         for q_number, q_tier in tiers:
             Question.objects.filter(
                 question_number=q_number,
                 question_site='B',
             ).update(question_tier=q_tier)    
-
         return 'tiers updated'
     else:
         return 'no questions without tier info'
@@ -152,7 +154,7 @@ def update_question_tiers():
 # db에 다른 사이트에서 푼 문제 추가하기
 def add_solve_to_db(data):
     m, m_bool = Member.objects.get_or_create(
-        **{key: data.get(key, '') for key in m_attrs}
+        member_id=data.get('member_id')
     )
     q, q_bool = Question.objects.get_or_create(
         **{key: data.get(key, '') for key in q_attrs}
@@ -162,15 +164,18 @@ def add_solve_to_db(data):
         member=m,
         solved_time=data.get('solved_date') # 날짜까지만 받기 -> db에 midnight으로 저장됨
     )
+    if m_bool:
+        print('new Member added to db: ', data.get('member_id'))
+    if q_bool:
+        print('new Question added to db: ', (data.get('question_site'), data.get('question_number')))
     if s_bool:
         print('new Solve added to db')
-    # 생성되지 않았다만 디버깅 위해 프린트
-    if not m_bool or not q_bool or not s_bool:
+    # 문제나 풀이가 생성되지 않았다만 디버깅 위해 프린트
+    if not m_bool and not q_bool and not s_bool:
         print('######')
         print('data not added to db for some reason')
         
 ########################################################
-
 # 현재 시각 스트링으로 변환해서 반환해주는 함수
 def get_time():
     now = datetime.datetime.now()
@@ -193,8 +198,7 @@ def get_prob_info(time):
         results[member.member_id] = result
     return results
 
-
-
+#############################################################
 ## Django REST Framework Test   
 class MemberViewSet(viewsets.ModelViewSet):
     queryset = Member.objects.all()
