@@ -86,12 +86,6 @@ button.active {
     animation-iteration-count: infinite;
 }
 
-.animation-headshake {
-    animation: headShake;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-}
-
 .animation-backInDown {
     animation: backInDown;
     animation-duration: 1s;

@@ -65,26 +65,24 @@ const my_calendar_container = document.querySelector(".my-calendar-container");
 const calendar_label = document.querySelector(".calendar-label");
 const calendar_input = document.querySelector(".calendar-input");
 
-// Remove alert after 2 seconds
-setTimeout(() => {
-    if (($`#msg`).length > 0) {
-        $(`#msg`).remove();
-    }
-}, 2000);
+// Remove alert after 2 seconds 여기 잘 모름..
+function removeAlerts() {
+    setTimeout(() => {
+        if (($`#msg`).length > 0) {
+            let l = ($`#msg`).length;
+            for (i=0; i < l; i++) {
+                $(`#msg`).remove();
+            }
+        }
+    }, 2000);
+}
+removeAlerts();
 
 // set calendar date to today
 let today = new Date();
 let date = today.getFullYear().toString().padStart(2, "0")+'-'+(today.getMonth()+1).toString().padStart(2, "0")+'-'+today.getDate().toString().padStart(2, "0");
 my_calendar.value = date;
 search_date.innerHTML = '[' + date + ']';
-
-// set date to calendar value
-calendar_input.addEventListener('change', (e) => {
-    date = my_calendar.value;
-    search_date.innerHTML = '[' + date + ']';
-    console.log('date changed to: ', date);
-})
-
 
 // handle input data from django when page first loads
 function processData(data) {
@@ -178,7 +176,6 @@ var chart = new Chart(ctx, {
     }
 });
 
-
 // Card moving animation
 document.addEventListener('mousemove', (e) => {
     let xAxis = (window.innerWidth * (5/12) - e.pageX) / 100;
@@ -191,7 +188,6 @@ document.addEventListener('mousemove', (e) => {
 buttons.forEach(button => button.addEventListener('mouseenter', (e) => {
     button.style.transition = "all 1s ease";
     button.style.transform = "scale(1.2) translateZ(20px)";
-    // button.style.transform = "";
 }));
 
 buttons.forEach(button => button.addEventListener('mouseleave', (e) => {
@@ -199,84 +195,32 @@ buttons.forEach(button => button.addEventListener('mouseleave', (e) => {
     button.style.transform = "scale(1) translateZ(0)";
 }));
 
+// set date to calendar value
+calendar_input.addEventListener('change', (e) => {
+    date = my_calendar.value;
+    search_date.innerHTML = '[' + date + ']';
+    console.log('date changed to: ', date);
+    sendPostRequest(date, 'calendar');
+})
+
+// refresh button rotating animation
+function refreshRotate() {
+    refreshBtn.style.transform = "rotateZ(180deg)";
+    setTimeout(() => {
+        refreshBtn.style.transition = "all 1s ease";
+        refreshBtn.style.transform = "rotateZ(360deg)";
+    }, 1000);
+}
 
 // refresh button
+let refreshRotateInterval;
 refreshBtn.addEventListener('click', (e) => {
-    var refreshRotateInterval = setInterval(refreshRotate, 2000);
-    function refreshRotate() {
-        refreshBtn.style.transform = "rotateZ(180deg)";
-        setTimeout(() => {
-            refreshBtn.style.transition = "all 1s ease";
-            refreshBtn.style.transform = "rotateZ(360deg)";
-        }, 1000);
-    }
+    refreshRotateInterval = setInterval(refreshRotate, 2000);
     // add animation to updated time
     update_time_container.classList.add("animation-bounce");
     
-    // add bounce animation to top container
-    container.classList.add("animation-headshake");
-
-    
-    // check which element is active  
-    let activeButton;
-    otherButtons.forEach(button => {
-        if(button.classList.contains("active")) {
-            activeButton = button.innerHTML;
-        }
-    });
-    
     // send POST request
-    $.ajax({
-        url: '/crawling/refresh/',
-        type: 'post',
-        data: {'data': JSON.stringify({
-            'update': 'true',
-            'button': activeButton,
-            'search_date': date,
-            'last_updated_time': last_updated_time.innerHTML,
-        })},
-        headers: { "X-CSRFToken": "{{ csrf_token }}"},
-        success: (result) => {
-            console.log(result);
-            // stop refresh icon animation
-            clearInterval(refreshRotateInterval);
-            
-            // add animation to success alert
-            alertSuccess.classList.remove("invisible");
-            alertSuccess.classList.add("animation-backInDown");
-            setTimeout(() => {
-                alertSuccess.classList.add("animation-backOutUp");
-                setTimeout(() => {
-                    alertSuccess.classList.add("invisible");
-                    alertSuccess.classList.remove("animation-backOutUp");
-                }, 1000);
-                alertSuccess.classList.remove("animation-backInDown");
-            }, 3000);
-
-            // update last updated time
-            last_updated_time.innerHTML = result['update_time'];
-
-            // update search date
-            start_date = result['start_date'];
-            if (start_date != date) {
-                search_date.innerHTML = '[' + start_date + '~' + date + ']';
-            } else {
-                search_date.innerHTML = '[' + date + ']';
-            }
-
-
-            // remove animations
-            update_time_container.classList.remove("animation-bounce");
-            container.classList.remove("animation-headshake");
-            
-            // update chart
-            newData = result['results'];
-            let { members, num_solved_prob } = processData(newData);
-            chart.data.labels = members;
-            chart.data.datasets[0].data = num_solved_prob;
-            chart.update();
-        }
-    });
+    sendPostRequest(date, 'refresh');
 });
 
 // other buttons
@@ -291,35 +235,46 @@ otherButtons.forEach(button => button.addEventListener('click', (e) => {
         }
     });
 
-    // search date 바꿔주기
+    sendPostRequest(date, 'otherButtons');
+}));
 
-    // 버튼 처음 누른거면 데이터 받아오고 누른적있으면 그 데이터 보여주기
-    // 마지막 업데이트 한 시간 서버에 보내주기
+function sendPostRequest(date, buttonPressed) {
+    console.log("POST request made by", buttonPressed);
+    let activeButton;
+    let update;
+    otherButtons.forEach(button => {
+        if(button.classList.contains("active")) {
+            activeButton = button.innerHTML;
+        }
+    });
+    if (buttonPressed == "refresh") {
+        update = 'true'
+    } else {
+        update = 'false'
+    }
+    
     // send POST request
     $.ajax({
         url: '/crawling/refresh/',
         type: 'post',
         data: {'data': JSON.stringify({
-            'update': 'false', 
-            'button': `${button.textContent}`,
+            'update': update,
+            'button': activeButton,
             'search_date': date,
             'last_updated_time': last_updated_time.innerHTML,
         })},
         headers: { "X-CSRFToken": "{{ csrf_token }}"},
         success: (result) => {
-            console.log("success", result);
-            
-            // update chart
-            newData = result['results'];
-            let { members, num_solved_prob } = processData(newData);
-            chart.data.labels = members;
-            chart.data.datasets[0].data = num_solved_prob;
-            chart.update();
-
+            console.log(result);
+            // stop refresh icon animation
+            if (buttonPressed == "refresh") {
+                clearInterval(refreshRotateInterval);
+            }
+ 
             // update last updated time
             last_updated_time.innerHTML = result['update_time'];
-            
-            // update seach date
+
+            // update search date
             start_date = result['start_date'];
             if (start_date != date) {
                 search_date.innerHTML = '[' + start_date + ' ~ ' + date + ']';
@@ -327,10 +282,20 @@ otherButtons.forEach(button => button.addEventListener('click', (e) => {
                 search_date.innerHTML = '[' + date + ']';
             }
 
-
+            // remove animations
+            update_time_container.classList.remove("animation-bounce");
+            
+            // update chart
+            newData = result['results'];
+            let { members, num_solved_prob } = processData(newData);
+            chart.data.labels = members;
+            chart.data.datasets[0].data = num_solved_prob;
+            chart.update();
         }
     });
-}));
+    removeAlerts();
+}
+
 
 </script>
 {% endblock %}

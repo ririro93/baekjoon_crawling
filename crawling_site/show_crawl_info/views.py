@@ -24,10 +24,9 @@ q_attrs = ['question_title', 'question_number', 'question_tier', 'question_site'
 
 # db에 있는 최신 멤버랑 문제 정보 간략하게 보여주기
 def crawl_home(request):
+    print('crawl:', request)
     # messages framework test
     messages.success(request, 'Page loaded successfully!')
-
-    print('crawl:', request)
     
     # 마지막 업데이트 된 시간 나중에 제대로 넣어보고 일단은 지금 시간 보내기
     updated_time = get_time()
@@ -45,9 +44,10 @@ def crawl_home(request):
 def refresh_button(request):
     req = json.loads(request.POST.get('data'))
     print('refresh', req)
-    update = req.get('update')
+    
+    # get data
     button = req.get('button')
-    # reassign global updated_time
+    update = req.get('update')
     updated_time = req.get('last_updated_time')
     search_date = req.get('search_date')
     search_year = int(search_date[:4])
@@ -55,13 +55,13 @@ def refresh_button(request):
     search_day = int(search_date[8:])
     datetime_search_date = datetime.datetime(search_year, search_month, search_day)
     
-    ## refresh 를 누른 경우
+    # refresh 를 누른 경우
     if update == 'true':
         # DB 업데이트 해주기
-        time.sleep(4)                   # for testing
-        # print(update_members())
-        # print(update_questions_and_solves())
-        # print(update_question_tiers())
+        # time.sleep(5)                   # for testing
+        print(update_members())
+        print(update_questions_and_solves())
+        print(update_question_tiers())
         updated_time = get_time()
         messages.success(request, 'DB has been updated successfully!')
         

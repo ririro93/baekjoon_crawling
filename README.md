@@ -19,9 +19,9 @@ testing small portions of project before incorporating to main
     - [ ] refresh 하는 동안 last updated 약간 매트릭스 느낌나게ㅎㅎ
     - [ ] 새로고침 쿨 다운 5분 정도 설정해두기 -> 그냥 이 정보만 저장할 model 하나 더 만들어보기
     - [ ] 밑으로 쭉 내리면 상세정보 볼 수 있게 하기
-    - [ ] *오른쪽 반에 달력(보류: 엄청 어려울듯)* 
-        - [ ] 거기 마우스 올리면 커지게
-        - [ ] 거기서 범위 고르면 왼쪽에서 보여주기
+    - [x] *오른쪽 반에 달력(보류: 엄청 어려울듯)* 
+        - [x] 거기 마우스 올리면 커지게
+        - [x] 거기서 범위 고르면 왼쪽에서 보여주기
 - [x] 크롤링한 데이터 db에 자동 저장
     - [x] 저장
     - [x] 날짜 데이터, 티어 데이터 사이트 데이터 추가로 필요
@@ -62,6 +62,8 @@ testing small portions of project before incorporating to main
 - [x] 크롤링 더 빠르게
 - [ ] ajax request 실패 했을 때 코드 추가하기
 - [ ] django message framework 써보기
+    - [ ] 애니메이션 추가
+    - [ ] 두개 쌓이면 안 없어지는 버그 고치기 (crawl_home -> removeAlerts() 잘 모름)
         
 
 생각보다 할꺼 겁나 많네ㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷ
