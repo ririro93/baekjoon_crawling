@@ -60,6 +60,10 @@ const last_updated_time = document.querySelector('.last-updated-time');
 const update_time_container = document.querySelector('.update-time-container');
 const my_calendar = document.querySelector('#calendar');
 const search_date = document.querySelector(".current-time");
+const chart_section = document.querySelector(".chart-section");
+const my_calendar_container = document.querySelector(".my-calendar-container");
+const calendar_label = document.querySelector(".calendar-label");
+const calendar_input = document.querySelector(".calendar-input");
 
 // Remove alert after 2 seconds
 setTimeout(() => {
@@ -69,10 +73,17 @@ setTimeout(() => {
 }, 2000);
 
 // set calendar date to today
-const today = new Date();
-const date = today.getFullYear().toString().padStart(2, "0")+'-'+(today.getMonth()+1).toString().padStart(2, "0")+'-'+today.getDate().toString().padStart(2, "0");
+let today = new Date();
+let date = today.getFullYear().toString().padStart(2, "0")+'-'+(today.getMonth()+1).toString().padStart(2, "0")+'-'+today.getDate().toString().padStart(2, "0");
 my_calendar.value = date;
 search_date.innerHTML = '[' + date + ']';
+
+// set date to calendar value
+calendar_input.addEventListener('change', (e) => {
+    date = my_calendar.value;
+    search_date.innerHTML = '[' + date + ']';
+    console.log('date changed to: ', date);
+})
 
 
 // handle input data from django when page first loads
@@ -92,11 +103,6 @@ function processData(data) {
 let { members, num_solved_prob } = processData({{ results|safe }});
 
 // show calendar if mouse hovers in that area
-const chart_section = document.querySelector(".chart-section");
-const my_calendar_container = document.querySelector(".my-calendar-container");
-const calendar_label = document.querySelector(".calendar-label");
-const calendar_input = document.querySelector(".calendar-input");
-
 chart_section.addEventListener('mouseenter', (e) => {
   chart_section.classList.add("col-md-11");
   chart_section.classList.remove("col-md-10");
@@ -226,6 +232,7 @@ refreshBtn.addEventListener('click', (e) => {
         data: {'data': JSON.stringify({
             'update': 'true',
             'button': activeButton,
+            'search_date': date,
             'last_updated_time': last_updated_time.innerHTML,
         })},
         headers: { "X-CSRFToken": "{{ csrf_token }}"},
@@ -248,6 +255,15 @@ refreshBtn.addEventListener('click', (e) => {
 
             // update last updated time
             last_updated_time.innerHTML = result['update_time'];
+
+            // update search date
+            start_date = result['start_date'];
+            if (start_date != date) {
+                search_date.innerHTML = '[' + start_date + '~' + date + ']';
+            } else {
+                search_date.innerHTML = '[' + date + ']';
+            }
+
 
             // remove animations
             update_time_container.classList.remove("animation-bounce");
@@ -275,6 +291,8 @@ otherButtons.forEach(button => button.addEventListener('click', (e) => {
         }
     });
 
+    // search date 바꿔주기
+
     // 버튼 처음 누른거면 데이터 받아오고 누른적있으면 그 데이터 보여주기
     // 마지막 업데이트 한 시간 서버에 보내주기
     // send POST request
@@ -284,6 +302,7 @@ otherButtons.forEach(button => button.addEventListener('click', (e) => {
         data: {'data': JSON.stringify({
             'update': 'false', 
             'button': `${button.textContent}`,
+            'search_date': date,
             'last_updated_time': last_updated_time.innerHTML,
         })},
         headers: { "X-CSRFToken": "{{ csrf_token }}"},
@@ -299,6 +318,15 @@ otherButtons.forEach(button => button.addEventListener('click', (e) => {
 
             // update last updated time
             last_updated_time.innerHTML = result['update_time'];
+            
+            // update seach date
+            start_date = result['start_date'];
+            if (start_date != date) {
+                search_date.innerHTML = '[' + start_date + ' ~ ' + date + ']';
+            } else {
+                search_date.innerHTML = '[' + date + ']';
+            }
+
 
         }
     });

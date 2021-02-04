@@ -33,10 +33,10 @@ def crawl_home(request):
     updated_time = get_time()
                     
     # db에서 오늘 문제 풀이 현황 불러오기
-    results = get_prob_info('day')
+    results, formatted_start_date = get_prob_info('day', datetime.date.today())
     
     # 반환: 오늘 푼 문제들 리스트와 마지막으로 업데이트 된 시간
-    context = {'results': results, 'time': updated_time}
+    context = {'results': results, 'time': updated_time, 'start_date': formatted_start_date}
     
     return render(request, 'show_crawl_info/crawl_home.html', context)
 
@@ -49,6 +49,11 @@ def refresh_button(request):
     button = req.get('button')
     # reassign global updated_time
     updated_time = req.get('last_updated_time')
+    search_date = req.get('search_date')
+    search_year = int(search_date[:4])
+    search_month = int(search_date[5:7])
+    search_day = int(search_date[8:])
+    datetime_search_date = datetime.datetime(search_year, search_month, search_day)
     
     ## refresh 를 누른 경우
     if update == 'true':
@@ -62,16 +67,16 @@ def refresh_button(request):
         
     # 각각 누른 버튼에 대한 db 정보 가져오기
     if button == 'day':
-        results = get_prob_info('day')
+        results, formatted_start_date = get_prob_info('day', datetime_search_date)
     elif button == 'week':
-        results = get_prob_info('week')
+        results, formatted_start_date = get_prob_info('week', datetime_search_date)
     elif button == 'month':
-        results = get_prob_info('month')
+        results, formatted_start_date = get_prob_info('month', datetime_search_date)
     elif button == 'total':
-        results = get_prob_info('total')
+        results, formatted_start_date = get_prob_info('total', datetime_search_date)
     
     # 반환 : 최신화된 DB 정보랑 업데이트 한 지금 시간
-    context = {'results': results, 'update_time': updated_time}
+    context = {'results': results, 'update_time': updated_time, 'start_date': formatted_start_date}
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 # + 버튼 누르면 다른 사이트에서 푼 문제 추가 할 수 있도록
@@ -188,12 +193,12 @@ def get_time():
     return formatted_time
 
 # 각 멤버가 오늘 푼 문제 정보 반환
-def get_prob_info(time):
+def get_prob_info(time, datetime_search_date):
     # last_update_time을 어떻게 저장할지 생각해보기 -> global 시간 변수 사용?
     results = {}
     members = Member.objects.all()
     for member in members:
-        datas = member.get_member_solves(time)
+        datas, formatted_start_date = member.get_member_solves(time, datetime_search_date)
         result = [{
             'q_num':data.question.question_number,
             'q_title':data.question.question_title,
@@ -201,7 +206,7 @@ def get_prob_info(time):
             'q_site': data.question.question_site
         } for data in datas]
         results[member.member_id] = result
-    return results
+    return results, formatted_start_date
 
 #############################################################
 ## Django REST Framework Test   

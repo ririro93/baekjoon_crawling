@@ -78,24 +78,26 @@ class Member(models.Model):
     
     
     # 일, 주, 월, 총 푼 문제 반환 -> 얘 잘 맞는지는 다른 요일에 다시 확인해보기
-    def get_member_solves(self, time):
+    def get_member_solves(self, time, datetime_search_date):
         if time == 'day':
             dday = 0
         elif time == 'week':
-            # 월: 0, 일: 6
-            dday = datetime.date.today().weekday()
+            dday = 6
         elif time == 'month':
-            # 1일 이면 0 되게
-            dday = datetime.date.today().day - 1
+            dday = 30
         else:
             # 대충 큰 수 빼기
             dday = 10000
-        date = datetime.date.today() - datetime.timedelta(days=dday)
+        date = datetime_search_date - datetime.timedelta(days=dday)
+        end_date = datetime_search_date + datetime.timedelta(days=1)
         solves = Solve.objects.filter(
             member__member_id=self.member_id,
-            solved_time__gte=date
+            solved_time__gte=date,
+        ).exclude(
+            solved_time__gte=end_date,
         )
-        return solves
+        formatted_start_date = f'{date.year}-{date.month:02}-{date.day:02}'
+        return solves, formatted_start_date
     
     def __str__(self):
         return self.member_id
