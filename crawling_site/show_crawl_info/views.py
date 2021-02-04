@@ -1,6 +1,7 @@
 import time
 import datetime
 import json
+from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core import serializers
@@ -23,6 +24,9 @@ q_attrs = ['question_title', 'question_number', 'question_tier', 'question_site'
 
 # db에 있는 최신 멤버랑 문제 정보 간략하게 보여주기
 def crawl_home(request):
+    # messages framework test
+    messages.success(request, 'Page loaded successfully!')
+
     print('crawl:', request)
     
     # 마지막 업데이트 된 시간 나중에 제대로 넣어보고 일단은 지금 시간 보내기
@@ -49,11 +53,12 @@ def refresh_button(request):
     ## refresh 를 누른 경우
     if update == 'true':
         # DB 업데이트 해주기
-        time.sleep(2)                   # for testing
+        time.sleep(4)                   # for testing
         # print(update_members())
         # print(update_questions_and_solves())
         # print(update_question_tiers())
         updated_time = get_time()
+        messages.success(request, 'DB has been updated successfully!')
         
     # 각각 누른 버튼에 대한 db 정보 가져오기
     if button == 'day':

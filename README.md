@@ -61,6 +61,7 @@ testing small portions of project before incorporating to main
 - [ ] 사람 이름 누르면 상세정보 보이게 
 - [x] 크롤링 더 빠르게
 - [ ] ajax request 실패 했을 때 코드 추가하기
+- [ ] django message framework 써보기
         
 
 생각보다 할꺼 겁나 많네ㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷ

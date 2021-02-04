@@ -1,0 +1,22 @@
+body {
+  height: 150vh;
+}
+
+.my-graph,
+.my-calendar {
+  height: 80vh;
+}
+
+.my-transition {
+  transition: 1s ease all;
+}
+
+.myChart-container {
+  width: 70%;
+  height: 70%
+}
+
+#myChart {
+  width: 100%;
+  height: 100%;
+}

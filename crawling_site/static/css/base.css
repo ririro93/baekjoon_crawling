@@ -1,3 +1,27 @@
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
 .navbar {
     height: 5vh;
+}
+
+.content {
+    position: relative;
+    top: 5vh;
+    height: 90vh;
+    font-family: "Poppins", sans-serif;
+    perspective: 1500px;
+}
+
+.messages {
+    position: relative;
+    top: 5vh;
+    height: 5vh;
+}
+
+.my-alert {
+    height: 5vh;
+    vertical-align: middle;
 }
