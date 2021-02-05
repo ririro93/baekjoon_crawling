@@ -1,8 +1,8 @@
 <!-- alerts -->
-<div class="messages">
+<div class="messages messages-container">
 {% if messages %}
   {% for message in messages %}
-  <div class="my-alert alert-{{ message.tags }} d-flex justify-content-center align-items-center">
+  <div class="my-alert alert-{{ message.tags }}">
     {{ message }}
   </div>
   {% endfor %}
@@ -11,10 +11,13 @@
 
 <script>
 // Remove alert after 2 seconds 
-const messages = document.querySelectorAll('.my-alert');
-setTimeout(() => {
-  messages.forEach((message) => {
-    message.remove()
-  });
-}, 2000);
+function removeMessages() {
+  setTimeout(() => {
+    const messages = document.querySelectorAll('.my-alert');
+    messages.forEach((message) => {
+      message.remove()
+    });
+  }, 2000);
+}
+removeMessages();
 </script>

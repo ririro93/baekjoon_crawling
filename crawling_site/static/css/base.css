@@ -24,4 +24,7 @@ body {
 .my-alert {
     height: 5vh;
     vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

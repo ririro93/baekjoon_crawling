@@ -69,6 +69,7 @@ const my_calendar_container = document.querySelector(".my-calendar-container");
 const calendar_label = document.querySelector(".calendar-label");
 const calendar_input = document.querySelector(".calendar-input");
 const arrow_image = document.querySelector(".arrow-image");
+const messages_container = document.querySelector(".messages-container");
 
 // // Remove alert after 2 seconds 여기 잘 모름..
 // function removeAlerts() {
@@ -247,6 +248,7 @@ otherButtons.forEach(button => button.addEventListener('click', (e) => {
     sendPostRequest(date, 'otherButtons');
 }));
 
+// Ajax POST request
 function sendPostRequest(date, buttonPressed) {
     console.log("POST request made by", buttonPressed);
     let activeButton;
@@ -299,10 +301,24 @@ function sendPostRequest(date, buttonPressed) {
             chart.data.labels = members;
             chart.data.datasets[0].data = num_solved_prob;
             chart.update();
+
+            // update messages
+            update_messages(result.messages);
+
         }
     });
 }
 
+// create messages -> remove after 2 seconds
+function update_messages(messages) {
+    messages.forEach((message) => {
+        const newDiv = document.createElement("div");
+        newDiv.classList.add("my-alert", `alert-${message['tag']}`);
+        newDiv.innerHTML = message['message'];
+        messages_container.appendChild(newDiv);
+    });
+    removeMessages();
+}
 
 </script>
 {% endblock %}

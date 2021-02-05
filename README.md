@@ -64,7 +64,8 @@ testing small portions of project before incorporating to main
 - [ ] ajax request 실패 했을 때 코드 추가하기
 - [ ] django message framework 써보기
     - [ ] 애니메이션 추가
-    - [ ] 두개 쌓이면 안 없어지는 버그 고치기 (crawl_home -> removeAlerts() 잘 모름)
+    - [x] 두개 쌓이면 안 없어지는 버그 고치기 (crawl_home -> removeAlerts() 잘 모름)
+    - [ ] ajax request 보냈을 때 messages 발동 안되니깐 별도 처리
         
 
 생각보다 할꺼 겁나 많네ㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷ

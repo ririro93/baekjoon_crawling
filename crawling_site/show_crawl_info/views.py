@@ -53,6 +53,9 @@ def refresh_button(request):
     search_day = int(search_date[8:])
     datetime_search_date = datetime.datetime(search_year, search_month, search_day)
     
+    # get last crawled time
+    formatted_updated_time, last_updater = get_formatted_updated_time()
+
     # refresh 를 누른 경우
     if update == 'true':
         # DB 업데이트 해주기
@@ -62,8 +65,13 @@ def refresh_button(request):
         # print(update_question_tiers())
 
         # update update time
-        Update_time.objects.create(updated_time=datetime.datetime.now())
-
+        now = datetime.datetime.now()
+        Update_time.objects.create(updated_time=now)
+        
+        # 1분 안에 크롤링 또 했으면 경고 메세지
+        if now.hour == int(formatted_updated_time[:2]) and now.minute - int(formatted_updated_time[3:5]) <= 1:
+            messages.warning(request, '크롤링 너무 자주하면 얌체같은 백준한테 막혀요ㅋㅋ..(경험담)')
+        
         # message
         messages.success(request, 'DB has been updated successfully!')
         
@@ -77,9 +85,17 @@ def refresh_button(request):
     elif button == 'total':
         results, formatted_start_date = get_prob_info('total', datetime_search_date)
     
+    # ajax request 이니깐 messages 는 별도 처리
+    django_messages = []
+
+    for message in messages.get_messages(request):
+        django_messages.append({
+            "tag": message.level_tag,
+            "message": message.message,
+    })
+    
     # 반환 : 최신화된 DB 정보랑 업데이트 한 지금 시간
-    formatted_updated_time, last_updater = get_formatted_updated_time()
-    context = {'results': results, 'update_time': formatted_updated_time, 'start_date': formatted_start_date}
+    context = {'results': results, 'update_time': formatted_updated_time, 'start_date': formatted_start_date, 'messages': django_messages}
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 # + 버튼 누르면 다른 사이트에서 푼 문제 추가 할 수 있도록
