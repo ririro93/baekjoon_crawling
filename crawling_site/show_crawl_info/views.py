@@ -59,10 +59,10 @@ def refresh_button(request):
     # refresh 를 누른 경우
     if update == 'true':
         # DB 업데이트 해주기
-        time.sleep(5)                   # for testing
-        # print(update_members())
-        # print(update_questions_and_solves())
-        # print(update_question_tiers())
+        # time.sleep(5)                   # for testing
+        print(update_members())
+        print(update_questions_and_solves())
+        print(update_question_tiers())
 
         # update update time
         now = datetime.datetime.now()
