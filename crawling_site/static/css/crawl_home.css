@@ -1,7 +1,6 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 p {
@@ -80,9 +79,9 @@ button.active {
     transition: 1s ease all
 }
 
-.animation-bounce {
-    animation: bounce;
-    animation-duration: 2s;
+.animation-jello {
+    animation: jello;
+    animation-duration: 1.5s;
     animation-iteration-count: infinite;
 }
 

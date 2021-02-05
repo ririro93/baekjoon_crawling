@@ -50,7 +50,7 @@ class Question(models.Model):
     ]
     
     question_title = models.CharField(default='제목 넣어줘..', max_length=100)
-    question_number = models.CharField(default='번호 넣어줘..', max_length=100)
+    question_number = models.CharField(default='번호 넣어줘..', max_length=100, null=True)
     question_tier = models.CharField(
         max_length=200,
         choices = TIER_CHOICES,
@@ -113,4 +113,13 @@ class Solve(models.Model):
 
     def __str__(self):
         return self.question.question_number
+
+class Update_time(models.Model):
+    updater = models.CharField(null=True, blank=True, max_length=100)
+    updated_time = models.DateTimeField()
     
+    class Meta:
+        ordering = ['-updated_time']
+        
+    def __str__(self):
+        return f'{self.updater} updated at {self.updated_time}'

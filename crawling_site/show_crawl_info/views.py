@@ -1,8 +1,9 @@
 import time
 import datetime
 import json
+from django.urls import reverse
 from django.contrib import messages
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
@@ -10,7 +11,7 @@ from django.template.loader import get_template
 from rest_framework import viewsets
 from rest_framework import permissions
 
-from .models import Question, Member, Solve
+from .models import Question, Member, Solve, Update_time
 from .serializers import MemberSerializer, SolveSerializer
 from .forms import QuestionForm
 from modules.baekjoon_crawling import Baekjoon
@@ -25,17 +26,15 @@ q_attrs = ['question_title', 'question_number', 'question_tier', 'question_site'
 # db에 있는 최신 멤버랑 문제 정보 간략하게 보여주기
 def crawl_home(request):
     print('crawl:', request)
-    # messages framework test
-    messages.success(request, 'Page loaded successfully!')
     
     # 마지막 업데이트 된 시간 나중에 제대로 넣어보고 일단은 지금 시간 보내기
-    updated_time = get_time()
-                    
+    formatted_updated_time, last_updater = get_formatted_updated_time()
+
     # db에서 오늘 문제 풀이 현황 불러오기
     results, formatted_start_date = get_prob_info('day', datetime.date.today())
     
     # 반환: 오늘 푼 문제들 리스트와 마지막으로 업데이트 된 시간
-    context = {'results': results, 'time': updated_time, 'start_date': formatted_start_date}
+    context = {'results': results, 'updated_time': formatted_updated_time, 'updater': last_updater, 'start_date': formatted_start_date}
     
     return render(request, 'show_crawl_info/crawl_home.html', context)
 
@@ -48,7 +47,6 @@ def refresh_button(request):
     # get data
     button = req.get('button')
     update = req.get('update')
-    updated_time = req.get('last_updated_time')
     search_date = req.get('search_date')
     search_year = int(search_date[:4])
     search_month = int(search_date[5:7])
@@ -58,11 +56,15 @@ def refresh_button(request):
     # refresh 를 누른 경우
     if update == 'true':
         # DB 업데이트 해주기
-        # time.sleep(5)                   # for testing
-        print(update_members())
-        print(update_questions_and_solves())
-        print(update_question_tiers())
-        updated_time = get_time()
+        time.sleep(5)                   # for testing
+        # print(update_members())
+        # print(update_questions_and_solves())
+        # print(update_question_tiers())
+
+        # update update time
+        Update_time.objects.create(updated_time=datetime.datetime.now())
+
+        # message
         messages.success(request, 'DB has been updated successfully!')
         
     # 각각 누른 버튼에 대한 db 정보 가져오기
@@ -76,7 +78,8 @@ def refresh_button(request):
         results, formatted_start_date = get_prob_info('total', datetime_search_date)
     
     # 반환 : 최신화된 DB 정보랑 업데이트 한 지금 시간
-    context = {'results': results, 'update_time': updated_time, 'start_date': formatted_start_date}
+    formatted_updated_time, last_updater = get_formatted_updated_time()
+    context = {'results': results, 'update_time': formatted_updated_time, 'start_date': formatted_start_date}
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 # + 버튼 누르면 다른 사이트에서 푼 문제 추가 할 수 있도록
@@ -89,6 +92,10 @@ def add_question(request):
             print('valid form received: ')
             print(data)
             add_solve_to_db(data)
+            messages.success(request, 'new question submitted!')
+            return HttpResponseRedirect(reverse('crawl-home'))
+        else:
+            messages.warning(request, 'please submit valid form!')
     return render(request, "show_crawl_info/add_question.html", context)
 
 
@@ -191,6 +198,13 @@ def get_time():
     now = datetime.datetime.now()
     formatted_time = f'{now.hour:02}:{now.minute:02}:{now.second:02}'
     return formatted_time
+
+def get_formatted_updated_time():
+    u_times = Update_time.objects.all()
+    last_updated_time = u_times.first().updated_time
+    last_updater = u_times.first().updater
+    formatted_updated_time = f'{last_updated_time.hour:02}:{last_updated_time.minute:02}:{last_updated_time.second:02}'
+    return formatted_updated_time, last_updater
 
 # 각 멤버가 오늘 푼 문제 정보 반환
 def get_prob_info(time, datetime_search_date):

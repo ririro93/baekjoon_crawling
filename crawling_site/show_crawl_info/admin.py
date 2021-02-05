@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Member, Question, Solve
+from .models import Member, Question, Solve, Update_time
 
 class MemberAdmin(admin.ModelAdmin):
     list_display = (
@@ -29,7 +29,15 @@ class SolveAdmin(admin.ModelAdmin):
         'updated',
     )
     
+class UpdateTimeAdmin(admin.ModelAdmin):
+    list_display = (
+        'updater',
+        'updated_time',
+    )
+    
+    
 
 admin.site.register(Member, MemberAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Solve, SolveAdmin)
+admin.site.register(Update_time, UpdateTimeAdmin)

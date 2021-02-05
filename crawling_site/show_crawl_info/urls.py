@@ -14,7 +14,7 @@ router.register(r'members', MemberViewSet)
 router.register(r'solves', SolveViewSet)
 
 urlpatterns = [
-    path('', crawl_home),
+    path('', crawl_home, name='crawl-home'),
     path('refresh/', refresh_button),
     path('add-question/', add_question),
     path('router/', include(router.urls)),

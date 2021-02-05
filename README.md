@@ -19,9 +19,10 @@ testing small portions of project before incorporating to main
     - [ ] refresh 하는 동안 last updated 약간 매트릭스 느낌나게ㅎㅎ
     - [ ] 새로고침 쿨 다운 5분 정도 설정해두기 -> 그냥 이 정보만 저장할 model 하나 더 만들어보기
     - [ ] 밑으로 쭉 내리면 상세정보 볼 수 있게 하기
-    - [x] *오른쪽 반에 달력(보류: 엄청 어려울듯)* 
+    - [ ] *오른쪽 반에 달력(보류: 엄청 어려울듯)* 
         - [x] 거기 마우스 올리면 커지게
         - [x] 거기서 범위 고르면 왼쪽에서 보여주기
+        - [ ] 화살표에 역동적인 애니메이션 적용해보기
 - [x] 크롤링한 데이터 db에 자동 저장
     - [x] 저장
     - [x] 날짜 데이터, 티어 데이터 사이트 데이터 추가로 필요
@@ -86,7 +87,8 @@ testing small portions of project before incorporating to main
         - defaults 부분이 바꿔주고 싶은 부분이었음
             - 예전게 나중에 나와서 전에 푼 기록으로 업데이트 됨-> 순서 역순으로 바꿔야됨
 - 새로고침 했을 때 페이지 로딩 속도가 너어무 느리다..이거 어떻게 고칠지 생각해보기(**질문**) 
-    - -> 멀티쓰레딩 쓰니까 1분 ->
+    - -> 멀티쓰레딩 쓰니까 1분 -> 10초
+- leetcode 랑 programmers 새 문제 제출 템플릿이 달라야 되는데
 
 
 <br>
@@ -129,6 +131,8 @@ testing small portions of project before incorporating to main
         ```
     2. html 파일에서 `{% load static %}` 이라고 적어줘야 된다
     3. 불러오는 파일에는 `static` 이라는 키워드를 붙여서 부른다
+
+- `HttprResponseRedirect(reverse(<url-name>))`: 를 사용해서 form 제출후에 원하는 곳으로 보낼 수 있다.
     
 <br>
 

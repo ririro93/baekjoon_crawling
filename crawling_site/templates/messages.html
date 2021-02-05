@@ -1,10 +1,20 @@
 <!-- alerts -->
-{% if messages %}
 <div class="messages">
-    {% for message in messages %}
-    <div class="my-alert alert-{{ message.tags }} d-flex justify-content-center align-items-center" id="msg">
-      {{ message }}
-    </div>
-    {% endfor %}
-</div>
+{% if messages %}
+  {% for message in messages %}
+  <div class="my-alert alert-{{ message.tags }} d-flex justify-content-center align-items-center">
+    {{ message }}
+  </div>
+  {% endfor %}
 {% endif %}
+</div>
+
+<script>
+// Remove alert after 2 seconds 
+const messages = document.querySelectorAll('.my-alert');
+setTimeout(() => {
+  messages.forEach((message) => {
+    message.remove()
+  });
+}, 2000);
+</script>

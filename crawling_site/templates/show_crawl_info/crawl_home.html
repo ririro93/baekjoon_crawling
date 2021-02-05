@@ -8,47 +8,51 @@
 
 {% block content %}
 <!-- main section -->
-<section class="container-fluid top-container p-0">
-    <div class="row my-card-container d-flex">
-        <!-- chart section -->
-        <section class="col-sm-12 col-md-11 p-0 d-flex justify-content-center align-items-center chart-section">
-            <div class="my-card d-flex flex-column justify-content-evenly align-items-center">
-                <!-- refresh button + update time-->
-                <div class="refresh-container d-flex justify-content-between">
-                    <img class="refresh-button disable-select" src="{% static 'images/refresh.jpg' %}" alt="refresh img">
-                    <p class="current-time disable-select"> Loading </p>
-                    <div class="update-time-container disable-select">
-                        <p>last crawl</p>
-                        <p class="last-updated-time disable-select">{{ time }}</p>
+<div class="content">
+    <section class="container-fluid top-container p-0">
+        <div class="row my-card-container d-flex">
+            <!-- chart section -->
+            <section class="col-sm-12 col-md-11 p-0 d-flex justify-content-center align-items-center chart-section">
+                <div class="my-card d-flex flex-column justify-content-evenly align-items-center">
+                    <!-- refresh button + update time-->
+                    <div class="refresh-container d-flex justify-content-between">
+                        <img class="refresh-button disable-select" src="{% static 'images/refresh.jpg' %}" alt="refresh img">
+                        <p class="current-time disable-select"> Loading </p>
+                        <div class="update-time-container disable-select">
+                            <p>last crawl</p>
+                            <p class="last-updated-time disable-select">{{ updated_time }}</p>
+                        </div>
+                    </div>
+                    
+                    <!-- chart -->
+                    <div class="myChart-container">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                    
+                    <!-- buttons -->
+                    <div class="button-container d-flex justify-content-around">
+                        <button class="button active disable-select">day</button>
+                        <button class="button disable-select">week</button>
+                        <button class="button disable-select">month</button>
+                        <button class="button disable-select">total</button>
                     </div>
                 </div>
-
-                <!-- chart -->
-                <div class="myChart-container">
-                    <canvas id="myChart"></canvas>
-                </div>
-
-                <!-- buttons -->
-                <div class="button-container d-flex justify-content-around">
-                    <button class="button active disable-select">day</button>
-                    <button class="button disable-select">week</button>
-                    <button class="button disable-select">month</button>
-                    <button class="button disable-select">total</button>
-                </div>
-            </div>
-        </section>
+            </section>
+            
+            <!-- calendar aside -->
+            <aside class="my-calendar-container d-none d-md-flex col-md-1 p-0 flex-column justify-content-center align-items-center">
+                <label class="hidden calendar-label" for="calendar">pick date</label>
+                <img class="arrow-image" src="{% static 'images/arrow.jpg' %}" alt="arrow">
+                <input class="hidden calendar-input" type="date" name="calendar" id="calendar" value="">
+            </aside>
+        </div>
+    </section>
+</div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    
+    <script>
         
-        <!-- calendar aside -->
-        <aside class="my-calendar-container bg-light d-none d-md-flex col-md-1 p-0 flex-column justify-content-center align-items-center">
-            <label class="hidden calendar-label" for="calendar">pick date</label>
-            <input class="hidden calendar-input" type="date" name="calendar" id="calendar" value="">
-        </aside>
-    </div>
-</section>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script>
-
 // Object selection
 const card = document.querySelector('.my-card');
 const container = document.querySelector('.container-fluid');
@@ -64,19 +68,20 @@ const chart_section = document.querySelector(".chart-section");
 const my_calendar_container = document.querySelector(".my-calendar-container");
 const calendar_label = document.querySelector(".calendar-label");
 const calendar_input = document.querySelector(".calendar-input");
+const arrow_image = document.querySelector(".arrow-image");
 
-// Remove alert after 2 seconds 여기 잘 모름..
-function removeAlerts() {
-    setTimeout(() => {
-        if (($`#msg`).length > 0) {
-            let l = ($`#msg`).length;
-            for (i=0; i < l; i++) {
-                $(`#msg`).remove();
-            }
-        }
-    }, 2000);
-}
-removeAlerts();
+// // Remove alert after 2 seconds 여기 잘 모름..
+// function removeAlerts() {
+//     setTimeout(() => {
+//         if (($`#msg`).length > 0) {
+//             let l = ($`#msg`).length;
+//             for (i=0; i < l; i++) {
+//                 $(`#msg`).remove();
+//             }
+//         }
+//     }, 2000);
+// }
+// removeAlerts();
 
 // set calendar date to today
 let today = new Date();
@@ -110,6 +115,8 @@ chart_section.addEventListener('mouseenter', (e) => {
   calendar_input.classList.remove("visible");
   my_calendar_container.classList.add("col-md-1");
   my_calendar_container.classList.remove("col-md-2");
+  arrow_image.classList.remove("hidden");
+  arrow_image.classList.add("visible");
 })
 my_calendar_container.addEventListener('mouseenter', (e) => {
     my_calendar_container.classList.add("col-md-2");
@@ -118,8 +125,10 @@ my_calendar_container.addEventListener('mouseenter', (e) => {
     calendar_input.classList.remove("hidden");
     calendar_label.classList.add("visible");
     calendar_input.classList.add("visible");
-  chart_section.classList.add("col-md-10");
-  chart_section.classList.remove("col-md-11");
+    chart_section.classList.add("col-md-10");
+    chart_section.classList.remove("col-md-11");
+    arrow_image.classList.add("hidden");
+    arrow_image.classList.remove("visible");
 })
 
 // chart.js
@@ -217,7 +226,7 @@ let refreshRotateInterval;
 refreshBtn.addEventListener('click', (e) => {
     refreshRotateInterval = setInterval(refreshRotate, 2000);
     // add animation to updated time
-    update_time_container.classList.add("animation-bounce");
+    update_time_container.classList.add("animation-jello");
     
     // send POST request
     sendPostRequest(date, 'refresh');
@@ -261,7 +270,6 @@ function sendPostRequest(date, buttonPressed) {
             'update': update,
             'button': activeButton,
             'search_date': date,
-            'last_updated_time': last_updated_time.innerHTML,
         })},
         headers: { "X-CSRFToken": "{{ csrf_token }}"},
         success: (result) => {
@@ -283,7 +291,7 @@ function sendPostRequest(date, buttonPressed) {
             }
 
             // remove animations
-            update_time_container.classList.remove("animation-bounce");
+            update_time_container.classList.remove("animation-jello");
             
             // update chart
             newData = result['results'];
@@ -293,7 +301,6 @@ function sendPostRequest(date, buttonPressed) {
             chart.update();
         }
     });
-    removeAlerts();
 }
 
 
