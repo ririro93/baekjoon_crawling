@@ -71,19 +71,6 @@ const calendar_input = document.querySelector(".calendar-input");
 const arrow_image = document.querySelector(".arrow-image");
 const messages_container = document.querySelector(".messages-container");
 
-// // Remove alert after 2 seconds 여기 잘 모름..
-// function removeAlerts() {
-//     setTimeout(() => {
-//         if (($`#msg`).length > 0) {
-//             let l = ($`#msg`).length;
-//             for (i=0; i < l; i++) {
-//                 $(`#msg`).remove();
-//             }
-//         }
-//     }, 2000);
-// }
-// removeAlerts();
-
 // set calendar date to today
 let today = new Date();
 let date = today.getFullYear().toString().padStart(2, "0")+'-'+(today.getMonth()+1).toString().padStart(2, "0")+'-'+today.getDate().toString().padStart(2, "0");
@@ -150,7 +137,7 @@ var colors = [
 
 // draw bar graph
 var ctx = document.getElementById('myChart').getContext('2d');
-var chart = new Chart(ctx, {
+var myChart = new Chart(ctx, {
     // The type of chart we want to create
     type: 'horizontalBar',
 
@@ -178,8 +165,7 @@ var chart = new Chart(ctx, {
             duration: 3000
         },
         legend: {
-            display: true,
-            position: 'right',
+            display: false,
         },
         responsive: true,
         maintainAspectRatio: false,
@@ -199,7 +185,6 @@ buttons.forEach(button => button.addEventListener('mouseenter', (e) => {
     button.style.transition = "all 1s ease";
     button.style.transform = "scale(1.2) translateZ(20px)";
 }));
-
 buttons.forEach(button => button.addEventListener('mouseleave', (e) => {
     button.style.transition = "all 1s ease";
     button.style.transform = "scale(1) translateZ(0)";
@@ -298,12 +283,14 @@ function sendPostRequest(date, buttonPressed) {
             // update chart
             newData = result['results'];
             let { members, num_solved_prob } = processData(newData);
-            chart.data.labels = members;
-            chart.data.datasets[0].data = num_solved_prob;
-            chart.update();
+            myChart.data.labels = members;
+            myChart.data.datasets[0].data = num_solved_prob;
+            myChart.update();
 
             // update messages
             update_messages(result.messages);
+        },
+        error: (error) => {
 
         }
     });
@@ -320,5 +307,18 @@ function update_messages(messages) {
     removeMessages();
 }
 
+// // legacy code
+// // Remove alert after 2 seconds 여기 잘 모름..
+// function removeAlerts() {
+//     setTimeout(() => {
+//         if (($`#msg`).length > 0) {
+//             let l = ($`#msg`).length;
+//             for (i=0; i < l; i++) {
+//                 $(`#msg`).remove();
+//             }
+//         }
+//     }, 2000);
+// }
+// removeAlerts();
 </script>
 {% endblock %}

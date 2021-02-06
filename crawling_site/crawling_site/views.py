@@ -8,7 +8,8 @@ from modules.baekjoon_crawling import Baekjoon
 
 def home_page(request):
     # show home page of the whole website
-    return render(request, 'home_page.html')
+    context = {'page': 'home'}
+    return render(request, 'home_page.html', context)
 
 
     

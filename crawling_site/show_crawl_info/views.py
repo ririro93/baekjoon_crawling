@@ -34,7 +34,7 @@ def crawl_home(request):
     results, formatted_start_date = get_prob_info('day', datetime.date.today())
     
     # 반환: 오늘 푼 문제들 리스트와 마지막으로 업데이트 된 시간
-    context = {'results': results, 'updated_time': formatted_updated_time, 'updater': last_updater, 'start_date': formatted_start_date}
+    context = {'results': results, 'updated_time': formatted_updated_time, 'updater': last_updater, 'start_date': formatted_start_date, 'page': 'details'}
     
     return render(request, 'show_crawl_info/crawl_home.html', context)
 
@@ -94,20 +94,20 @@ def refresh_button(request):
     })
     
     # 반환 : 최신화된 DB 정보랑 업데이트 한 지금 시간
-    context = {'results': results, 'update_time': formatted_updated_time, 'start_date': formatted_start_date, 'messages': django_messages}
+    context = {'results': results, 'update_time': formatted_updated_time, 'start_date': formatted_start_date, 'messages': django_messages, 'page': 'details'}
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 # + 버튼 누르면 다른 사이트에서 푼 문제 추가 할 수 있도록
 def add_question(request):
     form = QuestionForm(request.POST or None)
-    context = {'form': form}
+    context = {'form': form, 'page': 'add_solve'}
     if request.POST:
         if form.is_valid():
             data = form.cleaned_data
             print('valid form received: ')
             print(data)
             add_solve_to_db(data)
-            messages.success(request, 'new question submitted!')
+            messages.success(request, 'new solve submitted!')
             return HttpResponseRedirect(reverse('crawl-home'))
         else:
             messages.warning(request, 'please submit valid form!')
@@ -248,7 +248,7 @@ class SolveViewSet(viewsets.ModelViewSet):
     serializer_class = SolveSerializer
     permission_classes = [permissions.IsAuthenticated]
     
-########################################################## legacy code
+############################################################ legacy code
 # # DB 업데이트 해주는 함수
 # def update_db():
 #     ## init
