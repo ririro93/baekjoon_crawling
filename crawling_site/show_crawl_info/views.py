@@ -38,7 +38,6 @@ def crawl_home(request):
     
     return render(request, 'show_crawl_info/crawl_home.html', context)
 
-
 # 버튼 누르면 실행 될 부분
 def refresh_button(request):
     req = json.loads(request.POST.get('data'))
@@ -114,8 +113,7 @@ def add_question(request):
             messages.warning(request, 'please submit valid form!')
     return render(request, "show_crawl_info/add_question.html", context)
 
-
-#################################################### DB update
+############################################################# DB update
 # 문제, 풀이 정보 업데이트 
 def update_questions_and_solves():
     keys_for_Question = ('question_number', 'question_site', 'question_title')
@@ -208,13 +206,14 @@ def add_solve_to_db(data):
         print('######')
         print('data not added to db for some reason')
         
-########################################################
-# 현재 시각 스트링으로 변환해서 반환해주는 함수
+############################################################ 여러 함수들
+# 현재 시각 스트링으로 변환해서 반환
 def get_time():
     now = datetime.datetime.now()
     formatted_time = f'{now.hour:02}:{now.minute:02}:{now.second:02}'
     return formatted_time
 
+# 마지막 크롤링 한 시간 스트링으로 변환해서 반환
 def get_formatted_updated_time():
     u_times = Update_time.objects.all()
     last_updated_time = u_times.first().updated_time
@@ -238,8 +237,7 @@ def get_prob_info(time, datetime_search_date):
         results[member.member_id] = result
     return results, formatted_start_date
 
-#############################################################
-## Django REST Framework Test   
+############################################################# Django REST Framework
 class MemberViewSet(viewsets.ModelViewSet):
     queryset = Member.objects.all()
     serializer_class = MemberSerializer
@@ -250,7 +248,6 @@ class SolveViewSet(viewsets.ModelViewSet):
     serializer_class = SolveSerializer
     permission_classes = [permissions.IsAuthenticated]
     
-
 ########################################################## legacy code
 # # DB 업데이트 해주는 함수
 # def update_db():

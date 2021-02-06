@@ -25,12 +25,23 @@
       <div class="modal-body">
         <form action="/crawling/add-question/" method="post">{% csrf_token %}
           {% for field in form %}
-            <div class="form-group my-3">
-              {{ field.label_tag }}
-              {{ field }}
+            <div class="form-group my-3 {{ field.id_for_label }}">
+              {% if field.id_for_label == "id_solved_date_month" %}
+                {{ field.label_tag }}
+                <div class="date-input-container">
+                  {{ field }}
+                </div>
+              {% else %}
+                {{ field.label_tag }}
+                {{ field }}
+              {% endif %}
             </div>
           {% endfor %}
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <hr>
+          <div class="modal-button-container d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary me-2">Submit</button>
+            <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
         </form>
       </div>
     </div>

@@ -17,6 +17,10 @@ SITE_CHOICES = [
     ('P', 'Programmers'),
 ]
 
+# to use date input not text input for solved_date field
+class DateInput(forms.DateInput):
+    input_type = 'date'
+    
 class QuestionForm(forms.Form):  
     member_id = forms.CharField(
         required=True, 
@@ -43,8 +47,9 @@ class QuestionForm(forms.Form):
         initial=0,
     )
     solved_date = forms.DateField(
-        widget=forms.SelectDateWidget(),
+        widget=DateInput,
         required=True, 
         label='solved date?',
         initial=datetime.date.today(),
     )
+    

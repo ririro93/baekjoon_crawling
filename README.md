@@ -134,7 +134,8 @@ testing small portions of project before incorporating to main
     3. 불러오는 파일에는 `static` 이라는 키워드를 붙여서 부른다
 
 - `HttprResponseRedirect(reverse(<url-name>))`: 를 사용해서 form 제출후에 원하는 곳으로 보낼 수 있다.
-    
+- [rendering forms manually](https://simpleisbetterthancomplex.com/article/2017/08/19/how-to-render-django-form-manually.html) : 엄청 좋은 사이트
+
 <br>
 
 ### JS

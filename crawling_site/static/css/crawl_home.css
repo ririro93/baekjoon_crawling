@@ -79,6 +79,11 @@ button.active {
     transition: 1s ease all
 }
 
+.calendar-input {
+    width: 50%;
+    cursor: pointer;
+}
+
 .animation-jello {
     animation: jello;
     animation-duration: 1.5s;
