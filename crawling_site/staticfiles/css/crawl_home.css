@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    margin: 0;
+}
+
+.top-container {
+    height: 100%;
+}
+
+.my-card-container {
+    height: 95%;
+}
+
+.my-card {
+    transform-style: preserve-3d;
+    height: 90%;
+    width: 90%;
+    border-radius: 30px;
+    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2), 0 0 50px rgba(0, 0, 0, 0.2);
+}
+
+.refresh-container {
+    width: 80%;
+}
+
+.refresh-button {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.update-time-container {
+    text-align: center;
+    font-size: 0.5rem;
+}
+
+
+.myChart-container {
+    width: 90%;
+    height: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.button-container {
+    width: 100%;
+}
+
+.button-container button {
+    padding: 0.5rem 2rem;
+    background: none;
+    outline: none;
+    border: none;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: lighter;
+    color: #585858;
+}
+
+button.active {
+    background: #585858;
+    color: white;
+}
+
+.disable-select {
+    user-select: none; /* supported by Chrome and Opera */
+   -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+   -moz-user-select: none; /* Firefox */
+   -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+.chart-section,
+.my-calendar-container {
+    transition: 1s ease all
+}
+
+.calendar-input {
+    width: 50%;
+    cursor: pointer;
+}
+
+.animation-jello {
+    animation: jello;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+}
+
+.animation-backInDown {
+    animation: backInDown;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+}
+
+.animation-backOutUp {
+    animation: backOutUp;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+}
+
+.visible {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.5s linear;
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 1s, opacity 0.5s linear;
+}

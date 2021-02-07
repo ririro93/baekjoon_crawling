@@ -1,0 +1,45 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    font-family: "Poppins", sans-serif;
+}
+
+.navbar {
+    height: 5vh;
+}
+
+.content {
+    position: relative;
+    top: 5vh;
+    height: 90vh;
+    perspective: 1500px;
+}
+
+.messages {
+    position: relative;
+    top: 5vh;
+    height: 5vh;
+}
+
+.my-alert {
+    height: 5vh;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-group > input, select {
+    width: 50%;
+    text-align: center;
+    text-align-last: center;
+}
+
+.modal-button-container {
+    width: 100%;
+}
