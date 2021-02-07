@@ -1,4 +1,4 @@
-FROM python:3.8.7
+FROM python:3.8.7-alpine3.13
 
 COPY requirements.txt /app/requirements.txt
 
@@ -12,10 +12,10 @@ WORKDIR /app
 ADD . .
 
 ## for local dev
-EXPOSE 8000
+# EXPOSE 8000
 
-CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "crawling_site.wsgi:application"]
+# CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "crawling_site.wsgi:application"]
 
 ## for deployment to heroku
 # $PORT는 heroku가 알아서 지정해주는 애
-# CMD gunicorn core.wsgi:application --bind 0.0.0.0:$PORT
+CMD gunicorn crawling_site.wsgi:application --bind 0.0.0.0:$PORT

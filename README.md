@@ -65,7 +65,8 @@ testing small portions of project before incorporating to main
 - [ ] django message framework 써보기
     - [ ] 애니메이션 추가
     - [x] 두개 쌓이면 안 없어지는 버그 고치기 (crawl_home -> removeAlerts() 잘 모름)
-    - [ ] ajax request 보냈을 때 messages 발동 안되니깐 별도 처리
+    - [x] ajax request 보냈을 때 messages 발동 안되니깐 별도 처리
+- [x] dockerize 해서 heroku 배포 해보기
         
 
 생각보다 할꺼 겁나 많네ㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷ
@@ -90,6 +91,7 @@ testing small portions of project before incorporating to main
 - 새로고침 했을 때 페이지 로딩 속도가 너어무 느리다..이거 어떻게 고칠지 생각해보기(**질문**) 
     - -> 멀티쓰레딩 쓰니까 1분 -> 10초
 - leetcode 랑 programmers 새 문제 제출 템플릿이 달라야 되는데
+- last crawl 시간이 업데이트 되지 않는다
 
 
 <br>
