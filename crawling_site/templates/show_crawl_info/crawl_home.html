@@ -50,7 +50,8 @@
 </div>
     
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+
 <script>
         
 // Object selection
@@ -138,6 +139,9 @@ var colors = [
 // draw bar graph
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
+    // plugin for click events
+    plugins: [ChartDataLabels],
+
     // The type of chart we want to create
     type: 'horizontalBar',
 
@@ -145,7 +149,6 @@ var myChart = new Chart(ctx, {
     data: {
         labels: members,
         datasets: [{
-            label: 'solved',
             backgroundColor: colors,
             borderColor: colors,
             data: num_solved_prob,
@@ -156,9 +159,11 @@ var myChart = new Chart(ctx, {
     options: {
         scales: {
             xAxes: [{
+                barPercentage: 0.2,
                 ticks: {
-                    stepSize:1
-                }
+                    stepSize:1,
+                    max: Math.max(...num_solved_prob)+1,
+                },
             }]
         },
         animation: {
@@ -169,6 +174,34 @@ var myChart = new Chart(ctx, {
         },
         responsive: true,
         maintainAspectRatio: false,
+        plugins: {
+            datalabels: {
+                font: {
+                    size: 15,
+                    weight: 'bold',
+                },
+                anchor: 'end',
+                align: 'right',
+                listeners: {
+                    click: (context) => {
+                        console.log(context.dataIndex);
+                    },
+                    enter: function(context) {
+                        context.hovered = true;
+                        return true;
+                    },
+                    leave: function(context) {
+                        // Receives `leave` events for any labels of any dataset.
+                        context.hovered = false;
+                        return true;
+                    }
+                },
+                color: function(context) {
+                    // Change the label text color based on our new `hovered` context value.
+                    return context.hovered ? "blue" : "gray";
+                },
+            }
+        }
     }
 });
 
@@ -285,6 +318,7 @@ function sendPostRequest(date, buttonPressed) {
             let { members, num_solved_prob } = processData(newData);
             myChart.data.labels = members;
             myChart.data.datasets[0].data = num_solved_prob;
+            myChart.options.scales.xAxes[0].ticks.max = Math.max(...num_solved_prob)+1,
             myChart.update();
 
             // update messages
@@ -306,20 +340,6 @@ function update_messages(messages) {
     });
     removeMessages();
 }
-
-// // legacy code
-// // Remove alert after 2 seconds 여기 잘 모름..
-// function removeAlerts() {
-//     setTimeout(() => {
-//         if (($`#msg`).length > 0) {
-//             let l = ($`#msg`).length;
-//             for (i=0; i < l; i++) {
-//                 $(`#msg`).remove();
-//             }
-//         }
-//     }, 2000);
-// }
-// removeAlerts();
 
 </script>
 {% endblock %}

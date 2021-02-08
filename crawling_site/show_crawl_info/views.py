@@ -62,15 +62,21 @@ def refresh_button(request):
         print(update_members())
         print(update_questions_and_solves())
         print(update_question_tiers())
+        print('1asdfasdfasdf')
 
         # update update time
         now = datetime.datetime.now()
         Update_time.objects.create(updated_time=now)
+        print('last crawl time update to: ', now)
         
-        # 1분 안에 크롤링 또 했으면 경고 메세지
+        # 1분 안에 크롤링 또 했으면 경고 메세지 -> 여기 버그 왠지 모르겠는데 여기서 끊겨버림
         if now.hour == int(formatted_updated_time[:2]) and now.minute - int(formatted_updated_time[3:5]) <= 1:
             messages.warning(request, '크롤링 너무 자주하면 얌체같은 백준한테 막혀요ㅋㅋ..(경험담)')
-        
+            print('3asfadfaf')
+            
+        # 새로운 마지막 크롤링 시간 새로 반영
+        formatted_updated_time = get_time()
+
         # message
         messages.success(request, 'DB has been updated successfully!')
         
@@ -92,9 +98,10 @@ def refresh_button(request):
             "tag": message.level_tag,
             "message": message.message,
     })
-    
+        
     # 반환 : 최신화된 DB 정보랑 업데이트 한 지금 시간
     context = {'results': results, 'update_time': formatted_updated_time, 'start_date': formatted_start_date, 'messages': django_messages, 'page': 'details'}
+    print('sending data to client')
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 # + 버튼 누르면 다른 사이트에서 푼 문제 추가 할 수 있도록

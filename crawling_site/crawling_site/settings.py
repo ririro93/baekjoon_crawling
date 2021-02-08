@@ -23,12 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'yf2xj%j&&=po+s_d%s+v(s)5e(s9w#cif$+^4f!4ifufdie(zc'
 
-# # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
-# for Production
-DEBUG = False
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# # for Production
+# DEBUG = False
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 ALLOWED_HOSTS = ['*']
 
