@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  web:
+    build: ./crawling_site
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./crawling_site/:/usr/src/app/
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env.dev
+  db:
+    image: postgres:12.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment: 
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - 5432:5432
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=ririro93@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=password
+    ports:
+      - 80:80
+
+volumes:
+  postgres_data:

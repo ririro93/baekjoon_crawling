@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  web:
+    build: ./crawling_site
+    # change 8000 to $PORT for heroku
+    command: gunicorn crawling_site.wsgi:application --bind 0.0.0.0:8000
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env.prod
+    depends_on: 
+      - db
+  db:
+    image: postgres:12.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file: 
+      - ./.env.prod.db
+    ports:
+      - 5432:5432
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=ririro93@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=password
+    ports:
+      - 80:80
+
+volumes:
+  postgres_data:

@@ -1,6 +1,7 @@
 # 백준 크롤링
 
-## content
+## 참고
+[testdriven.io](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/)
 
 ### tests
 testing small portions of project before incorporating to main
@@ -36,8 +37,8 @@ testing small portions of project before incorporating to main
 - [x] refresh 버튼으로 수동 업데이트 가능하게 하기
     - [x] refresh 버트 생성
     - [x] 현재 시각도 같이 보여주기(얘는 실시간으로 바뀌게)
-    - [ ] 그냥 접속만 한 경우에는 전에 업데이트 된 시간 보여주기
-    - [ ] 위에 alert로 refreshed! 이런 메세지 보여주기 bootstrap alert
+    - [x] 그냥 접속만 한 경우에는 전에 업데이트 된 시간 보여주기
+    - [x] 위에 alert로 refreshed! 이런 메세지 보여주기 bootstrap alert
 - [x] 크롤링 결과를 딕셔너리 형태로 가져와서 바로 해당 object 생성할 수 있는 flow 만들기
     - 이런식으로
         ```python
@@ -48,13 +49,13 @@ testing small portions of project before incorporating to main
         ```
     - ~~지금 테스트로 푼 문제 사람마다 6개씩만 가져오는 중~~
 - [x] 다른 사이트 결과 추가할 수 있게 하기
-    - [ ] 예쁜 form 만들기
+    - [x] 예쁜 form 만들기
     - [x] db에 데이터 넘기기
     - [ ] 팝업으로 하고 제출하면 위로 날아가게 -> single page application 적용
 - [ ] html 파일에 css js 까지 쓰면 너무 길어지니깐 statics 폴더에 따로 저장하고 싶은데 js에서 django에서 주는 변수를 사용해서 어떻게 처리해야될지 모르겠다
     - [x] css파일 따로 보관 -> 
         - [ ] 근데 css 파일을 그냥 한꺼번에 base.html 에서 load 하고 있음-> 각 view에 해당하는 html 파일에서 load 할 수 있도록 바꾸기
-    - [ ] js파일 따로 보관 (**질문해보기**)
+    - [ ] js파일 따로 보관 (**질문해보기**) -> 아마 안될듯
 - [ ] 벌금 페이지 만들기
 - [ ] 자기 아이디도 넣어달라고 요청할 수 있기
 - [ ] 각자 로그인 해서 자기 정보만 따로 모아서 볼 수 있게 하기
@@ -68,7 +69,8 @@ testing small portions of project before incorporating to main
     - [x] ajax request 보냈을 때 messages 발동 안되니깐 별도 처리
 - [x] dockerize 해서 heroku 배포 해보기
     - [ ] 이러면 db 관리는 어떻게 하는거지? **질문**
-- [ ] logging 기능 추가 해야겠다 -> heroku에서 django log가 안보임
+- [x] logging 기능 추가 해야겠다 -> heroku에서 django log가 안보임 -> logdna addon 써보기
+- [ ] deploy 하니깐 시간이 서울 시간이 반영이 안된다
         
 
 생각보다 할꺼 겁나 많네ㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷ
