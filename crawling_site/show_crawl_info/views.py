@@ -223,10 +223,14 @@ def get_time():
 # 마지막 크롤링 한 시간 스트링으로 변환해서 반환
 def get_formatted_updated_time():
     u_times = Update_time.objects.all()
-    last_updated_time = u_times.first().updated_time
-    last_updater = u_times.first().updater
-    formatted_updated_time = f'{last_updated_time.hour:02}:{last_updated_time.minute:02}:{last_updated_time.second:02}'
-    return formatted_updated_time, last_updater
+    if u_times:
+        last_updated_time = u_times.first().updated_time
+        last_updater = u_times.first().updater
+        formatted_updated_time = f'{last_updated_time.hour:02}:{last_updated_time.minute:02}:{last_updated_time.second:02}'
+        return formatted_updated_time, last_updater
+    # db에 데이터 없는 경우 dummy data 반환
+    else:
+        return get_time(), 0
 
 # 각 멤버가 오늘 푼 문제 정보 반환
 def get_prob_info(time, datetime_search_date):
