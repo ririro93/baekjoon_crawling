@@ -73,8 +73,9 @@ const arrow_image = document.querySelector(".arrow-image");
 const messages_container = document.querySelector(".messages-container");
 
 // set calendar date to today
-let today = new Date();
-let date = today.getFullYear().toString().padStart(2, "0")+'-'+(today.getMonth()+1).toString().padStart(2, "0")+'-'+today.getDate().toString().padStart(2, "0");
+let todayDate = new Date();
+let date = todayDate.getFullYear().toString().padStart(2, "0")+'-'+(todayDate.getMonth()+1).toString().padStart(2, "0")+'-'+todayDate.getDate().toString().padStart(2, "0");
+let today = date;
 my_calendar.value = date;
 search_date.innerHTML = '[' + date + ']';
 
@@ -322,7 +323,12 @@ function sendPostRequest(date, buttonPressed) {
             // update search date
             start_date = result['start_date'];
             if (start_date != date) {
-                search_date.innerHTML = '[' + start_date + ' ~ ' + date + ']';
+                // 전체범위면 마지막 날은 무조건 오늘로
+                if (activeButton == "total") {
+                    search_date.innerHTML = '[' + start_date + ' ~ ' + today + ']';
+                } else {
+                    search_date.innerHTML = '[' + start_date + ' ~ ' + date + ']';
+                }
             } else {
                 search_date.innerHTML = '[' + date + ']';
             }

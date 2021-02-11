@@ -50,6 +50,7 @@
     - [x] 예쁜 form 만들기
     - [x] db에 데이터 넘기기
     - [ ] 팝업으로 하고 제출하면 위로 날아가게 -> single page application 적용?
+    - [ ] hackerrank랑 swea도 추가
 - [ ] html 파일에 css js 까지 쓰면 너무 길어지니깐 statics 폴더에 따로 저장하고 싶은데 js에서 django에서 주는 변수를 사용해서 어떻게 처리해야될지 모르겠다
     - [x] css파일 따로 보관 -> 
         - [ ] 근데 css 파일을 그냥 한꺼번에 base.html 에서 load 하고 있음-> 각 view에 해당하는 html 파일에서 load 할 수 있도록 바꾸기
@@ -68,7 +69,7 @@
 - [x] dockerize 해서 heroku 배포 해보기
     - [ ] 이러면 db 관리는 어떻게 하는거지? **질문** -> heroku postgres addon 써보기
 - [x] logging 기능 추가 해야겠다 -> heroku에서 django log가 안보임 -> logdna addon 써보기
-- [ ] 모든 멤버가 푼 모든 과거 문제들도 추가 가능하게 하기
+- [x] 모든 멤버가 푼 모든 과거 문제들도 추가 가능하게 하기
     - [ ] 진행바로 얼마나 진행됐는지 표시하는 기능도 추가
         
 
@@ -102,6 +103,8 @@
 - [ ] 배포용 서버에서는 윈도욱 개발때랑 다르게 현재 시간이 미국시간으로 적용됨.. -> `datetime.datetime.now()` 가 아니라 `django.utils.timezone.now()` 쓰면됨
     -> 된줄 알았는데 base linux 자체 TZ를 KST로 바꿨어서 된거였음 <br>
     -> [블로그](https://forgiveall.tistory.com/591)
+- [x] 내 db랑 예은님 백준 프로필이랑 푼 문제 개수가 다르다
+    - -> 백준이 푼 문제수 표기한게 틀린듯..?
 
 <br>
 
