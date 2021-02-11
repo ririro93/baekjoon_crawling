@@ -49,8 +49,8 @@ class Question(models.Model):
         ('P', 'Programmers'),
     ]
     
-    question_title = models.CharField(default='제목 넣어줘..', max_length=100)
-    question_number = models.CharField(default='번호 넣어줘..', max_length=100, null=True)
+    question_title = models.CharField(default='제목 넣어줘..', max_length=200)
+    question_number = models.CharField(default='번호 넣어줘..', max_length=200, null=True)
     question_tier = models.CharField(
         max_length=200,
         choices = TIER_CHOICES,

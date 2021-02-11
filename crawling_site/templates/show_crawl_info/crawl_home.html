@@ -82,17 +82,33 @@ search_date.innerHTML = '[' + date + ']';
 function processData(data) {
     var members = [];
     var num_solved_prob = [];
+    var step_size = 1;
+    var max_x = 10;
     var data = data;
     for (var key in data) {
         let newMember = members.push(key);
         let arrLength = num_solved_prob.push(data[key].length);
     }
+    var max_num = Math.max(...num_solved_prob);
+    if (max_num <= 10) {
+        step_size = 1;
+        max_x = 10;
+    } else if (max_num <= 100) {
+        step_size = 5;
+        max_x = Math.floor(max_num - max_num % 10 + 10);
+    } else {
+        // 알아서 적절하게 맞춰주게
+        step_size = 0;
+        max_x = Math.floor(max_num - max_num % 100 + 100);
+    }
     return {
-        'members':members,
-        'num_solved_prob':num_solved_prob
+        'members': members,
+        'num_solved_prob': num_solved_prob,
+        'step_size': step_size,
+        'max_x': max_x,
     }
 }
-let { members, num_solved_prob } = processData({{ results|safe }});
+let { members, num_solved_prob, step_size, max_x } = processData({{ results|safe }});
 
 // show calendar if mouse hovers in that area
 chart_section.addEventListener('mouseenter', (e) => {
@@ -161,9 +177,9 @@ var myChart = new Chart(ctx, {
             xAxes: [{
                 barPercentage: 0.2,
                 ticks: {
-                    stepSize: Math.floor((Math.max(...num_solved_prob)+1)/10),
+                    stepSize: step_size,
                     min: 0,
-                    max: Math.max(...num_solved_prob)+1,
+                    max: max_x,
                 },
             }]
         },
@@ -316,11 +332,11 @@ function sendPostRequest(date, buttonPressed) {
             
             // update chart
             newData = result['results'];
-            let { members, num_solved_prob } = processData(newData);
+            let { members, num_solved_prob, step_size, max_x } = processData(newData);
             myChart.data.labels = members;
             myChart.data.datasets[0].data = num_solved_prob;
-            myChart.options.scales.xAxes[0].ticks.max = Math.max(...num_solved_prob)+1,
-            myChart.options.scales.xAxes[0].ticks.stepSize = Math.floor((Math.max(...num_solved_prob)+1)/10),
+            myChart.options.scales.xAxes[0].ticks.stepSize = step_size,
+            myChart.options.scales.xAxes[0].ticks.max = max_x,
             myChart.update();
 
             // update messages

@@ -102,7 +102,8 @@ testing small portions of project before incorporating to main
 
 [02-11]
 - [ ] 배포용 서버에서는 윈도욱 개발때랑 다르게 현재 시간이 미국시간으로 적용됨.. -> `datetime.datetime.now()` 가 아니라 `django.utils.timezone.now()` 쓰면됨
-
+    -> 된줄 알았는데 base linux 자체 TZ를 KST로 바꿨어서 된거였음 <br>
+    -> [블로그](https://forgiveall.tistory.com/591)
 
 <br>
 

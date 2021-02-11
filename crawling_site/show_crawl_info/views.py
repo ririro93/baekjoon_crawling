@@ -66,14 +66,14 @@ def refresh_button(request):
         print(update_question_tiers())
 
         # update update time
-        now = datetime.datetime.now()
+        now = timezone.now()
+        print(now)
         Update_time.objects.create(updated_time=now)
         print('last crawl time update to: ', now)
         
         # 1분 안에 크롤링 또 했으면 경고 메세지 -> 여기 버그 왠지 모르겠는데 여기서 끊겨버림
         if now.hour == int(formatted_updated_time[:2]) and now.minute - int(formatted_updated_time[3:5]) <= 1:
-            messages.warning(request, '크롤링 너무 자주하면 얌체같은 백준한테 막혀요ㅋㅋ..(경험담)')
-            print('3asfadfaf')
+            messages.warning(request, '크롤링 쿨타임 1분! 너무 자주하면 백준한테 막혀요ㅋㅋ..(경험담)')
             
         # 새로운 마지막 크롤링 시간 새로 반영
         formatted_updated_time = get_time()
@@ -122,7 +122,7 @@ def add_question(request):
     return render(request, "show_crawl_info/add_question.html", context)
 
 ############################################################# DB update
-# 문제, 풀이 정보 업데이트 
+# 최신 문제, 풀이 정보 업데이트 
 def update_questions_and_solves():
     # get member ids
     member_ids = list(Member.objects.values_list('member_id', flat=True))
