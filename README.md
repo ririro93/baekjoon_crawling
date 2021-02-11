@@ -1,10 +1,8 @@
 # 백준 크롤링
 
-## 참고
-[testdriven.io](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/)
-
-### tests
-testing small portions of project before incorporating to main
+## 실행방법
+`cd crawling_site`
+`python manage.py runserver`
 
 <br>
 
@@ -189,3 +187,6 @@ testing small portions of project before incorporating to main
         - `fields =__all__` 사용하면 모든 field에 대한 정보 한번에 보낼 수 있음
         - `exclude` 로 필요 없는 field 지정 가능
         - `depth` 옵션 사용하면 many-to-many field 의 안쪽 정보도 다 보낼 수 있음
+
+## 참고
+[testdriven.io](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/)
