@@ -1,6 +1,7 @@
 import time
 import datetime
 import json
+from django.utils import timezone
 from django.urls import reverse
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -16,10 +17,11 @@ from .serializers import MemberSerializer, SolveSerializer
 from .forms import QuestionForm
 from modules.baekjoon_crawling import Baekjoon
 from modules.solved import Solved
+from modules.get_all_solves import AllSolves
 
 # global variables
 m_attrs = ['member_id', 'member_name']
-q_attrs = ['question_title', 'question_number', 'question_tier', 'question_site']
+q_attrs = ['question_title', 'question_number', 'question_site', 'question_tier']
 
 ############################################################# Views
 
@@ -28,13 +30,13 @@ def crawl_home(request):
     print('crawl:', request)
     
     # 마지막 업데이트 된 시간 나중에 제대로 넣어보고 일단은 지금 시간 보내기
-    formatted_updated_time, last_updater = get_formatted_updated_time()
+    formatted_updated_time, _ = get_formatted_updated_time()
 
     # db에서 오늘 문제 풀이 현황 불러오기
     results, formatted_start_date = get_prob_info('day', datetime.date.today())
     
     # 반환: 오늘 푼 문제들 리스트와 마지막으로 업데이트 된 시간
-    context = {'results': results, 'updated_time': formatted_updated_time, 'updater': last_updater, 'start_date': formatted_start_date, 'page': 'details'}
+    context = {'results': results, 'updated_time': formatted_updated_time, 'start_date': formatted_start_date, 'page': 'details'}
     
     return render(request, 'show_crawl_info/crawl_home.html', context)
 
@@ -53,7 +55,7 @@ def refresh_button(request):
     datetime_search_date = datetime.datetime(search_year, search_month, search_day)
     
     # get last crawled time
-    formatted_updated_time, last_updater = get_formatted_updated_time()
+    formatted_updated_time, _ = get_formatted_updated_time()
 
     # refresh 를 누른 경우
     if update == 'true':
@@ -62,7 +64,6 @@ def refresh_button(request):
         print(update_members())
         print(update_questions_and_solves())
         print(update_question_tiers())
-        print('1asdfasdfasdf')
 
         # update update time
         now = datetime.datetime.now()
@@ -123,8 +124,6 @@ def add_question(request):
 ############################################################# DB update
 # 문제, 풀이 정보 업데이트 
 def update_questions_and_solves():
-    keys_for_Question = ('question_number', 'question_site', 'question_title')
-    
     # get member ids
     member_ids = list(Member.objects.values_list('member_id', flat=True))
     
@@ -137,9 +136,9 @@ def update_questions_and_solves():
     for member_id, solves in results.items():
         m = Member.objects.filter(member_id=member_id).first()
         for solve in solves:
-            # get or create new Question objects
+            # get or create new Question objects, tier info not yet available
             q, q_bool = Question.objects.get_or_create(
-                **{key: solve.get(key, '') for key in keys_for_Question}
+                **{key: solve.get(key, '') for key in q_attrs[:-1]}
             )
             
             # update or create solves
@@ -154,6 +153,7 @@ def update_questions_and_solves():
 
 # 멤버 정보 업데이트
 def update_members():
+    new_members = []
     baek = Baekjoon()
     baek.crawl_member_ids()
     member_ids = baek.get_member_ids()
@@ -161,8 +161,12 @@ def update_members():
         m, m_bool = Member.objects.get_or_create(
             member_id=member_id
         )
-    if m_bool:
-        return 'members updated'
+        # if new get all past solves
+        if m_bool:
+            new_members.append(member_id)
+            update_all_past_solves(member_id)
+    if new_members:
+        return f'{new_members} updated'
     else:
         return 'no new members'
 
@@ -212,11 +216,37 @@ def add_solve_to_db(data):
     if not m_bool and not q_bool and not s_bool:
         print('######')
         print('data not added to db for some reason')
+
+# 멤버가 푼 모든 문제 업데이트
+def update_all_past_solves(member_id):
+    # get all past solves
+    allsolves = AllSolves(member_id)
+    allsolves.multi_threading()
+    solves = allsolves.get_result()
+    
+    # update to db
+    m = Member.objects.filter(member_id=member_id).first()
+    for solve in solves:
+        # get or create new Question objects, tier info not available yet
+        q, q_bool = Question.objects.get_or_create(
+            **{key: solve.get(key, '') for key in q_attrs[:-1]}
+        )
         
+        # update or create solves
+        solved_time = solve['solved_time']
+        formatted_solved_time = map(int, [solved_time[:4], solved_time[5:7], solved_time[8:10], solved_time[-8:-6], solved_time[-5:-3]])
+        s, s_bool = Solve.objects.update_or_create(
+            question=q,
+            member=m,
+            defaults={'solved_time': datetime.datetime(*formatted_solved_time)},
+        )
+    return f'{member_id} past solves updated'
+            
 ############################################################ 여러 함수들
 # 현재 시각 스트링으로 변환해서 반환
 def get_time():
-    now = datetime.datetime.now()
+    # django.utils.timezone.now() 사용해서 서버에서도 한국시간 반영
+    now = timezone.now()
     formatted_time = f'{now.hour:02}:{now.minute:02}:{now.second:02}'
     return formatted_time
 
@@ -237,6 +267,10 @@ def get_prob_info(time, datetime_search_date):
     # last_update_time을 어떻게 저장할지 생각해보기 -> global 시간 변수 사용?
     results = {}
     members = Member.objects.all()
+    
+    # db 비어있는 경우 대비
+    formatted_start_date = get_time()
+    
     for member in members:
         datas, formatted_start_date = member.get_member_solves(time, datetime_search_date)
         result = [{
@@ -246,6 +280,7 @@ def get_prob_info(time, datetime_search_date):
             'q_site': data.question.question_site
         } for data in datas]
         results[member.member_id] = result
+    
     return results, formatted_start_date
 
 ############################################################# Django REST Framework

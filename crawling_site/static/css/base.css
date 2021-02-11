@@ -4,10 +4,6 @@ body {
     font-family: "Poppins", sans-serif;
 }
 
-.navbar {
-    height: 5vh;
-}
-
 .content {
     position: relative;
     top: 5vh;

@@ -51,7 +51,7 @@ testing small portions of project before incorporating to main
 - [x] 다른 사이트 결과 추가할 수 있게 하기
     - [x] 예쁜 form 만들기
     - [x] db에 데이터 넘기기
-    - [ ] 팝업으로 하고 제출하면 위로 날아가게 -> single page application 적용
+    - [ ] 팝업으로 하고 제출하면 위로 날아가게 -> single page application 적용?
 - [ ] html 파일에 css js 까지 쓰면 너무 길어지니깐 statics 폴더에 따로 저장하고 싶은데 js에서 django에서 주는 변수를 사용해서 어떻게 처리해야될지 모르겠다
     - [x] css파일 따로 보관 -> 
         - [ ] 근데 css 파일을 그냥 한꺼번에 base.html 에서 load 하고 있음-> 각 view에 해당하는 html 파일에서 load 할 수 있도록 바꾸기
@@ -68,36 +68,40 @@ testing small portions of project before incorporating to main
     - [x] 두개 쌓이면 안 없어지는 버그 고치기 (crawl_home -> removeAlerts() 잘 모름)
     - [x] ajax request 보냈을 때 messages 발동 안되니깐 별도 처리
 - [x] dockerize 해서 heroku 배포 해보기
-    - [ ] 이러면 db 관리는 어떻게 하는거지? **질문**
+    - [ ] 이러면 db 관리는 어떻게 하는거지? **질문** -> heroku postgres addon 써보기
 - [x] logging 기능 추가 해야겠다 -> heroku에서 django log가 안보임 -> logdna addon 써보기
-- [ ] deploy 하니깐 시간이 서울 시간이 반영이 안된다
+- [ ] 모든 멤버가 푼 모든 과거 문제들도 추가 가능하게 하기
+    - [ ] 진행바로 얼마나 진행됐는지 표시하는 기능도 추가
         
 
 생각보다 할꺼 겁나 많네ㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷ
 
 ## 문제
-- 데이터를 받을 때 푼 문제가 해당 멤버가 아닌 모든 멤버랑 연결됨
+- [x] 데이터를 받을 때 푼 문제가 해당 멤버가 아닌 모든 멤버랑 연결됨
     - 그런줄 알았는데 그게 아니라 내가 admin에서 수동으로 추가할 수도 있었던거ㅎㅎ
     - 추가된 문제들이 admin에서 보이게 따로 설정을 해줘야 될듯
-- many to many field로 멤버와 문제를 연결하니까 각 멤버가 그 문제를 며칠에 풀었는지 정보를 어디에 저장해야될지 모르겠다
+- [x] many to many field로 멤버와 문제를 연결하니까 각 멤버가 그 문제를 며칠에 풀었는지 정보를 어디에 저장해야될지 모르겠다
     - 어쩌면 그냥 문제번호랑 푼 날짜를 tuple로 저장하고 출력할 때는 해당 문제번호 object 정보를 보여주는게 좋을수도...
         - [참고](https://stackoverflow.com/questions/31776586/how-to-add-a-timestamp-to-a-manytomany-record)
         [참고2](https://docs.djangoproject.com/en/3.1/topics/db/models/)
         여기 링크처럼 through keyword 랑 intermediate model을 만들어서 여기에 timestamp정보를 추가해보면 될듯?
-- scraping 할 때 티어 정보를 못 가져옴
-    - <img> 태그가 안 긁혀!이게 로그인 해서설정에서 바꿔야 보이게 되어있어서 그런듯 한데 어뜩할까
+- [x] scraping 할 때 티어 정보를 못 가져옴
+    - <img> 태그가 안 긁혀! -> 이게 로그인 해서 설정에서 바꿔야 보이게 되어있어서 그런듯 한데 어뜩할까
         - 그냥 solved.ac가서 가져오기
-- Solve 에 푼 문제가 푼 시간만 다르게 중복 저장된다 -> solved_time 값만 바뀌게 짜야됨
+- [x] Solve 에 푼 문제가 푼 시간만 다르게 중복 저장된다 -> solved_time 값만 바뀌게 짜야됨
     - `Solve.objects.update_or_create` 사용해서 해결 -> tuple로 (새로 생성, bool) 반환해줌
         - **해결된줄 알았는데 아직도 중복되네 이거 고쳐야됨**
         - defaults 부분이 바꿔주고 싶은 부분이었음
             - 예전게 나중에 나와서 전에 푼 기록으로 업데이트 됨-> 순서 역순으로 바꿔야됨
-- 새로고침 했을 때 페이지 로딩 속도가 너어무 느리다..이거 어떻게 고칠지 생각해보기(**질문**) 
+- [x] 새로고침 했을 때 페이지 로딩 속도가 너어무 느리다..이거 어떻게 고칠지 생각해보기(**질문**) 
     - -> 멀티쓰레딩 쓰니까 1분 -> 10초
-- leetcode 랑 programmers 새 문제 제출 템플릿이 달라야 되는데
+- [ ] leetcode 랑 programmers 새 문제 제출 템플릿이 달라야 되는데
 
 [02-08]
-- last crawl 시간이 업데이트 되지 않는다
+- [x] last crawl 시간이 업데이트 되지 않는다 -> 로직 실수
+
+[02-11]
+- [ ] 배포용 서버에서는 윈도욱 개발때랑 다르게 현재 시간이 미국시간으로 적용됨.. -> `datetime.datetime.now()` 가 아니라 `django.utils.timezone.now()` 쓰면됨
 
 
 <br>
@@ -113,6 +117,7 @@ testing small portions of project before incorporating to main
     - -> overflow 방지 해서 그냥 scroll 생기게 해보기
 - CSS SASS로 바꿔보기
 - Single Page Application -> Vue 겉핥기 해보기
+- typescript도 써보기
 
 <br>
 
@@ -149,6 +154,7 @@ testing small portions of project before incorporating to main
 ### JS
 - `document.querySelectorAll('.button, .refresh-button');` : 이런식으로 한번에 여러 클래스의 노드들을 하나의 `NodeList`로 묶을 수 있다
 
+<br>
 
 ### django <-> js 통신
 

@@ -161,7 +161,8 @@ var myChart = new Chart(ctx, {
             xAxes: [{
                 barPercentage: 0.2,
                 ticks: {
-                    stepSize:1,
+                    stepSize: Math.floor((Math.max(...num_solved_prob)+1)/10),
+                    min: 0,
                     max: Math.max(...num_solved_prob)+1,
                 },
             }]
@@ -319,6 +320,7 @@ function sendPostRequest(date, buttonPressed) {
             myChart.data.labels = members;
             myChart.data.datasets[0].data = num_solved_prob;
             myChart.options.scales.xAxes[0].ticks.max = Math.max(...num_solved_prob)+1,
+            myChart.options.scales.xAxes[0].ticks.stepSize = Math.floor((Math.max(...num_solved_prob)+1)/10),
             myChart.update();
 
             // update messages
