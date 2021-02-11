@@ -1,7 +1,7 @@
 # 백준 크롤링
 
 ## 실행방법
-`cd crawling_site`
+`cd crawling_site` <br>
 `python manage.py runserver`
 
 <br>
