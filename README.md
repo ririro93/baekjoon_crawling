@@ -50,7 +50,7 @@
     - [x] 예쁜 form 만들기
     - [x] db에 데이터 넘기기
     - [ ] 팝업으로 하고 제출하면 위로 날아가게 -> single page application 적용?
-    - [ ] hackerrank랑 swea도 추가
+    - [x] hackerrank랑 swea도 추가
 - [ ] html 파일에 css js 까지 쓰면 너무 길어지니깐 statics 폴더에 따로 저장하고 싶은데 js에서 django에서 주는 변수를 사용해서 어떻게 처리해야될지 모르겠다
     - [x] css파일 따로 보관 -> 
         - [ ] 근데 css 파일을 그냥 한꺼번에 base.html 에서 load 하고 있음-> 각 view에 해당하는 html 파일에서 load 할 수 있도록 바꾸기

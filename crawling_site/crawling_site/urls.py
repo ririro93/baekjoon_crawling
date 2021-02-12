@@ -17,7 +17,9 @@ from django.contrib import admin
 from django.urls import include, path
 
 from .views import (
-    home_page
+    home_page, 
+    run_task,
+    get_status,
 )
 
 urlpatterns = [
@@ -25,5 +27,9 @@ urlpatterns = [
     path('crawling/', include('show_crawl_info.urls')),
     path('fines/', include('fines.urls')),
     path('admin/', admin.site.urls),
+    
+    # celery test
+    path('tasks/<task_id>/', get_status, name='get_status'),
+    path('tasks/', run_task, name='run_task'),
 ]
 
