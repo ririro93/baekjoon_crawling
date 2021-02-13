@@ -1,38 +1,27 @@
+import os
 from pathlib import Path
 from dotenv import load_dotenv
-import os
 import dj_database_url
+from celery.schedules import crontab
+import crawling_site.tasks
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'yf2xj%j&&=po+s_d%s+v(s)5e(s9w#cif$+^4f!4ifufdie(zc'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-
-# # for Production
-# DEBUG = False
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# (production) setting with env variables 
 SECRET_KEY = os.environ.get("SECRET_KEY")
+DEBUG = int(os.environ.get("DEBUG", default=0))
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS")
+if ALLOWED_HOSTS:
+    ALLOWED_HOSTS = ALLOWED_HOSTS.split(" ")
 
-# (local dev)
+# for local python manage.py runserver with sqlite
 if not SECRET_KEY:
     load_dotenv()
     SECRET_KEY = os.getenv("SECRET_KEY")
     DEBUG = int(os.getenv("DEBUG"))
     ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS")
-else:
-    # (production)
-    DEBUG = int(os.environ.get("DEBUG", default=0))
-    ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+
     
 # Application definition
 INSTALLED_APPS = [
@@ -44,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_celery_beat',
     
     'show_crawl_info',
     'fines',
@@ -144,5 +134,11 @@ STATICFILES_DIRS = [
 ]
 
 # celery config
-CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
-CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
+CELERY_BROKER_URL = os.environ.get("REDIS_URL", "redis://redis:6379/0")
+CELERY_RESULT_BACKEND = os.environ.get("REDIS_URL", "redis://redis:6379/0")
+CELERY_BEAT_SCHEDULE = {
+    "sample_task": {
+        "task": "crawling_site.tasks.sample_task",
+        "schedule": crontab(minute="*/1"),
+    },
+}

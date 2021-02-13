@@ -19,6 +19,8 @@ from modules.baekjoon_crawling import Baekjoon
 from modules.solved import Solved
 from modules.get_all_solves import AllSolves
 
+from celery.result import AsyncResult
+
 # global variables
 m_attrs = ['member_id', 'member_name']
 q_attrs = ['question_title', 'question_number', 'question_site', 'question_tier']
@@ -33,7 +35,7 @@ def crawl_home(request):
     formatted_updated_time, _ = get_formatted_updated_time()
 
     # db에서 오늘 문제 풀이 현황 불러오기
-    results, formatted_start_date = get_prob_info('day', datetime.date.today())
+    results, formatted_start_date = get_prob_info('day', timezone.now())
     
     # 반환: 오늘 푼 문제들 리스트와 마지막으로 업데이트 된 시간
     context = {'results': results, 'updated_time': formatted_updated_time, 'start_date': formatted_start_date, 'page': 'details'}

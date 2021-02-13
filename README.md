@@ -1,8 +1,16 @@
 # 백준 크롤링
 
 ## 실행방법
-`cd crawling_site` <br>
-`python manage.py runserver`
+1. 로컬에서 db를 sqlite로
+    - `python manage.py runserver
+2. docker-compose로 db를 postgresql로
+    - docker-desktop 설치
+    - `docker-compose up -d --build` 실행
+    - 앱 : `localhost:8000`
+    - pgadmin(postgresql 정보 보는 곳) : `localhost:80`
+        - id: user@gmail.com
+        - pw: password
+    - flower(celery worker status 보는 곳): `localhost:5555`
 
 <br>
 
