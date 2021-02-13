@@ -1,0 +1,1 @@
+worker: celery --app=crawling_site beat -l info

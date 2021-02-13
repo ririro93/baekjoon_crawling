@@ -3,7 +3,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
 from celery.schedules import crontab
-import crawling_site.tasks
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -134,11 +133,12 @@ STATICFILES_DIRS = [
 ]
 
 # celery config
+CELERY_TIMEZONE = 'Asia/Seoul'
 CELERY_BROKER_URL = os.environ.get("REDIS_URL", "redis://redis:6379/0")
 CELERY_RESULT_BACKEND = os.environ.get("REDIS_URL", "redis://redis:6379/0")
-CELERY_BEAT_SCHEDULE = {
-    "sample_task": {
-        "task": "crawling_site.tasks.sample_task",
-        "schedule": crontab(minute="*/1"),
-    },
-}
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+# celery timezone settings
+CELERY_ENABLE_UTC= False
+DJANGO_CELERY_BEAT_TZ_AWARE = False
+CELERY_TIMEZONE = 'Asia/Seoul'

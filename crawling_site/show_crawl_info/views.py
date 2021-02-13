@@ -20,10 +20,22 @@ from modules.solved import Solved
 from modules.get_all_solves import AllSolves
 
 from celery.result import AsyncResult
+from django_celery_beat.models import PeriodicTask, CrontabSchedule
 
 # global variables
 m_attrs = ['member_id', 'member_name']
 q_attrs = ['question_title', 'question_number', 'question_site', 'question_tier']
+
+############################################################# Celery Scheduler
+# schedule, _ = CrontabSchedule.objects.get_or_create(
+#     minute='*'
+# )
+
+# PeriodicTask.objects.get_or_create(
+#     crontab=schedule,
+#     name='background_crawling',
+#     task='show_crawl_info.tasks.background_crawling'
+# )
 
 ############################################################# Views
 

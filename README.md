@@ -114,6 +114,28 @@
 - [x] 내 db랑 예은님 백준 프로필이랑 푼 문제 개수가 다르다
     - -> 백준이 푼 문제수 표기한게 틀린듯..?
 
+[02-13]
+- 도커로 로컬에서 작업하면 celery랑 celery-beat를 다 다른 컨테이너에서 돌리면 되는데 heroku에 배포할 때는 어떻게 할지 생각해보기
+    - dockerfile애서 CMD 지정해서 shell을 3개를 쓸 수 있으면 각각에서 서버돌리고, celery, celery-beat를 돌리면 되는데 이게 한번에 가능한가?해보기
+        - -> 요런게 있었네.. [heroku docs](https://devcenter.heroku.com/articles/dyno-types#default-scaling-limits)
+    - 안되면 linux 환경에서 자주 쓰는 daemonization 방식을 쓸수도 있대 [celery docs:daemonization](https://docs.celeryproject.org/en/latest/userguide/daemonizing.html#daemonizing)
+- celery beat로 periodic task를 실행하려면 scheduler 가 있어야되는데 이 scheduler는 인자로 non-naive datetime값을 넣어줘야된다. 하지만 장고에서 한국시간으로 보여주기 위해 
+    ```python
+    LANGUAGE_CODE = 'en-us'
+
+    TIME_ZONE = 'Asia/Seoul'
+
+    USE_I18N = True
+
+    USE_L10N = True
+
+    USE_TZ = False
+    ```
+을 사용하고 있다. `USE_TZ=True`로 설정하면 celery beat는 작동하지만 앱 내부에서 보여주는 current time이 안맞게 된다 vice-versa...............................................난관이다...........
+[나랑 비슷한 문제를 겪은듯](https://daeguowl.tistory.com/159)
+[블로그](https://daeguowl.tistory.com/159)
+    - -> 이 아저씩꺼 따라해도 작동안함..
+
 <br>
 
 ## 해볼거
