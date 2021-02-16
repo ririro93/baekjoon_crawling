@@ -33,9 +33,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_celery_beat',
+    'django_extensions',
     
     'show_crawl_info',
     'fines',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -142,3 +144,6 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 CELERY_ENABLE_UTC= False
 DJANGO_CELERY_BEAT_TZ_AWARE = False
 CELERY_TIMEZONE = 'Asia/Seoul'
+
+## 선규님 로그인 기능
+AUTH_USER_MODEL = 'users.User'

@@ -21,9 +21,10 @@ from .views import (
 )
 
 urlpatterns = [
-    path('', home_page),
+    path('', home_page, name='home'),
     path('crawling/', include('show_crawl_info.urls')),
     path('fines/', include('fines.urls')),
     path('admin/', admin.site.urls),
+    path('auth/', include('users.urls')),
 ]
 

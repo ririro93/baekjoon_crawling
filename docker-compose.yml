@@ -13,38 +13,38 @@ services:
     depends_on: 
       - db
 
-  celery:
-    build: ./crawling_site
-    command: celery --app=crawling_site worker --loglevel=info
-    volumes:
-      - ./crawling_site/:/usr/src/app/
-    env_file:
-      - ./.env.dev
-    depends_on:
-      - web
-      - redis
+  # celery:
+  #   build: ./crawling_site
+  #   command: celery --app=crawling_site worker --loglevel=info
+  #   volumes:
+  #     - ./crawling_site/:/usr/src/app/
+  #   env_file:
+  #     - ./.env.dev
+  #   depends_on:
+  #     - web
+  #     - redis
 
-  celery-beat:
-    build: ./crawling_site
-    command: celery -A crawling_site beat -l info
-    volumes:
-      - ./crawling_site/:/usr/src/app/
-    env_file:
-      - ./.env.dev
-    depends_on:
-      - redis
+  # celery-beat:
+  #   build: ./crawling_site
+  #   command: celery -A crawling_site beat -l info
+  #   volumes:
+  #     - ./crawling_site/:/usr/src/app/
+  #   env_file:
+  #     - ./.env.dev
+  #   depends_on:
+  #     - redis
 
-  dashboard:
-    build: ./crawling_site
-    command:  flower -A crawling_site --port=5555 --broker=redis://redis:6379/0
-    ports:
-      - 5555:5555
-    env_file:
-      - ./.env.dev
-    depends_on:
-      - web
-      - redis
-      - celery
+  # dashboard:
+  #   build: ./crawling_site
+  #   command:  flower -A crawling_site --port=5555 --broker=redis://redis:6379/0
+  #   ports:
+  #     - 5555:5555
+  #   env_file:
+  #     - ./.env.dev
+  #   depends_on:
+  #     - web
+  #     - redis
+  #     - celery
 
   redis:
     image: redis:5-alpine
