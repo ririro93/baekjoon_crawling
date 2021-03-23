@@ -46,8 +46,8 @@ services:
   #     - redis
   #     - celery
 
-  redis:
-    image: redis:5-alpine
+  # redis:
+  #   image: redis:5-alpine
 
   db:
     image: postgres:12.0-alpine

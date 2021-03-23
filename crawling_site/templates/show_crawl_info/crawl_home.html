@@ -55,6 +55,7 @@
 <script>
         
 // Object selection
+const body = document.querySelector("body");
 const card = document.querySelector('.my-card');
 const container = document.querySelector('.container-fluid');
 const chartBox = document.querySelector('.chart');
@@ -145,13 +146,8 @@ var colors = [
     "rgba(75, 192, 192, 0.2)",
     "rgba(54, 162, 235, 0.2)",
     "rgba(153, 102, 255, 0.2)",
-    "rgba(255, 99, 132, 0.2)",
-    "rgba(255, 159, 64, 0.2)",
-    "rgba(255, 205, 86, 0.2)",
-    "rgba(75, 192, 192, 0.2)",
-    "rgba(54, 162, 235, 0.2)",
-    "rgba(153, 102, 255, 0.2)",
 ];
+colors = colors.concat(colors, colors);
 
 // draw bar graph
 var ctx = document.getElementById('myChart').getContext('2d');
@@ -203,6 +199,7 @@ var myChart = new Chart(ctx, {
                 listeners: {
                     click: (context) => {
                         console.log(context.dataIndex);
+                        refreshMemberAjax(members[context.dataIndex]);
                     },
                     enter: function(context) {
                         context.hovered = true;
@@ -363,6 +360,26 @@ function update_messages(messages) {
         messages_container.appendChild(newDiv);
     });
     removeMessages();
+}
+
+function refreshMemberAjax(member_id) {
+    console.log('refresh', member_id);
+    body.classList.add("cursor-progress");
+    $.ajax({
+        url: `/crawling/refresh/${member_id}`,
+        type: 'post',
+        data: {'data': JSON.stringify({
+            'member_id': member_id,
+        })},
+        headers: { "X-CSRFToken": "{{ csrf_token }}"},
+        success: (result) => {
+            console.log(result);
+            body.classList.remove("cursor-progress");
+        },
+        error: (error) => {
+            console.log(error);
+        }
+    });
 }
 
 </script>

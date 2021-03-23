@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 class Baekjoon():
     member_URL = 'https://www.acmicpc.net/group/member/10060'
     member_selector = 'body > div.wrapper > div.container.content > div.row > div:nth-child(5)'
+    member_selector2 = '#team_member'
     solves_selector = '#status-table > tbody'
     
     def __init__(self):
@@ -17,15 +18,19 @@ class Baekjoon():
     def crawl_member_ids(self):
         res = requests.get(self.member_URL)
         soup = BeautifulSoup(res.text, 'html.parser')
-        soup = soup.select_one(self.member_selector)
+        soup1 = soup.select_one(self.member_selector)
+        soup2 = soup.select_one(self.member_selector2)
         # users info
-        infos = soup.find_all('div', {'class': 'member'})
-        for info in infos:
+        infos1 = soup.find_all('div', {'class': 'member'})
+        infos2 = soup.find_all('div', {'class': 'member'})
+        for info in infos1:
+            self.member_ids.append(info.h4.a.text)    
+        for info in infos2:
             self.member_ids.append(info.h4.a.text)    
     
     # crawl member solves for each id
     def crawl_member_solves(self, member_id):
-        solves_URL = f'https://www.acmicpc.net/status?problem_id=&user_id={member_id}&language_id=-1&result_id=-1'
+        solves_URL = f'https://www.acmicpc.net/status?problem_id=&user_id={member_id}&language_id=-1&result_id=4'
         res = requests.get(solves_URL)
         soup = BeautifulSoup(res.text, 'html.parser')
         soup = soup.select_one(self.solves_selector)

@@ -4,6 +4,10 @@ body {
     font-family: "Poppins", sans-serif;
 }
 
+.cursor-progress {
+    cursor: progress;
+}
+
 .content {
     position: relative;
     top: 5vh;

@@ -19,8 +19,8 @@ from modules.baekjoon_crawling import Baekjoon
 from modules.solved import Solved
 from modules.get_all_solves import AllSolves
 
-from celery.result import AsyncResult
-from django_celery_beat.models import PeriodicTask, CrontabSchedule
+# from celery.result import AsyncResult
+# from django_celery_beat.models import PeriodicTask, CrontabSchedule
 
 # global variables
 m_attrs = ['member_id', 'member_name']
@@ -231,15 +231,28 @@ def add_solve_to_db(data):
         print('######')
         print('data not added to db for some reason')
 
+# 특정 멤버만 모든 문제 업데이트
+def refresh_member(request, *args, **kwargs):
+    print('## refreshing data for', kwargs.get('member_id'))
+    update_all_past_solves(kwargs.get('member_id'))
+    messages.info(request, f'{kwargs.get("member_id")} 문제 업데이트 완료')
+    return HttpResponse(json.dumps({'data': 'success'}), content_type='application/json')
+    
 # 멤버가 푼 모든 문제 업데이트
 def update_all_past_solves(member_id):
+    # delete all existing solves
+    m = Member.objects.get(member_id=member_id)
+    former_solves = Solve.objects.filter(member=m)
+    for solve in former_solves:
+        solve.delete()
+    print(f'## {member_id}\'s solves deleted')
+
     # get all past solves
     allsolves = AllSolves(member_id)
     allsolves.multi_threading()
     solves = allsolves.get_result()
     
-    # update to db
-    m = Member.objects.filter(member_id=member_id).first()
+    # make new solves
     for solve in solves:
         # get or create new Question objects, tier info not available yet
         q, q_bool = Question.objects.get_or_create(
