@@ -5,33 +5,36 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">
-        <li class="nav-item">
-          <a class="nav-link details" aria-current="page" href="/crawling">Details</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link add_solve" href="/crawling/add-question">Add solve</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link fines" href="/fines">Fines</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="/admin">Admin</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="{% url 'users:login' %}">Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="{% url 'users:logout' %}">Logout</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="{% url 'users:signup' %}">Signup</a>
-        </li>
+      <ul class="navbar-nav me-auto mb-2 mb-md-0 justify-content-between w-100">
+        <div class="d-flex">
+          <li class="nav-item">
+            <a class="nav-link details" aria-current="page" href="/crawling">Details</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link add_solve" href="/crawling/add-question">Add solve</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fines" href="/fines">Fines</a>
+          </li>
+        </div>
+        <div class="d-flex justify-content-end">
+        {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link " href="/admin">Admin</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="{% url 'users:logout' %}">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link " href="{% url 'users:login' %}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="{% url 'users:signup' %}">Signup</a>
+          </li>
+          {% endif %}
+        </div>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
     </div>
   <!-- </div> -->
 </nav>

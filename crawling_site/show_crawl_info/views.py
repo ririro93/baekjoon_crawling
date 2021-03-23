@@ -240,12 +240,11 @@ def refresh_member(request, *args, **kwargs):
     
 # 멤버가 푼 모든 문제 업데이트
 def update_all_past_solves(member_id):
-    # delete all existing solves
-    m = Member.objects.get(member_id=member_id)
-    former_solves = Solve.objects.filter(member=m)
-    for solve in former_solves:
-        solve.delete()
-    print(f'## {member_id}\'s solves deleted')
+    # # delete all existing solves
+    # former_solves = Solve.objects.filter(member=m)
+    # for solve in former_solves:
+    #     solve.delete()
+    # print(f'## {member_id}\'s solves deleted')
 
     # get all past solves
     allsolves = AllSolves(member_id)
@@ -253,6 +252,7 @@ def update_all_past_solves(member_id):
     solves = allsolves.get_result()
     
     # make new solves
+    m = Member.objects.get(member_id=member_id)
     for solve in solves:
         # get or create new Question objects, tier info not available yet
         q, q_bool = Question.objects.get_or_create(
