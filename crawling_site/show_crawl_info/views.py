@@ -74,7 +74,6 @@ def refresh_button(request):
     # refresh 를 누른 경우
     if update == 'true':
         # DB 업데이트 해주기
-        # time.sleep(5)                   # for testing
         print(update_members())
         print(update_questions_and_solves())
         print(update_question_tiers())
@@ -240,12 +239,6 @@ def refresh_member(request, *args, **kwargs):
     
 # 멤버가 푼 모든 문제 업데이트
 def update_all_past_solves(member_id):
-    # # delete all existing solves
-    # former_solves = Solve.objects.filter(member=m)
-    # for solve in former_solves:
-    #     solve.delete()
-    # print(f'## {member_id}\'s solves deleted')
-
     # get all past solves
     allsolves = AllSolves(member_id)
     allsolves.multi_threading()
@@ -320,54 +313,3 @@ class SolveViewSet(viewsets.ModelViewSet):
     queryset = Solve.objects.all()
     serializer_class = SolveSerializer
     permission_classes = [permissions.IsAuthenticated]
-    
-############################################################ legacy code
-# # DB 업데이트 해주는 함수
-# def update_db():
-#     ## init
-#     keys_for_Question = (
-#         'question_number',
-#         'question_site',
-#         'question_tier',
-#         'question_title',
-#     )
-    
-#     ## 최신 정보를 크롤링해서 db에 저장하기
-#     # modules.baekjoon_crawling.py 사용
-#     baek = Baekjoon()
-#     results = baek.get_all_results()
-
-#     # 여기 있는 if-else 다 get_or_create으로 없앨 수 있다?!
-#     for member_id, questions in results.items():
-#         # 멤버가 db에 있으면
-#         if Member.objects.filter(member_id=member_id).exists():
-#             m = Member.objects.get(member_id=member_id)
-#         # 멤버 db에 없으면 생성하고 저장
-#         else:
-#             m = Member(member_id=member_id)
-#             m.save()
-        
-#         ### 여기 느려서 손 봐야됨
-#         # update questions (solved time정보는 빼고 넣기)
-#         # questions가 최신께 앞에 들어있어서 전에 푼 시간이 최근에 푼 시간을 덮어씌움
-#         # -> 역행하도록 설정 -> 나중엔 역행안하고 그냥 푼시간이 더 빠르면 저장안하는식으로 해도될듯
-#         for question in questions[::-1]:
-#             # 문제가 db에 있으면 그걸 멤버에 연결
-#             if Question.objects.filter(question_number=question['question_number']).exists():
-#                 q = Question.objects.get(question_number=question['question_number'])
-#             # db에 해당 문제 추가 -> 첨 크롤링할 때 속성 더 가져와야됨 아예 결과도 dictionary 형태로 가져와보기
-#             else:
-#                 q = Question(**{key: question[key] for key in keys_for_Question})
-#                 q.save()
-#             # get date info and add to Solve
-#             solved_time = question['solved_time']
-#             formatted_solved_time = map(int, [solved_time[:4], solved_time[5:7], solved_time[8:10], solved_time[-8:-6], solved_time[-5:-3]])
-            
-#             # 이 사람이 과거에 이 문제 푼적있으면 업데이트 없으면 생성
-#             solve, created_bool = Solve.objects.update_or_create(
-#                 question=q,
-#                 member=m,
-#                 defaults={'solved_time': datetime.datetime(*formatted_solved_time)},
-#             )
-#             solve.save()  
-#     return 'DB updated'
